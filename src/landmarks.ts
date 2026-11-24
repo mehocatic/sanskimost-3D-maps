@@ -161,6 +161,23 @@ export function createHamzaMosque(ring: Ring, minaretRings: readonly Ring[] = []
     cylinder(fx,fz,r,r*.94,y+.27,.07,plaster,24);
   }
   cylinder(fx,fz,.13,.045,2.43,.28,plaster);
+  // Low masonry plinth and white slats along the street-facing boundary.
+  function fence(x1:number,z1:number,x2:number,z2:number){
+    const dx=x2-x1,dz=z2-z1,length=Math.hypot(dx,dz);
+    const angle=Math.atan2(dx,dz),bays=Math.ceil(length/3);
+    const beam=(y:number,h:number,wide:number,mat:T.Material)=>{
+      slab((x1+x2)/2,(z1+z2)/2,wide,length,y,h,mat).rotation.y=angle;
+    };
+    beam(.06,.51,.38,pavers);beam(.57,.10,.43,ledge);
+    beam(.71,.09,.12,plaster);beam(1.39,.09,.12,plaster);
+    for(let i=0;i<=bays*9;i++){
+      const t=i/(bays*9),x=x1+t*dx,z=z1+t*dz;
+      if(i%9===0){
+        slab(x,z,.37,.37,.55,1.02,plaster).rotation.y=angle;
+        place(new T.SphereGeometry(.19,10,6),plaster,x,1.67,z);
+      }else slab(x,z,.10,.12,.66,.85,plaster).rotation.y=angle;
+    }
+  }
   const edge=-w/2-4.1,gateZ=front-7.0;
   fence(edge,-32,edge,gateZ-1.4);fence(edge,gateZ+1.4,edge,l/2+2);
   fence(edge,l/2+2,w/2+3,l/2+2);
