@@ -25,6 +25,31 @@ export function localFrame(ring: Ring) {
   return { x: az * um + ax * vm, z: -ax * um + az * vm, ax, az, width: u1-u0, length: v1-v0 };
 }
 
+// Bake components of each material into a single draw call.
+function batch(group: T.Group) {
+  const parts = new Map<T.Material, T.BufferGeometry[]>();
+  for (const part of [...group.children]) {
+    if (!(part instanceof T.Mesh)) continue;
+    part.updateMatrix();
+    const geo = part.geometry.index ? part.geometry.toNonIndexed() : part.geometry.clone();
+    geo.applyMatrix4(part.matrix);
+    geo.deleteAttribute('uv');
+    const bucket = parts.get(part.material) ?? [];
+    bucket.push(geo);
+    parts.set(part.material, bucket);
+    group.remove(part);
+    part.geometry.dispose();
+  }
+  for (const [material, geometries] of parts) {
+    const merged = mergeGeometries(geometries);
+    const mesh = new T.Mesh(merged, material);
+    mesh.castShadow = mesh.receiveShadow = true;
+    group.add(mesh);
+    geometries.forEach(g => g.dispose());
+  }
+  return group;
+}
+
 /** Centred on the OSM way in world x/z metres. Set only position.y to the terrain height. */
 export function createHamzaMosque(ring: Ring, minaretRings: readonly Ring[] = [], domeRing?: Ring, wing?: Ring, smallDomes: readonly Ring[] = []): T.Group {
   const frame = localFrame(ring);
