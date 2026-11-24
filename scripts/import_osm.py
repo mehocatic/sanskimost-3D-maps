@@ -96,3 +96,15 @@ def clip_line(points):
 
 def signed_area(ring):
     return sum(a[0]*b[1] - b[0]*a[1] for a, b in zip(ring, ring[1:]+ring[:1])) / 2
+
+
+def center(ring):
+    area = signed_area(ring)
+    if not area:
+        return ring[0]
+    sums = [0., 0.]
+    for a, b in zip(ring, ring[1:] + ring[:1]):
+        cross = a[0]*b[1] - b[0]*a[1]
+        for i in (0, 1):
+            sums[i] += (a[i]+b[i])*cross
+    return tuple(round(v / (6*area), 2) for v in sums)
