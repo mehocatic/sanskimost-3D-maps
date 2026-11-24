@@ -216,3 +216,10 @@ def rings(parts):
 
 def tags(item):
     return {tag.get('k'): tag.get('v') for tag in item.findall('tag')}
+
+
+def record(key, t, **attributes):
+    feature = {'id': key, **attributes, 'tags': {a:b for a,b in t.items() if a in ATTRIBUTES}}
+    if name := t.get('name:bs') or t.get('name'):
+        feature['name'] = name
+    return feature
