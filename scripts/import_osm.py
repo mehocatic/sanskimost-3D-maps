@@ -127,3 +127,12 @@ def segment_midpoint(points):
             return tuple(round(s + (e-s)*remaining/length, 2) for s, e in zip(a,b))
         remaining -= length
     return points[-1]
+
+
+def measure(raw):
+    if not raw:
+        return None
+    match = re.fullmatch(r"([0-9]+(?:[.,][0-9]+)?)\s*(m|ft|')?", raw.strip())
+    if match:
+        value = float(match[1].replace(',', '.')) * (0.3048 if match[2] in ('ft', "'") else 1)
+        return round(value, 2) if value > 0 else None
