@@ -116,6 +116,19 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
   new ResizeObserver(resize).observe(host);resize();
   const rate=matchMedia('(max-width:700px)').matches?24:30;
   let visible=true;document.addEventListener('visibilitychange',()=>{visible=!document.hidden;last=0;dirty=true});
+  function draw(now:number){
+    requestAnimationFrame(draw);if(!visible || now-until<1000/rate)return;until=now;
+    const dt=last?Math.min(.12,(now-last)/1000):0;last=now;
+    if(flight){const t=Math.min(1,(now-flight.start)/flight.duration),s=t*t*(3-2*t);
+      controls.target.lerpVectors(flight.from,flight.to,s);camera.position.lerpVectors(flight.eye,flight.end,s);if(t===1)flight=null;dirty=true}
+    const before=controls.target.clone();controls.target.x=T.MathUtils.clamp(before.x,-1480,1480);controls.target.z=T.MathUtils.clamp(before.z,-1480,1480);
+    camera.position.x+=controls.target.x-before.x;camera.position.z+=controls.target.z-before.z;controls.update();
+    if(Math.hypot(controls.target.x-shadowX,controls.target.z-shadowZ)>250){
+      shadowX=controls.target.x;shadowZ=controls.target.z;sun.target.position.set(shadowX,0,shadowZ);sun.position.set(shadowX-720,1080,shadowZ-525);renderer.shadowMap.needsUpdate=true;
+    }
+    if(!motion){if(life.traffic.visible)life.updateCars(dt);(water.material as T.ShaderMaterial).uniforms.time.value=now*.001}
+    if(dirty||!motion){renderer.render(scene,camera);if(dirty)onMove();dirty=false}
+  }
   renderer.render(scene,camera);requestAnimationFrame(draw);
   return {focus,home,top,north,zoom,night,layer,project,get flat(){return flat},
     get bearing(){return Math.atan2(camera.position.x-controls.target.x,camera.position.z-controls.target.z)},
