@@ -43,6 +43,13 @@ export function cityLife(city:City,height:(x:number,z:number)=>number,density:(x
   const rand=rng(18213),trees=new T.Group(),spans=new T.Group(),lamps=new T.Group(),traffic=new T.Group();
   const crowns:Item[]=[],trunks:Item[]=[],conifers:Item[]=[];
   const greens=['#698548','#799147','#828e4d','#93a35d','#607e46','#8b9d53','#75914e','#99a657','#6f8e58','#8ca465'];
+  function plant(x:number,z:number){
+    const y=height(x,z),h=5.5+rand()*8.4,w=h*(.32+rand()*.15),r=rand()*6.28,color=greens[Math.floor(rand()*greens.length)];
+    trunks.push({p:[x,y+h*.24,z],s:[h*.036,h*.53,h*.036],r,color:'#726549'});
+    if(rand()<.08){conifers.push({p:[x,y+h*.55,z],s:[w*.82,h*.95,w*.82],r,color:'#58784f'});return}
+    for(let i=0;i<4;i++){const a=r+2.1*i,d=i===3?0:w*.38,scale=i===3?.83:.72;
+      crowns.push({p:[x+Math.cos(a)*d,y+h*(i===3?.81:.61+rand()*.07),z+Math.sin(a)*d],s:[w*scale,h*(.23+rand()*.065),w*scale],r:a,color})}
+  }
   city.trees.forEach(p=>plant(...p));
   for(let i=0;i<90000;i++){const x=rand()*3000-1500,z=rand()*3000-1500;if(rand()*360<density(x,z))plant(x,z)}
   const leaves=new T.IcosahedronGeometry(1,0),leafColors:number[]=[];
