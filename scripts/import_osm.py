@@ -46,3 +46,26 @@ def dedupe(points):
         if not result or result[-1] != point:
             result.append(point)
     return result
+
+
+def clip_polygon(points):
+    """Sutherland–Hodgman clipping to the 3 km scene rectangle."""
+    result = points
+    for axis, sign in ((0, 1), (0, -1), (1, 1), (1, -1)):
+        if not result:
+            break
+        previous = result[-1]
+        new_ring = []
+        for current in result:
+            inside = current[axis] * sign <= EDGE
+            if inside != (previous[axis] * sign <= EDGE):
+                fraction = (EDGE * sign - previous[axis]) / (current[axis] - previous[axis])
+                new_ring.append(tuple(a + fraction * (b - a) for a, b in zip(previous, current)))
+            if inside:
+                new_ring.append(current)
+            previous = current
+        result = new_ring
+    result = dedupe(result)
+    if len(result) > 1 and result[0] == result[-1]:
+        result.pop()
+    return result if len(result) >= 3 and abs(signed_area(result)) > 0.05 else []
