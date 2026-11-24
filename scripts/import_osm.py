@@ -37,3 +37,12 @@ def project(lat, lon):
 
 def in_map(point):
     return abs(point[0]) <= EDGE and abs(point[1]) <= EDGE
+
+
+def dedupe(points):
+    result = []
+    for x, z in points:
+        point = (round(x, 2), round(z, 2))
+        if not result or result[-1] != point:
+            result.append(point)
+    return result
