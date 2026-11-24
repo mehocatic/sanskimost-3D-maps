@@ -153,3 +153,23 @@ def building_height(tags, area, osm_id):
     if kind in {'industrial', 'retail', 'commercial', 'public', 'school', 'supermarket'}:
         return 7 + osm_id % 4, 'estimate'
     return (5.8 if area < 170 else 7.8) + (osm_id % 5)*0.5, 'estimate'
+
+
+def area_kind(t):
+    if t.get('natural') == 'water' or t.get('waterway') == 'riverbank':
+        return 'water'
+    if t.get('amenity') == 'parking':
+        return 'parking'
+    if t.get('leisure') in {'pitch', 'park'}:
+        return t['leisure']
+    if t.get('natural') in {'wood', 'scrub'} or t.get('landuse') == 'forest':
+        return 'forest'
+    if t.get('natural') == 'beach':
+        return 'sand'
+    land = t.get('landuse')
+    if land in {'residential','industrial','commercial','cemetery','orchard','farmland','grass'}:
+        return land
+    if land in {'meadow','recreation_ground'} or t.get('leisure') == 'stadium':
+        return 'grass'
+    if t.get('highway') and t.get('area') == 'yes' or t.get('amenity') == 'bus_station':
+        return 'paved'
