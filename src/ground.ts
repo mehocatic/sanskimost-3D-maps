@@ -56,6 +56,20 @@ export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
     ctx.fillStyle=i%2?'rgba(75,83,45,.07)':'rgba(248,238,173,.10)';
     ctx.fillRect((rand()*2-1)*bound,(rand()*2-1)*bound,1+rand()*6,1+rand()*3);
   }
+  function ribbon(road:Road, water=false){
+    const p=path(road.points,false),w=road.width||4;
+    const foot=['pedestrian','footway','path','cycleway','steps','track'].includes(road.kind);
+    if(!water && road.bridge)return;
+    ctx.setLineDash([]);ctx.strokeStyle=water?'#8dbaaa':foot?'#b5ae97':'#96998a';
+    ctx.lineWidth=w+(water?2:foot?.7:2.5);ctx.stroke(p);
+    if(!water&&!foot){ctx.strokeStyle='#d5d1bd';ctx.lineWidth=w+1.8;ctx.stroke(p)}
+    ctx.strokeStyle=water?'#609f9b':foot?'#cfcaaf':road.kind==='service'?'#b7b7aa':'#a5a6a0';
+    ctx.lineWidth=w;ctx.stroke(p);
+    if(!water && w>=6 && ['trunk','primary','secondary','tertiary'].includes(road.kind)){
+      ctx.strokeStyle='#dedbc6';ctx.lineWidth=.30;ctx.setLineDash([3.5,4.5]);ctx.stroke(p);ctx.setLineDash([]);
+    }
+    mask.strokeStyle=water?'rgb(0,0,255)':'black';mask.lineWidth=w+2;mask.stroke(p);
+  }
   city.waterways.filter(w=>!waterAreas.some(a=>a.name && a.name===w.name)&&w.name!=='Sana').forEach(w=>ribbon(w,true));
   // Redraw banks over private garden halos.
   for(const a of waterAreas){const p=areaPath(a);ctx.lineWidth=3;ctx.strokeStyle='#a5b899';ctx.stroke(p);ctx.fillStyle=palette.water;ctx.fill(p,'evenodd')}
