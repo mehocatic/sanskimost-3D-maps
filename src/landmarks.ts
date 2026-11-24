@@ -95,6 +95,19 @@ export function createHamzaMosque(ring: Ring, minaretRings: readonly Ring[] = []
   drum.rotation.y = Math.PI / 8;
   const cornice = cylinder(mainX,mainZ,drumRadius+.1,drumRadius+.15,15.85,.44,ledge,8);
   cornice.rotation.y = Math.PI / 8;
+
+  function archedPane(x: number,z: number,y: number,angle: number,width: number,height: number) {
+    const shape = new T.Shape(), rad = width/2, spring = height-rad;
+    shape.moveTo(-rad,0); shape.lineTo(rad,0); shape.lineTo(rad,spring);
+    shape.absarc(0,spring,rad,0,Math.PI,false); shape.closePath();
+    const pane = place(new T.ShapeGeometry(shape,8),glass,x,y,z);
+    pane.rotation.y = angle;
+    const inset = .056;
+    const mullion = slab(x+inset*Math.sin(angle),z+inset*Math.cos(angle),.085,.08,y,height,ledge);
+    mullion.rotation.y = angle;
+    const bar = slab(x+inset*Math.sin(angle),z+inset*Math.cos(angle),width,.08,y+spring,.085,ledge);
+    bar.rotation.y = angle;
+  }
   for (let side = 0; side < 8; side++) {
     const angle = side * Math.PI / 4, apothem = radius + .025;
     archedPane(mainX+apothem*Math.sin(angle),mainZ+apothem*Math.cos(angle),11.45,angle,radius*.67,4.05);
