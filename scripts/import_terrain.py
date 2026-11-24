@@ -85,3 +85,7 @@ def main():
     args.output.write_text(encoded + "\n", encoding="utf-8")
     print(f"{COUNT} x {COUNT}, {STEP_METRES} m grid, "
           f"{min(terrain['heights'])}–{max(terrain['heights'])} m EGM2008")
+
+
+if __name__ == "__main__":
+    main()
