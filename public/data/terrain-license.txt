@@ -1,0 +1,11 @@
+Sanski Most 3D — digitalni model površine
+
+Izvor: Copernicus DEM GLO-30, pločica N44 E016, izdanje dostupno kroz AWS Open Data.
+Opis i uslovi korištenja: https://doi.org/10.5270/ESA-c5d3d65
+Distribucija: https://registry.opendata.aws/copernicus-dem/
+
+produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.
+
+Organizacije zakonski ili po ovlaštenju zadužene za program Copernicus ne snose odgovornost za bilo koju upotrebu podataka Copernicus WorldDEM-30.
+
+Iz izvorne mreže GLO-30 izdvojeno je područje 10,8 × 10,8 km oko 44,7667° N, 16,6670° E. Visine su bilinearno interpolirane na lokalnu mrežu s korakom od 60 m i zaokružene na metar. Visinski datum je EGM2008. Model površine može uključivati utjecaj vegetacije i izgrađenih objekata.
