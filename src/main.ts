@@ -19,6 +19,7 @@ const sidebar=$('.sidebar'),input=$<HTMLInputElement>('#query');
 function openSide(){sidebar.classList.add('open')}
 $('#mobile-open').onclick=()=>{openSide();input.focus()};$('#close-side').onclick=()=>sidebar.classList.remove('open');
 document.addEventListener('keydown',e=>{if(e.key==='/'&&e.target!==input&&!modal.open){e.preventDefault();openSide();input.focus()}if(e.key==='Escape'){sidebar.classList.remove('open');$('#layer-pop').hidden=true;$('#layers-btn').setAttribute('aria-expanded','false');$('#detail').hidden=true}});
+async function local<T>(file:string):Promise<T>{const response=await fetch(base+'data/'+file);if(!response.ok)throw Error('Nije moguće učitati '+file+' ('+response.status+')');return response.json()}
 const catalog=[
   {id:'w346178044',name:'Hamzibegova džamija',category:'Vjerski objekat',icon:'landmark',art:'mosque',description:'Džamija s četiri munare od 51,5 m. Položaj munara i centralne kupole prati kartirane konture.'},
   {id:'w56396323',name:'Gradski most',category:'Most',icon:'milestone',art:'bridge',description:'Most preko Sane u centru grada. Položaj i pravac mosta preuzeti su iz OpenStreetMapa.'},
