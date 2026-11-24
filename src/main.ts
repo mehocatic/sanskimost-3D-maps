@@ -73,6 +73,24 @@ async function start(){
   for(const a of city.areas.filter(a=>['water','forest','park'].includes(a.kind))){miniPath(a);mg.fillStyle=a.kind==='water'?'#7eb3ab':'#b5c99e';mg.fill('evenodd')}
   for(const b of city.buildings){miniPath(b);mg.fillStyle='#c5c7b5';mg.fill()}
   mg.strokeStyle='#f5f4e4';mg.lineWidth=8;for(const r of city.roads){miniPath(r);mg.stroke()}
+  function mapUpdate(){
+    const d=viewer.distance;const occupied:{x:number;y:number;w:number;h:number}[]=[];
+    for(const {p,el} of labels){
+      const v=viewer.project(p,p.art==='mosque'?55:p.art==='park'?8:7);let x=v.x,y=v.y-7;
+      if(p.art==='park')y-=8;
+      const w=el.offsetWidth||125,h=28;const show=v.visible&&x>10&&x<$('#map').clientWidth-10&&y>21&&y<$('#map').clientHeight-12;
+      const collides=occupied.some(o=>Math.abs(x-o.x)<(w+o.w)/2+3&&Math.abs(y-o.y)<h+3);
+      el.style.visibility=show&&!collides?'visible':'hidden';if(show&&!collides)occupied.push({x,y,w,h});
+      el.style.left=x.toFixed(1)+'px';el.style.top=y.toFixed(1)+'px';
+    }
+    river.hidden=!riverAnchor;if(riverAnchor){const v=viewer.project({pos:riverAnchor} as Place,1);river.style.left=v.x+'px';river.style.top=v.y+'px';river.hidden=!v.visible}
+    const angle=viewer.bearing;$('#compass svg').style.transform='rotate('+angle+'rad)';
+    const [x,z]=viewer.target;$('#coords').textContent=(44.7667-z/111195).toFixed(4)+'° N   '+(16.667+x/(111195*Math.cos(44.7667*Math.PI/180))).toFixed(4)+'° E';
+    const metresPerPx=2*d*Math.tan(39*Math.PI/360)/$('#map').clientHeight;
+    const len=[5,10,20,50,100,200,500].find(n=>n/metresPerPx>=34)||500;$('#scale').textContent=len+' m';$('#scale').style.width=len/metresPerPx+'px';
+    ctx.drawImage(back,0,0);ctx.save();ctx.translate(120+x*.075,74+z*.075);ctx.rotate(-angle);
+    const size=Math.min(50,Math.max(9,d*.043));ctx.fillStyle='#64914b29';ctx.strokeStyle='#597b49';ctx.lineWidth=1.7;ctx.fillRect(-size/2,-size*.36,size,size*.72);ctx.strokeRect(-size/2,-size*.36,size,size*.72);ctx.fillStyle='#345e3b';ctx.beginPath();ctx.arc(0,0,3,0,Math.PI*2);ctx.fill();ctx.restore();
+  }
   viewer.onMove(mapUpdate);mapUpdate();viewer.onManual(()=>{if(step>=0)stopTour()});
   $('#night').onclick=()=>setNight(true);$('#day').onclick=()=>setNight(false);
   $('#plus').onclick=()=>{stopTour();viewer.zoom(.73)};$('#minus').onclick=()=>{stopTour();viewer.zoom(1.37)};
