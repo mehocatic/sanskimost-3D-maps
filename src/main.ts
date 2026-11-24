@@ -92,6 +92,7 @@ async function start(){
     const size=Math.min(50,Math.max(9,d*.043));ctx.fillStyle='#64914b29';ctx.strokeStyle='#597b49';ctx.lineWidth=1.7;ctx.fillRect(-size/2,-size*.36,size,size*.72);ctx.strokeRect(-size/2,-size*.36,size,size*.72);ctx.fillStyle='#345e3b';ctx.beginPath();ctx.arc(0,0,3,0,Math.PI*2);ctx.fill();ctx.restore();
   }
   viewer.onMove(mapUpdate);mapUpdate();viewer.onManual(()=>{if(step>=0)stopTour()});
+  function setNight(value:boolean){night=value;viewer.night(value);$('#day').setAttribute('aria-pressed',String(!night));$('#night').setAttribute('aria-pressed',String(night));document.body.classList.toggle('night',value)}
   $('#night').onclick=()=>setNight(true);$('#day').onclick=()=>setNight(false);
   $('#plus').onclick=()=>{stopTour();viewer.zoom(.73)};$('#minus').onclick=()=>{stopTour();viewer.zoom(1.37)};
   $('#home').onclick=()=>{stopTour();viewer.home();$('#perspective').textContent='2D';$('#detail').hidden=true;selected=undefined;renderList()};
