@@ -259,6 +259,14 @@ export function createPodgrmecPitch(ring: Ring, heightAt: HeightAt): T.Group {
   const w = f.width/2, l = f.length/2;
   // Lift the draped surface slightly above mapped land cover.
   const base = .68;
+  function quad(points: number[][],material: T.Material,offset: number) {
+    const positions = points.flatMap(([x,z])=>[x,ground(x,z)+offset,z]);
+    const geometry = new T.BufferGeometry();
+    geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));
+    geometry.setIndex([0,2,1,0,3,2]);
+    geometry.computeVertexNormals();
+    group.add(new T.Mesh(geometry,material));
+  }
   for (let j=0;j<16;j++) {
     const a=-l+2*l*j/16,b=-l+2*l*(j+1)/16;
     for(let i=0;i<8;i++) {
