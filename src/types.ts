@@ -24,6 +24,10 @@ export interface Place {
   id: string; name: string; category: string; icon: string; art?: string; pos: Point;
   description?: string; height?: number; heightSource?: string; tags?: Tags;
 }
+export function centerOf(points: Point[]): Point {
+  const bounds = points.reduce((b,[x,z])=>[Math.min(b[0],x),Math.min(b[1],z),Math.max(b[2],x),Math.max(b[3],z)], [Infinity,Infinity,-Infinity,-Infinity]);
+  return [(bounds[0]+bounds[2])/2,(bounds[1]+bounds[3])/2];
+}
 export function rng(seed: number) {
   return () => {seed=(Math.imul(1664525,seed)+1013904223)>>>0; return seed/4294967296};
 }
