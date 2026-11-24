@@ -41,3 +41,14 @@ def utm33(lon, lat):
     north = k0*(m+n*np.tan(phi)*(scale**2/2 + (5-t+9*c+4*c*c)*scale**4/24
                                   +(61-58*t+t*t+600*c-330*ep2)*scale**6/720))
     return east, north
+
+
+def http_range(url, start, count):
+    req = Request(url, headers={'Range': f'bytes={start}-{start+count-1}'})
+    with urlopen(req, timeout=75) as response:
+        if response.status != 206:
+            raise RuntimeError('COG server did not honour the requested byte range')
+        data = response.read()
+    if len(data) != count:
+        raise IOError('Incomplete COG response')
+    return data
