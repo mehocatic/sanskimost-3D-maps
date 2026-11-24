@@ -1,0 +1,24 @@
+Sanski Most 3D · Posebni modeli
+
+Hamzibegova džamija
+Tlocrt (w346178044), položaji munara (w346178046–w346178049) i obris
+centralne kupole (w346961963) preuzeti su iz lokalnog izvoda OpenStreetMapa.
+Visinu od 51,5 m za četiri munare i dimenzije objekta od 20 × 30 m navodi
+imam Husein ef. Kovačević u razgovoru za Anadolu, 12. marta 2017.
+https://www.aa.com.tr/ba/balkan/jedinstvena-u-bosni-i-hercegovini-hamzi-begova-d%C5%BEamija-u-sanskom-mostu-s-%C4%8Detiri-minareta/769485
+
+Stupnjevanje fasade, po dva šerefeta, tamni pokrov i rebra centralne kupole
+modelirani su prema fotografijama. Visine tambura, položaji prozora,
+detalji krova, materijali i osvjetljenje predstavljaju autorsku interpretaciju.
+Vizuelna referenca (fotografija nije uključena u aplikaciju):
+https://www.klix.ba/vijesti/bih/hamzi-begova-dzamija-u-sanskom-mostu-nikad-ljepsa-i-punija-omladine/230407103
+
+Stadion Podgrmeč
+Obuhvat stadiona (w226624054) i položaj, dimenzije, orijentacija te vrsta
+podloge glavnog terena (w226624055) potiču iz OpenStreetMapa.
+Linije, uzorak košenja i golovi proceduralno su modelirani.
+
+Oba modela generira Three.js iz lokalnih podataka.
+© OpenStreetMap contributors · Open Database Licence 1.0
+https://www.openstreetmap.org/copyright
+Avlija: ulazno pročelje i šadrvan modelirani su prema dostavljenoj fotografiji. Tlocrt niskog krila prati OSM w225470278, a šest malih krovnih dijelova w346178041–43 i w346178060–62. Dimenzije detalja, popločenje i položaj šadrvana su procjene.
