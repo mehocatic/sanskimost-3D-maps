@@ -43,6 +43,14 @@ async function start(){
   const searchable=[...places.values()].filter(p=>p.name!=='Zgrada'||p.tags?.['addr:housenumber']);
   function term(p:Place){return normalize([p.name,p.tags?.name,p.tags?.['addr:street'],p.tags?.['addr:housenumber'],p.category].filter(Boolean).join(' '))}
   const searchIndex=searchable.map(p=>({p,value:term(p)}));
+  function renderList(){
+    const q=normalize(input.value.trim());let rows:Place[];
+    if(q){const seen=new Set<string>();rows=searchIndex.filter(({value})=>q.split(/\s+/).every(w=>value.includes(w))).map(({p})=>p).filter(p=>{const key=p.category==='Ulica'?p.name:p.id;if(seen.has(key))return false;seen.add(key);return true})}
+    else rows=tab==='saved'?[...saved].map(id=>places.get(id)!):featured;
+    $('#list-title').textContent=q?'Rezultati pretrage':tab==='saved'?'Sačuvane lokacije':'Znamenitosti';$('#list-count').textContent=String(rows.length);
+    $('#places').innerHTML=rows.map(p=>'<button class="place '+(p.id===selected?.id?'active':'')+'" data-id="'+esc(p.id)+'">'+(p.art?'<img alt="" src="'+base+'art/'+p.art+'.svg">':'<span class="place-icon">'+icon(p.icon)+'</span>')+'<span class="place-text"><strong>'+esc(p.name)+'</strong><small>'+esc(p.category)+'</small></span>'+icon('chevron-right')+'</button>').join('')||'<p class="empty">'+(q?'Nema lokacija koje odgovaraju pretrazi.':'Odaberi lokaciju na mapi i pritisni „Sačuvaj“ da je ovdje ponovo pronađeš.')+'</p>';
+    $('#tour-card').hidden=Boolean(q)||tab==='saved';document.querySelectorAll<HTMLElement>('[data-tab]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tab===tab)));
+  }
   $('#places').onclick=e=>{const b=(e.target as HTMLElement).closest<HTMLElement>('[data-id]');if(b)choose(places.get(b.dataset.id!)!,true)};
   input.oninput=renderList;input.onkeydown=e=>{if(e.key==='Enter')$('#places button')?.click()};
   document.querySelectorAll<HTMLElement>('[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab!;input.value='';renderList()});
