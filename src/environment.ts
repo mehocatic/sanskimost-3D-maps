@@ -111,6 +111,18 @@ export function cityLife(city:City,height:(x:number,z:number)=>number,density:(x
   const bodies=new T.InstancedMesh(box,new T.MeshLambertMaterial(),cars.length),cabs=new T.InstancedMesh(box,new T.MeshLambertMaterial({color:'#6a777b'}),cars.length);
   cars.forEach((c,i)=>bodies.setColorAt(i,new T.Color(c.color)));bodies.castShadow=true;traffic.add(bodies,cabs);bodies.frustumCulled=cabs.frustumCulled=false;
   const dummy=new T.Object3D();
+  function updateCars(dt:number){
+    cars.forEach((c,i)=>{
+      const {r,distances,len}=c.path;c.t=(c.t+c.speed*dt+len)%len;
+      let j=1;while(j<distances.length-1&&distances[j]<c.t)j++;
+      const a=r.points[j-1],b=r.points[j],dist=Math.max(.001,distances[j]-distances[j-1]),f=(c.t-distances[j-1])/dist;
+      const dx=(b[0]-a[0])/dist,dz=(b[1]-a[1])/dist,offset=Math.sign(c.speed)*Math.min(1.25,r.width*.19);
+      const x=a[0]+dx*dist*f-dz*offset,z=a[1]+dz*dist*f+dx*offset;
+      const bridge=bridgeYs.get(r.id),y=bridge?bridge[0]+(bridge[1]-bridge[0])*c.t/len:height(x,z);
+      dummy.rotation.y=Math.atan2(dx,dz);dummy.position.set(x,y+.52,z);dummy.scale.set(1.75,.78,3.92);dummy.updateMatrix();bodies.setMatrixAt(i,dummy.matrix);
+      dummy.position.y+=.55;dummy.scale.set(1.46,.54,2.05);dummy.updateMatrix();cabs.setMatrixAt(i,dummy.matrix);
+    });bodies.instanceMatrix.needsUpdate=cabs.instanceMatrix.needsUpdate=true;
+  }
   updateCars(0);return {trees,spans,lamps,glow,traffic,updateCars,bulbMat};
 }
 
