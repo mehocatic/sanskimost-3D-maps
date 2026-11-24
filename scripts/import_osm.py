@@ -312,3 +312,18 @@ def build(paths):
         'heightSources': dict(Counter(b['heightSource'] for b in data['buildings'])),
     }
     return data
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('inputs', nargs='*', type=Path, help='OSM XML or .osm.gz exports; defaults to bundled snapshots')
+    parser.add_argument('--output', type=Path, default=ROOT/'public/data/city.json')
+    args = parser.parse_args()
+    scene = build(args.inputs or sorted((ROOT/'data/osm').glob('*.osm.gz')))
+    if not scene['buildings'] or not scene['roads'] or not any(a['kind']=='water' for a in scene['areas']):
+        parser.error('Incomplete scene: expected buildings, roads and water polygons')
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    temp = args.output.with_suffix('.tmp')
+    temp.write_text(json.dumps(scene,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+    temp.replace(args.output)
+    print(json.dumps(scene['meta'],ensure_ascii=True,indent=2))
