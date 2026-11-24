@@ -104,6 +104,7 @@ async function start(){
   document.addEventListener('pointerdown',e=>{if(!(e.target as HTMLElement).closest('#layer-pop,#layers-btn')){$('#layer-pop').hidden=true;$('#layers-btn').setAttribute('aria-expanded','false')}});
   $('#full').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{dialog('Cijeli ekran','<p>Ovaj preglednik ograničava prikaz preko cijelog ekrana.</p>')}};
   function stopTour(){window.clearTimeout(timer);step=-1;viewer.setTourRotate(false);$('#tour-progress').hidden=true;$('#tour').innerHTML=icon('play')+'Pokreni obilazak'}
+  function advance(){window.clearTimeout(timer);if(step===featured.length-1){stopTour();viewer.home();return}step++;const p=featured[step];$('#detail').hidden=true;$('#tour-progress').hidden=false;$('#tour-number').textContent=(step+1)+' / '+featured.length;$('#tour-name').textContent=p.name;viewer.focus(p.pos,p.art==='mosque'?230:300,p.art==='mosque');viewer.setTourRotate(true);timer=window.setTimeout(advance,8500)}
   $('#tour').onclick=()=>{if(step>=0){stopTour();return}sidebar.classList.remove('open');$('#tour').innerHTML=icon('square')+'Završi obilazak';advance()};$('#next').onclick=advance;$('#stop').onclick=stopTour;
   renderList();$('#loading').hidden=true;document.documentElement.dataset.ready='true';
 }
