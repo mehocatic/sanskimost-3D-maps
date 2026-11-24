@@ -75,6 +75,13 @@ export function createHamzaMosque(ring: Ring, minaretRings: readonly Ring[] = []
     place(new T.BoxGeometry(width, height, depth), material, x, y + height/2, z);
   const cylinder = (x: number, z: number, bottom: number, top: number, y: number, height: number, material: T.Material, segments = 16) =>
     place(new T.CylinderGeometry(top, bottom, height, segments), material, x, y + height/2, z);
+
+  function boundsInModel(points: Ring) {
+    const xs = points.map(([x,z]) => (x-frame.x)*frame.az - (z-frame.z)*frame.ax);
+    const zs = points.map(([x,z]) => (x-frame.x)*frame.ax + (z-frame.z)*frame.az);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), z0 = Math.min(...zs), z1 = Math.max(...zs);
+    return {x: (x0+x1)/2, z: (z0+z1)/2, radius: (x1-x0+z1-z0)/4};
+  }
   const w = frame.width, l = frame.length;
   const dome = domeRing?.length ? boundsInModel(domeRing) : {x:0,z:(l-w)/2,radius:w*.48};
   const {radius,x: mainX,z: mainZ} = dome;
