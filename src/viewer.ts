@@ -46,6 +46,10 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
   let onMove:()=>void=()=>{},onManual:()=>void=()=>{};
   controls.addEventListener('change',()=>{dirty=true});
   controls.addEventListener('start',()=>{flight=null;onManual();dirty=true});
+  function go(to:T.Vector3,offset:T.Vector3,duration=800){
+    flight={start:performance.now(),duration:motion?1:duration,from:controls.target.clone(),eye:camera.position.clone(),to,end:to.clone().add(offset)};
+    dirty=true;
+  }
   function home(){flat=false;controls.enableRotate=true;go(homeTarget.clone(),homeOffset)}
   function north(){go(controls.target.clone(),new T.Vector3(0,flat?1:.79,flat?.0001:.75).normalize().multiplyScalar(camera.position.distanceTo(controls.target)))}
   function zoom(f:number){const offset=camera.position.clone().sub(controls.target);go(controls.target.clone(),offset.setLength(T.MathUtils.clamp(offset.length()*f,72,3200)),280)}
