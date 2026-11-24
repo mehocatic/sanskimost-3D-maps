@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#102f29" />
+<meta name="description" content="Istraži Sanski Most u interaktivnom 3D atlasu sa stvarnim ulicama, zgradama, rijekom Sanom i gradskim znamenitostima." />
+<link rel="icon" href="./mark.svg" type="image/svg+xml" />
+<title>Sanski Most 3D — Interaktivni atlas</title>
+</head>
+<body>
+<header class="mast">
+  <a class="brand" href="./" aria-label="Sanski Most 3D, početna mapa"><img src="./mark.svg" alt=""/><span>Sanski Most</span><b>3D</b></a>
+  <span class="divider"></span><span class="edition">Interaktivni atlas</span>
+  <div class="mast-end"><div class="mode" aria-label="Osvjetljenje"><button id="day" aria-pressed="true"><i data-i="sun"></i>Dan</button><button id="night" aria-pressed="false"><i data-i="moon"></i>Noć</button></div>
+  <span class="divider"></span><button class="head-icon" id="about" title="O atlasu i izvorima" aria-label="O atlasu i izvorima"><i data-i="info"></i></button></div>
+</header>
+<main>
+<aside class="sidebar" aria-label="Istraživanje grada">
+  <div class="side-head"><div class="kicker"><i data-i="map-pin"></i> BOSNA I HERCEGOVINA</div><h1>Istraži grad</h1><button id="close-side" class="bare mobile" aria-label="Zatvori istraživač"><i data-i="x"></i></button>
+  <div class="searchbox"><i data-i="search"></i><input id="query" type="search" placeholder="Pretraži lokacije i ulice" aria-label="Pretraži lokacije i ulice" autocomplete="off"/><kbd>/</kbd></div></div>
+  <div class="tabs" role="group" aria-label="Sadržaj panela"><button data-tab="places" aria-pressed="true"><i data-i="map-pinned"></i>Lokacije</button><button data-tab="saved" aria-pressed="false"><i data-i="bookmark"></i>Sačuvano</button></div>
+  <div class="side-content"><div class="list-head"><h2 id="list-title">Znamenitosti</h2><span id="list-count">4</span></div><div id="places"></div>
+  <div id="tour-card"><div class="tour-art"></div><div class="tour-in"><span class="tour-glyph"><i data-i="route"></i></span><h2>Obilazak grada</h2><p>Vođena tura kroz 4 znamenitosti</p><button id="tour"><i data-i="play"></i>Pokreni obilazak</button></div></div></div>
+  <button class="source-tab" id="sources"><i data-i="database"></i> Izvori i podaci <i data-i="chevron-right"></i></button>
+</aside>
+<section id="map" aria-label="Mapa grada">
+  <div id="labels"></div>
+  <div class="map-top"><button id="mobile-open" class="floating mobile"><i data-i="search"></i>Istraži</button><div class="map-badge"><span></span>3D perspektiva</div></div>
+  <div class="top-right"><button id="layers-btn" class="floating" aria-expanded="false"><i data-i="layers-3"></i>Slojevi<i data-i="chevron-down"></i></button><button id="full" class="floating square" aria-label="Cijeli ekran" title="Cijeli ekran"><i data-i="maximize"></i></button></div>
+  <div id="layer-pop" class="pop" hidden><h3>Slojevi mape</h3><div id="layer-list"></div></div>
+  <div class="map-nav"><button id="compass" class="compass" title="Okreni prema sjeveru" aria-label="Okreni prema sjeveru"><b>N</b><svg viewBox="0 0 28 32" aria-hidden="true"><path fill="#be7454" d="M14 1 20 18 14 15Z"/><path fill="#de926b" d="M14 1 8 18 14 15Z"/><path fill="#78867a" d="m14 30 6-12-6-3Z"/><path fill="#adc1ad" d="m14 30-6-12 6-3Z"/></svg></button>
+  <div class="stack"><button id="plus" title="Približi" aria-label="Približi"><i data-i="plus"></i></button><button id="minus" title="Udalji" aria-label="Udalji"><i data-i="minus"></i></button><button id="home" title="Početni pogled" aria-label="Početni pogled"><i data-i="scan"></i></button></div>
+  <button id="perspective" class="floating square" title="Promijeni perspektivu" aria-label="Promijeni perspektivu">2D</button></div>
+  <div class="overview" title="Pregled područja"><canvas id="mini" width="240" height="148"></canvas><span><i data-i="map"></i>Pregled područja</span></div>
+  <div id="detail" class="detail" hidden></div>
+  <div id="tour-progress" hidden><span id="tour-number"></span><strong id="tour-name"></strong><button id="next" class="bare" title="Sljedeća lokacija" aria-label="Sljedeća lokacija"><i data-i="skip-forward"></i></button><button id="stop" class="bare" title="Završi obilazak" aria-label="Završi obilazak"><i data-i="x"></i></button></div>
+  <button id="help" class="map-help" aria-label="Upute za navigaciju" title="Upute za navigaciju"><i data-i="mouse-pointer-2"></i><span>Upravljanje mapom</span><i data-i="circle-help"></i></button>
+  <div id="loading"><div class="loader"></div><strong>Učitavanje grada</strong><span>Priprema lokalnih geografskih podataka…</span></div>
+</section></main>
+<footer><div><i data-i="crosshair"></i><span id="coords">44.7667° N &nbsp; 16.6670° E</span></div><span class="footer-sep"></span><span id="scale">100 m</span><div class="credits"><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap</a><em>·</em><a href="./data/terrain-license.txt" target="_blank">Copernicus DEM</a></div></footer>
+<dialog id="dialog"><div id="dialog-body"></div><button id="dialog-close" class="bare" aria-label="Zatvori"><i data-i="x"></i></button></dialog>
+<script type="module" src="/src/main.ts"></script>
+</body></html>
+
