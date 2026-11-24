@@ -67,3 +67,21 @@ def resample(path):
         "source": "Copernicus DEM GLO-30", "sourceUrl": SOURCE_URL,
         "productUrl": PRODUCT_URL, "attribution": ATTRIBUTION, "notice": NOTICE,
     }
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--tif", type=Path, help="Use an already downloaded GLO-30 N44 E016 GeoTIFF.")
+    parser.add_argument("--output", type=Path, default=OUTPUT)
+    args = parser.parse_args()
+    if args.tif:
+        terrain = resample(args.tif)
+    else:
+        with TemporaryDirectory() as temp:
+            filename, _ = urlretrieve(SOURCE_URL, Path(temp) / f"{TILE}.tif")
+            terrain = resample(filename)
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    encoded = json.dumps(terrain, separators=(",", ":"), ensure_ascii=False)
+    args.output.write_text(encoded + "\n", encoding="utf-8")
+    print(f"{COUNT} x {COUNT}, {STEP_METRES} m grid, "
+          f"{min(terrain['heights'])}–{max(terrain['heights'])} m EGM2008")
