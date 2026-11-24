@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 68">
+  <defs>
+    <linearGradient id="sky" x2=".33" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#e0e7d5"/><stop offset="1" stop-color="#f6e3bc"/></linearGradient>
+    <linearGradient id="roof" x2=".8" y2=".7"><stop stop-color="#a5b7b0"/><stop offset=".48" stop-color="#849797"/><stop offset="1" stop-color="#526c71"/></linearGradient>
+    <g id="tower" stroke="#657267" stroke-width=".62" stroke-linejoin="round">
+      <path d="M-1.8 51 -1.2 14 1.1 14 2 51Z" fill="#f5eed8"/>
+      <path d="M.55 15v35l1.4 1-.8-37Z" fill="#acb5a5" stroke="none"/>
+      <path d="m-2.1 27 .7 1.8h2.8l.8-1.8Z M-2 19l.8 1.6h2.4l.9-1.6Z" fill="#d1ceba"/>
+      <path d="M-1.8 14 0 4.7 1.8 14Z" fill="#546e74"/><path d="M0 5V3" fill="none"/>
+    </g>
+    <path id="window" d="M0 0v-3q1-2 2.1 0v3Z" fill="#637676"/>
+  </defs>
+  <rect width="84" height="68" fill="url(#sky)"/>
+  <circle cx="59" cy="13" r="7.5" fill="#f6edcf"/>
+  <path d="M0 42q11-11 19-7 8-9 18-5 11-4 20 2 13-3 27-11v30H0Z" fill="#b9c4a4"/>
+  <path d="M0 44q15-7 28-5 13-3 26 2 16-1 30-11v38H0Z" fill="#a4b796"/>
+  <path d="M0 61q19-11 41-10 27-6 43-8v25H0Z" fill="#cbd0a7"/>
+  <path d="m5 65 41-17 32 2-41 17Z" fill="#dfd7b9"/>
+  <path d="m20 57 29-7 27 5-27 9Z" fill="#8b997e" opacity=".64"/>
+  <use href="#tower" transform="translate(33 -1) scale(.86)"/>
+  <use href="#tower" transform="translate(60 -2) scale(.86)"/>
+  <g stroke="#69736a" stroke-width=".7" stroke-linejoin="round">
+    <path d="m21 41 19-5 23 4-2 13-17 7-22-5Z" fill="#efead6"/>
+    <path d="m44 45 19-5-2 13-17 7Z" fill="#c4c4b2"/>
+    <path d="m20 40 22-7 22 6-20 7Z" fill="#87978f"/>
+    <path d="M29 38v-3l6-5 12-1 8 5v4l-12 4Z" fill="#e4e4d3"/>
+    <path d="M29 35c2-7 6-12 13-14 7 2 11 7 13 13-5 2-9 4-13 4Z" fill="url(#roof)"/>
+    <path d="M42 21q-5 5-5.4 15 M42 21q5.6 6 6 15" fill="none" stroke="#748783" stroke-width=".55"/>
+    <path d="M42 21v-3" fill="none" stroke="#8c7a49"/>
+  </g>
+  <g><use href="#window" x="26" y="50"/><use href="#window" x="31" y="51"/><use href="#window" x="36" y="52"/><use href="#window" x="48" y="53"/><use href="#window" x="53" y="51"/><use href="#window" x="58" y="49"/></g>
+  <use href="#tower" transform="translate(20 4) scale(1 1.02)"/>
+  <use href="#tower" transform="translate(47 9) scale(.95 1)"/>
+  <path d="M0 57q2-5 6-4 1-4 4-3 4 0 4 4 5-2 5 4-5 4-19 4Zm63-3q1-5 6-4 0-5 5-5 3-6 6-3 2-1 4 0v12q-10 4-21 0Z" fill="#779576"/>
+  <path d="M0 65q12-2 18-6m48 2 11-3m-12-9 7-2" fill="none" stroke="#90a080" stroke-width=".8"/>
+</svg>
