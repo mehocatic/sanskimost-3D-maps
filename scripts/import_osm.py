@@ -117,3 +117,13 @@ def contains(point, ring):
         if (az > z) != (bz > z) and x < ax + (z - az) * (bx - ax) / (bz - az):
             inside = not inside
     return inside
+
+
+def segment_midpoint(points):
+    lengths = [math.dist(a, b) for a, b in zip(points, points[1:])]
+    remaining = sum(lengths)/2
+    for a, b, length in zip(points, points[1:], lengths):
+        if remaining <= length and length:
+            return tuple(round(s + (e-s)*remaining/length, 2) for s, e in zip(a,b))
+        remaining -= length
+    return points[-1]
