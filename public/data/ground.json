@@ -1,0 +1,47 @@
+{
+  "file": "ground.jpg",
+  "item": "S2B_33TXK_20260814_0_L2A",
+  "acquiredUtc": "2026-08-14T09:58:14.853Z",
+  "instrument": "Sentinel-2B MSI",
+  "product": "Level-2A true colour (B04, B03, B02)",
+  "source": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/S2B_33TXK_20260814_0_L2A",
+  "sourceImage": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/33/T/XK/2026/8/S2B_33TXK_20260814_0_L2A/TCI.tif",
+  "classificationMask": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/33/T/XK/2026/8/S2B_33TXK_20260814_0_L2A/SCL.tif",
+  "sourceEPSG": 32633,
+  "sourceGsdM": 10,
+  "sizePx": [
+    1080,
+    1080
+  ],
+  "centerLatLon": [
+    44.7667,
+    16.667
+  ],
+  "boundsXZ": [
+    -5400,
+    -5400,
+    5400,
+    5400
+  ],
+  "westSouthEastNorth": [
+    16.59859907372856,
+    44.718136700358876,
+    16.735400926271442,
+    44.815263299641124
+  ],
+  "sampling": "North-up; bounds are outer pixel edges; row 0 is north. x east and z south in metres.",
+  "processing": "Reprojection from WGS84 / UTM 33N, bilinear resampling, sRGB JPEG.",
+  "tileCloudCoverPercent": 0.000756,
+  "sceneClassificationCounts": {
+    "2": 88,
+    "4": 1015639,
+    "5": 147212,
+    "6": 550,
+    "7": 2727,
+    "10": 184
+  },
+  "localCloudShadowSnowInvalidSamples": 184,
+  "classificationNote": "SCL is a 20 m automated classification, resampled to this grid by nearest neighbour.",
+  "credit": "Contains modified Copernicus Sentinel data 2026",
+  "terms": "https://dataspace.copernicus.eu/terms-and-conditions"
+}
