@@ -15,6 +15,16 @@ function facadeTexture(){
   g.fillStyle='#fffaf0';g.fillRect(26,88,69,5);g.fillStyle='#c3c0b7';g.fillRect(27,93,67,3);
   const t=new T.CanvasTexture(c);t.wrapS=t.wrapT=T.RepeatWrapping;t.colorSpace=T.SRGBColorSpace;t.anisotropy=4;return t;
 }
+function roofTexture(){
+  const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d')!,rand=rng(776);
+  g.fillStyle='#ece9e4';g.fillRect(0,0,128,128);
+  for(let r=0;r<12;r++)for(let k=-1;k<9;k++){
+    const x=k*16+(r%2)*8,y=r*128/12;
+    const v=Math.floor(221+rand()*26);g.fillStyle='rgb('+v+','+v+','+v+')';g.fillRect(x,y,16,12);
+    g.fillStyle='rgba(65,46,36,.13)';g.fillRect(x,y+8,16,2);g.fillRect(x,y,2,10);
+  }
+  const t=new T.CanvasTexture(c);t.wrapS=t.wrapT=T.RepeatWrapping;t.colorSpace=T.SRGBColorSpace;t.anisotropy=4;return t;
+}
 type Vertex=[number,number,number];
 class Surfaces {
   pos:number[]=[]; uv:number[]=[]; color:number[]=[]; ids:number[]=[];
