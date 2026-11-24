@@ -92,3 +92,7 @@ def clip_line(points):
             else:
                 pieces.append(ends)
     return pieces
+
+
+def signed_area(ring):
+    return sum(a[0]*b[1] - b[0]*a[1] for a, b in zip(ring, ring[1:]+ring[:1])) / 2
