@@ -80,6 +80,10 @@ export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
     ctx.save();ctx.translate(1,1);ctx.lineWidth=1.7;ctx.strokeStyle='rgba(57,64,49,.32)';ctx.stroke(p);ctx.restore();
   }
   const raw=mask.getImageData(0,0,1024,1024).data;
+  function value(x:number,z:number,channel:number){
+    const ix=Math.floor((x+bound)*1024/(2*bound)),iz=Math.floor((z+bound)*1024/(2*bound));
+    if(ix<0||iz<0||ix>=1024||iz>=1024)return 0;return raw[(iz*1024+ix)*4+channel];
+  }
   const riverSample=city.roads.find(r=>r.id==='w56396323');
   const [bx,bz]=riverSample?centerOf(riverSample.points):[0,200];
   const waterY=sampleTerrain(dem,bx,bz)-1.1;
