@@ -55,6 +55,8 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
     const offset=camera.position.clone().sub(controls.target).normalize().multiplyScalar(distance);
     go(new T.Vector3(pos[0],ground.height(...pos)+3,pos[1]),offset)}
   function home(){flat=false;controls.enableRotate=true;go(homeTarget.clone(),homeOffset)}
+  function top(){flat=!flat;controls.enableRotate=!flat;const d=camera.position.distanceTo(controls.target);
+    go(controls.target.clone(),flat?new T.Vector3(0,d,.1):homeOffset.clone().normalize().multiplyScalar(d));return flat}
   function north(){go(controls.target.clone(),new T.Vector3(0,flat?1:.79,flat?.0001:.75).normalize().multiplyScalar(camera.position.distanceTo(controls.target)))}
   function zoom(f:number){const offset=camera.position.clone().sub(controls.target);go(controls.target.clone(),offset.setLength(T.MathUtils.clamp(offset.length()*f,72,3200)),280)}
   const overlay=document.querySelector<HTMLElement>('#labels')!;
