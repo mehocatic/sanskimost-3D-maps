@@ -33,3 +33,7 @@ ROAD_WIDTH = {
 def project(lat, lon):
     return (round((lon - CENTER[1]) * LON_SCALE, 2),
             round((CENTER[0] - lat) * METRES_PER_DEGREE, 2))
+
+
+def in_map(point):
+    return abs(point[0]) <= EDGE and abs(point[1]) <= EDGE
