@@ -1,6 +1,38 @@
 import * as T from 'three';
 import { Reflector } from 'three/addons/objects/Reflector.js';
 import {City, Feature, Point, Road, rng} from './types';
+
+export function makeWater(areas:Feature[],y:number){
+  const positions:number[]=[];
+  for(const a of areas){
+    const rings=[a.points,...(a.holes||[])];
+    const pts=rings.flat();
+    const triangles=T.ShapeUtils.triangulateShape(rings[0].map(p=>new T.Vector2(...p)),rings.slice(1).map(r=>r.map(p=>new T.Vector2(...p))));
+    for(const tri of triangles)for(const i of tri.reverse()){positions.push(pts[i][0],-pts[i][1],0)}
+  }
+  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(positions,3));g.computeVertexNormals();
+  const shader={
+    name:'Sana', uniforms:{color:{value:new T.Color()},tDiffuse:{value:null},textureMatrix:{value:new T.Matrix4()},time:{value:0},night:{value:0}},
+    vertexShader:`uniform mat4 textureMatrix; varying vec4 reflection; varying vec2 local;
+      void main(){local=position.xy;reflection=textureMatrix*vec4(position,1.0);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
+    fragmentShader:`uniform sampler2D tDiffuse;uniform float time;uniform float night;varying vec4 reflection;varying vec2 local;
+      void main(){
+        vec2 p=local;float a=sin(p.y*.72+p.x*.19+time*1.5+sin(p.x*.23));
+        float b=sin(p.y*1.1+p.x*.27-time*.9+sin(p.x*.08+p.y*.14));
+        float broad=sin(p.y*.06+p.x*.025+sin(p.x*.025)+time*.25);
+        vec2 uv=reflection.xy/reflection.w+vec2(a*.0018,b*.0032);
+        vec3 mirror=texture2D(tDiffuse,clamp(uv,0.,1.)).rgb;
+        vec3 water=mix(vec3(.075,.30,.285),vec3(.025,.086,.101),night);
+        float glint=pow(max(0.,a*b),5.)*(.5+.5*broad)*.095;
+        vec3 result=water*(1.+broad*.045)+mirror*.14+vec3(glint)*(1.-night*.85);
+        gl_FragColor=vec4(result,1.);
+        #include <colorspace_fragment>
+      }`
+  };
+  const obj=new Reflector(g,{color:0x77b8af,textureWidth:384,textureHeight:384,clipBias:.003,shader,multisample:0});
+  obj.rotation.x=-Math.PI/2;obj.position.y=y;(obj.material as T.ShaderMaterial).side=T.DoubleSide;
+  return obj;
+}
 type Item={p:[number,number,number];s:[number,number,number];r:number;color?:string};
 export function cityLife(city:City,height:(x:number,z:number)=>number,density:(x:number,z:number)=>number,waterY:number) {
   const rand=rng(18213),trees=new T.Group(),spans=new T.Group(),lamps=new T.Group(),traffic=new T.Group();
