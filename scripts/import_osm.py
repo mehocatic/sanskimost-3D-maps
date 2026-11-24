@@ -212,3 +212,7 @@ def rings(parts):
                 break
         if chain[0] == chain[-1] and len(chain) >= 4:
             yield chain
+
+
+def tags(item):
+    return {tag.get('k'): tag.get('v') for tag in item.findall('tag')}
