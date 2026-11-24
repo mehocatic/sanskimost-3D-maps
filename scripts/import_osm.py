@@ -223,3 +223,92 @@ def record(key, t, **attributes):
     if name := t.get('name:bs') or t.get('name'):
         feature['name'] = name
     return feature
+
+
+def build(paths):
+    obj = read_sources(paths)
+    nodes = {key: project(float(e.get('lat')),float(e.get('lon'))) for key,e in obj['node'].items()}
+    way_refs = {key: [n.get('ref') for n in e.findall('nd')] for key,e in obj['way'].items()}
+    data = {kind: [] for kind in ('buildings','parts','roads','areas','waterways','pois','trees','lamps')}
+
+    def add_poi(key, t, point, fallback):
+        if (t.get('name') or t.get('name:bs')) and in_map(point):
+            data['pois'].append(record(key, t, kind=fallback, x=point[0], z=point[1]))
+
+    def add_polygon(key, t, outer, inner=()):
+        original = [nodes[n] for n in outer[:-1]]
+        polygon = clip_polygon(original)
+        if not polygon:
+            return
+        clipped_holes = [clip_polygon(h) for h in inner if contains(h[0], original)]
+        holes = {'holes': [h for h in clipped_holes if h]} if any(clipped_holes) else {}
+        if t.get('building') and t['building'] != 'no':
+            height, source = building_height(t, abs(signed_area(original)), int(key[1:].split('-')[0]))
+            data['buildings'].append(record(key,t,kind=t['building'],points=polygon,
+                height=height,heightSource=source,**holes))
+            add_poi(key,t,center(polygon),t.get('amenity') or t['building'])
+        elif t.get('building:part'):
+            part = record(key,t,kind=t['building:part'],points=polygon,**holes)
+            if marked_height := measure(t.get('height')):
+                part.update(height=marked_height, heightSource='osm:height')
+            data['parts'].append(part)
+        elif kind := area_kind(t):
+            data['areas'].append(record(key,t,kind=kind,points=polygon,**holes))
+            add_poi(key,t,center(polygon),t.get('leisure') or kind)
+        else:
+            add_poi(key,t,center(polygon),t.get('amenity') or t.get('leisure') or 'place')
+
+    used = set()
+    for key, e in obj['relation'].items():
+        t = tags(e)
+        if t.get('type') != 'multipolygon' or not (area_kind(t) or t.get('building')):
+            continue
+        refs = [(m.get('role') or 'outer', m.get('ref')) for m in e.findall('member') if m.get('type') == 'way']
+        available = [(role,ref) for role,ref in refs if ref in way_refs and set(way_refs[ref]) <= nodes.keys()]
+        inners = [[nodes[n] for n in ring[:-1]] for ring in rings([way_refs[r] for role,r in available if role=='inner'])]
+        for i, outer in enumerate(rings([way_refs[r] for role,r in available if role == 'outer'])):
+            add_polygon('r'+key+(f'-{i}' if i else ''),t,outer,inners)
+        used.update(r for role,r in available if role == 'outer')
+
+    for key, e in obj['way'].items():
+        t, refs = tags(e), way_refs[key]
+        if len(refs) < 2 or key in used or any(n not in nodes for n in refs):
+            continue
+        line = [nodes[n] for n in refs]
+        if (t.get('highway') and t.get('area') != 'yes') or t.get('waterway') in {'river','stream','ditch','canal','drain'}:
+            pieces = clip_line(line)
+            for i, points in enumerate(pieces):
+                feature_id = 'w'+key+(f'-{i}' if i else '')
+                if kind := t.get('highway'):
+                    width = measure(t.get('width')) or ROAD_WIDTH.get(kind.removesuffix('_link'), 5)
+                    bridge = t.get('bridge', 'no') != 'no'
+                    data['roads'].append(record(feature_id,t,kind=kind,points=points,width=width,bridge=bridge))
+                    if bridge:
+                        add_poi(feature_id,t,segment_midpoint(points),'bridge')
+                else:
+                    kind = t['waterway']
+                    data['waterways'].append(record(feature_id,t,kind=kind,points=points,
+                        width=measure(t.get('width')) or (9 if kind=='river' else 2.5)))
+                    add_poi(feature_id,t,segment_midpoint(points),kind)
+        elif refs[0] == refs[-1] and (t.get('building') or t.get('building:part') or area_kind(t) or t.get('amenity') or t.get('leisure')):
+            add_polygon('w'+key,t,refs)
+
+    for key, e in obj['node'].items():
+        point = nodes[key]
+        if not in_map(point):
+            continue
+        t = tags(e)
+        if t.get('highway') == 'street_lamp':
+            data['lamps'].append(point)
+        if t.get('natural') == 'tree':
+            data['trees'].append(point)
+        add_poi('n'+key,t,point,next((t[k] for k in ('amenity','leisure','tourism','historic','shop','place','office','natural') if k in t),'place'))
+    data['meta'] = {
+        'center': CENTER, 'bounds': [-EDGE,-EDGE,EDGE,EDGE],
+        'projection':'Local equirectangular; X east, Z south, metres; Earth radius 6371008.8 m',
+        'osmAttribution':'© OpenStreetMap contributors', 'license':'ODbL 1.0',
+        'licenseUrl':'https://www.openstreetmap.org/copyright',
+        'counts': {k:len(v) for k,v in data.items()},
+        'heightSources': dict(Counter(b['heightSource'] for b in data['buildings'])),
+    }
+    return data
