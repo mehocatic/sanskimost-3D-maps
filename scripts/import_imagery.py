@@ -134,3 +134,7 @@ def main():
     Image.fromarray(rgb).save(DATA/'ground.jpg', quality=92, subsampling=0, optimize=True)
     (DATA/'ground.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2)+'\n',encoding='utf-8')
     print(f'{size}, SCL counts {counts}, {(DATA/"ground.jpg").stat().st_size} bytes')
+
+
+if __name__ == '__main__':
+    main()
