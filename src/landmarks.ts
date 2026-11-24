@@ -274,6 +274,16 @@ export function createPodgrmecPitch(ring: Ring, heightAt: HeightAt): T.Group {
       quad([[left,a],[right,a],[right,b],[left,b]],stripes[j%2],base);
     }
   }
+  function line(x1:number,z1:number,x2:number,z2:number) {
+    const dx=x2-x1,dz=z2-z1,length=Math.hypot(dx,dz);
+    const sideX=-dz*.095/length,sideZ=dx*.095/length;
+    const steps=Math.ceil(length/5);
+    for(let i=0;i<steps;i++) {
+      const ax=x1+i*dx/steps,az=z1+i*dz/steps;
+      const bx=ax+dx/steps,bz=az+dz/steps;
+      quad([[ax+sideX,az+sideZ],[ax-sideX,az-sideZ],[bx-sideX,bz-sideZ],[bx+sideX,bz+sideZ]],paint,base+.07);
+    }
+  }
   const innerW=w-1.7,innerL=l-1.7;
   for (const side of [-1,1]) line(side*innerW,-innerL,side*innerW,innerL);
   line(-innerW,0,innerW,0);
