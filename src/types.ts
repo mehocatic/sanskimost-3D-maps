@@ -28,6 +28,12 @@ export function centerOf(points: Point[]): Point {
   const bounds = points.reduce((b,[x,z])=>[Math.min(b[0],x),Math.min(b[1],z),Math.max(b[2],x),Math.max(b[3],z)], [Infinity,Infinity,-Infinity,-Infinity]);
   return [(bounds[0]+bounds[2])/2,(bounds[1]+bounds[3])/2];
 }
+export function sampleTerrain(t: Terrain, x: number, z: number) {
+  const u=Math.max(0,Math.min(t.cols-1.001,(x-t.x0)/t.step));
+  const v=Math.max(0,Math.min(t.rows-1.001,(z-t.z0)/t.step));
+  const i=Math.floor(u), j=Math.floor(v), a=u-i, b=v-j, k=j*t.cols+i, h=t.heights;
+  return (h[k]*(1-a)+h[k+1]*a)*(1-b)+(h[k+t.cols]*(1-a)+h[k+t.cols+1]*a)*b-t.baseElevation;
+}
 export function rng(seed: number) {
   return () => {seed=(Math.imul(1664525,seed)+1013904223)>>>0; return seed/4294967296};
 }
