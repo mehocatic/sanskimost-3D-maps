@@ -34,6 +34,11 @@ export function makeWater(areas:Feature[],y:number){
   return obj;
 }
 type Item={p:[number,number,number];s:[number,number,number];r:number;color?:string};
+function instances(geo:T.BufferGeometry,mat:T.Material,rows:Item[]){
+  const mesh=new T.InstancedMesh(geo,mat,rows.length),o=new T.Object3D();
+  rows.forEach((row,i)=>{o.position.set(...row.p);o.scale.set(...row.s);o.rotation.y=row.r;o.updateMatrix();mesh.setMatrixAt(i,o.matrix);if(row.color)mesh.setColorAt(i,new T.Color(row.color))});
+  mesh.castShadow=mesh.receiveShadow=true;return mesh;
+}
 export function cityLife(city:City,height:(x:number,z:number)=>number,density:(x:number,z:number)=>number,waterY:number) {
   const rand=rng(18213),trees=new T.Group(),spans=new T.Group(),lamps=new T.Group(),traffic=new T.Group();
   const crowns:Item[]=[],trunks:Item[]=[],conifers:Item[]=[];
