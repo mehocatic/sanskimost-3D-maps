@@ -91,6 +91,13 @@ export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>n
       }
     });
     const all=rings.flat(),tri=T.ShapeUtils.triangulateShape(ring.map(p=>new T.Vector2(...p)),holes.map(h=>h.map(p=>new T.Vector2(...p))));
+    function emit(pts:Point[]){
+      for(let j=1;j<pts.length-1;j++){
+        const t=[pts[0],pts[j],pts[j+1]];
+        if((t[1][0]-t[0][0])*(t[2][1]-t[0][1])-(t[1][1]-t[0][1])*(t[2][0]-t[0][0])>0)t.reverse();
+        (flat?flatRoofs:roofs).tri(vec(t[0]),vec(t[1]),vec(t[2]),t.flatMap(([x,z])=>[(x*vx+z*vz)/3,(-x*vz+z*vx)/3]),roofCol,id);
+      }
+    }
     for(const ids of tri){
       const pts=ids.map(i=>all[i]);
       if(hip){
