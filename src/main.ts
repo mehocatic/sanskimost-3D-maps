@@ -54,6 +54,14 @@ async function start(){
   $('#places').onclick=e=>{const b=(e.target as HTMLElement).closest<HTMLElement>('[data-id]');if(b)choose(places.get(b.dataset.id!)!,true)};
   input.oninput=renderList;input.onkeydown=e=>{if(e.key==='Enter')$('#places button')?.click()};
   document.querySelectorAll<HTMLElement>('[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab!;input.value='';renderList()});
+  function detail(p:Place){
+    const pane=$('#detail');pane.hidden=false;pane.innerHTML='<button class="bare close" aria-label="Zatvori informacije">'+icon('x')+'</button><div class="category">'+icon(p.icon)+esc(p.category)+'</div><h2>'+esc(p.name)+'</h2>'+
+    (p.description?'<p>'+esc(p.description)+'</p>':'')+(p.height?'<p>Visina ≈ '+p.height.toLocaleString('bs')+' m · '+(p.heightSource==='osm:levels'?'iz broja etaža':p.heightSource==='osm:height'?'OSM visina':'proceduralna procjena')+'</p>':'')+
+    (p.tags?.['addr:street']?'<p>'+esc(p.tags['addr:street']+' '+(p.tags['addr:housenumber']||''))+'</p>':'')+
+    '<button class="save" aria-pressed="'+saved.has(p.id)+'">'+icon(saved.has(p.id)?'bookmark-check':'bookmark')+(saved.has(p.id)?'Sačuvano':'Sačuvaj')+'</button>';
+    pane.querySelector<HTMLElement>('.close')!.onclick=()=>{pane.hidden=true;selected=undefined;renderList()};
+    pane.querySelector<HTMLElement>('.save')!.onclick=()=>{if(saved.has(p.id))saved.delete(p.id);else saved.add(p.id);try{localStorage.setItem('sanski.saved',JSON.stringify([...saved]))}catch{}detail(p);renderList()};
+  }
   const labels=featured.map(p=>{const el=document.createElement('button');el.className='pin';el.dataset.art=p.art;el.innerHTML=icon(p.icon)+esc(p.name);el.onclick=()=>choose(p,true);$('#labels').append(el);return {p,el}});
   const sana=city.waterways.find(w=>w.name==='Sana'&&w.points.some(([x,z])=>Math.abs(x)<420&&z>260&&z<620));
   const riverAnchor=sana?.points.filter(([x,z])=>Math.abs(x)<420&&z>260&&z<620).sort((a,b)=>Math.abs(a[1]-460)-Math.abs(b[1]-460))[0];
