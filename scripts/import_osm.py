@@ -69,3 +69,26 @@ def clip_polygon(points):
     if len(result) > 1 and result[0] == result[-1]:
         result.pop()
     return result if len(result) >= 3 and abs(signed_area(result)) > 0.05 else []
+
+
+def clip_line(points):
+    """Preserve separate portions of streets that leave and re-enter the scene."""
+    pieces = []
+    for a, b in zip(points, points[1:]):
+        lower, upper = 0, 1
+        for axis in (0, 1):
+            delta = b[axis] - a[axis]
+            if delta:
+                limits = sorted(((-EDGE-a[axis])/delta, (EDGE-a[axis])/delta))
+                lower, upper = max(lower, limits[0]), min(upper, limits[1])
+            elif abs(a[axis]) > EDGE:
+                upper = -1
+        if upper <= lower:
+            continue
+        ends = dedupe([tuple(s + t*(e-s) for s, e in zip(a, b)) for t in (lower, upper)])
+        if len(ends) == 2:
+            if pieces and pieces[-1][-1] == ends[0]:
+                pieces[-1].append(ends[1])
+            else:
+                pieces.append(ends)
+    return pieces
