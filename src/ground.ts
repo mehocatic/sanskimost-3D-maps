@@ -1,0 +1,91 @@
+import {localFrame} from './landmarks';
+import * as T from 'three';
+import { City, Feature, Point, Road, Terrain, rng, sampleTerrain, centerOf } from './types';
+
+const bound = 1620;
+const side = 4096;
+const palette: Record<string,string> = {
+  residential:'#b4bf92', industrial:'#c1bcb1', commercial:'#c6c0aa', farmland:'#b9be82',
+  grass:'#a2b680', meadow:'#a8b77c', forest:'#79956b', park:'#9fb681', orchard:'#9eac75',
+  cemetery:'#a8b19b', paved:'#c9c5b6', parking:'#aaa99f', pitch:'#92ad76', sand:'#d7c596',
+  water:'#559d99', garden:'#9bb378', allotments:'#a7ac7a', scrub:'#93a47c'
+};
+
+export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
+  const {c,ctx}=surface(side),{ctx:mask}=surface(1024);
+  const rand=rng(1704);
+  ctx.fillStyle='#afbd8d';ctx.fillRect(-bound,-bound,2*bound,2*bound);
+  mask.fillStyle='rgb(20,0,0)';mask.fillRect(-bound,-bound,2*bound,2*bound);
+  const path=(p:Point[], close:boolean)=>{
+    const a=new Path2D(); if(!p.length)return a;
+    a.moveTo(...p[0]);for(let i=1;i<p.length;i++)a.lineTo(...p[i]);if(close)a.closePath();return a;
+  };
+  const areaPath=(a:Feature)=>{const p=path(a.points,true);for(const h of a.holes||[])p.addPath(path(h,true));return p};
+  const groupOrder=['residential','industrial','commercial','farmland','meadow','grass','orchard','forest','park','cemetery','sand','paved','pitch','parking','water'];
+  const waterAreas=city.areas.filter(a=>a.kind==='water');
+  const areas=[...city.areas].sort((a,b)=>groupOrder.indexOf(a.kind)-groupOrder.indexOf(b.kind));
+  for(const a of areas){
+    const p=areaPath(a);ctx.fillStyle=palette[a.kind]||'#b0b991';ctx.fill(p,'evenodd');
+    let density=20;
+    if(['residential','grass','meadow','garden'].includes(a.kind))density=40;
+    if(['park','forest','scrub','orchard'].includes(a.kind))density=a.kind==='forest'?245:155;
+    if(['parking','paved','water','pitch','industrial','commercial','cemetery','farmland'].includes(a.kind))density=0;
+    mask.fillStyle='rgb('+density+',0,'+(a.kind==='water'?255:0)+')';mask.fill(p,'evenodd');
+    if(a.kind==='farmland' || a.kind==='orchard'){
+      ctx.save();ctx.clip(p,'evenodd');ctx.strokeStyle='rgba(97,105,56,.16)';ctx.lineWidth=1;
+      const [cx,cz]=centerOf(a.points); const radius=Math.min(500,Math.max(...a.points.map(q=>Math.hypot(q[0]-cx,q[1]-cz))));
+      ctx.translate(cx,cz);ctx.rotate(rand()*2);ctx.beginPath();
+      for(let i=-radius;i<radius;i+=a.kind==='orchard'?8:4){ctx.moveTo(i,-radius);ctx.lineTo(i,radius)} ctx.stroke();ctx.restore();
+    }
+  }
+  const plantableYards=city.buildings.filter(b=>['yes','house','detached','residential','apartments'].includes(b.kind));
+  for(const b of plantableYards){
+    const p=areaPath(b);ctx.strokeStyle=['#a9b885','#b7c393','#a0b080','#b1bc8f'][Math.floor(rand()*4)];
+    ctx.lineWidth=5+rand()*5;ctx.stroke(p);
+  }
+  ctx.save();ctx.globalAlpha=.52;ctx.drawImage(photo,dem.x0,dem.z0,dem.step*(dem.cols-1),dem.step*(dem.rows-1));ctx.restore();
+  // Fine ground variation is baked once. It follows semantic areas and costs no draw calls.
+  for(let i=0;i<175000;i++){
+    ctx.fillStyle=i%2?'rgba(75,83,45,.07)':'rgba(248,238,173,.10)';
+    ctx.fillRect((rand()*2-1)*bound,(rand()*2-1)*bound,1+rand()*6,1+rand()*3);
+  }
+  city.waterways.filter(w=>!waterAreas.some(a=>a.name && a.name===w.name)&&w.name!=='Sana').forEach(w=>ribbon(w,true));
+  // Redraw banks over private garden halos.
+  for(const a of waterAreas){const p=areaPath(a);ctx.lineWidth=3;ctx.strokeStyle='#a5b899';ctx.stroke(p);ctx.fillStyle=palette.water;ctx.fill(p,'evenodd')}
+  const order=['steps','path','footway','cycleway','track','service','living_street','residential','unclassified','tertiary','secondary','primary','trunk'];
+  [...city.roads].sort((a,b)=>order.indexOf(a.kind)-order.indexOf(b.kind)).forEach(r=>ribbon(r));
+  for(const b of city.buildings){
+    const p=areaPath(b);mask.fillStyle='black';mask.strokeStyle='black';mask.lineWidth=3;mask.fill(p,'evenodd');mask.stroke(p);
+    ctx.save();ctx.translate(1,1);ctx.lineWidth=1.7;ctx.strokeStyle='rgba(57,64,49,.32)';ctx.stroke(p);ctx.restore();
+  }
+  const raw=mask.getImageData(0,0,1024,1024).data;
+  const riverSample=city.roads.find(r=>r.id==='w56396323');
+  const [bx,bz]=riverSample?centerOf(riverSample.points):[0,200];
+  const waterY=sampleTerrain(dem,bx,bz)-1.1;
+  const mosque=city.buildings.find(b=>b.id==='w346178044');
+  const f=mosque && localFrame(mosque.points);
+  const floor=f?sampleTerrain(dem,f.x,f.z):0;
+  const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=8;
+  const land=new T.Group();
+  const g=new T.PlaneGeometry(bound*2,bound*2,360,360);g.rotateX(-Math.PI/2);
+  const attr=g.attributes.position;
+  for(let i=0;i<attr.count;i++)attr.setY(i,height(attr.getX(i),attr.getZ(i)));
+  g.computeVertexNormals();
+  const ground=new T.Mesh(g,new T.MeshLambertMaterial({map:tex}));ground.receiveShadow=true;land.add(ground);
+  const env=new T.PlaneGeometry(dem.step*(dem.cols-1),dem.step*(dem.rows-1),dem.cols-1,dem.rows-1);env.rotateX(-Math.PI/2);
+  const ep=env.attributes.position,colors:number[]=[];
+  const envIndices:number[]=[];
+  for(let i=0;i<ep.count;i++){
+    const x=dem.x0+(i%dem.cols)*dem.step,z=dem.z0+Math.floor(i/dem.cols)*dem.step,h=sampleTerrain(dem,x,z);
+    ep.setXYZ(i,x,h-1.5,z);
+    const green=new T.Color('#a5b48c').lerp(new T.Color('#708c70'),Math.min(1,Math.max(0,h/180)));
+    green.multiplyScalar(.96+.07*rand());colors.push(green.r,green.g,green.b);
+  }
+  const ix=env.index!;
+  for(let i=0;i<ix.count;i+=3){const a=ix.getX(i),b=ix.getX(i+1),c=ix.getX(i+2);
+    if([a,b,c].every(j=>Math.abs(ep.getX(j))<bound-5&&Math.abs(ep.getZ(j))<bound-5))continue;envIndices.push(a,b,c)}
+  env.setIndex(envIndices);env.setAttribute('color',new T.Float32BufferAttribute(colors,3));env.computeVertexNormals();
+  const imagery=new T.Texture(photo);imagery.colorSpace=T.SRGBColorSpace;imagery.needsUpdate=true;land.add(new T.Mesh(env,new T.MeshLambertMaterial({map:imagery})));
+  return {land,height,waterY,density:(x:number,z:number)=>courtyardDistance(x,z)<0?0:value(x,z,0),waterAreas};
+}
+
