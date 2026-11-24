@@ -4,6 +4,27 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 type Ring = readonly (readonly number[])[];
 type HeightAt = (x: number, z: number) => number;
 
+// The long axis points towards the south (the qibla end for the mosque).
+// Projecting all nodes onto the two axes also handles redundant OSM vertices.
+export function localFrame(ring: Ring) {
+  let ax = 0, az = 1, longest = 0;
+  for (let i = 0; i < ring.length; i++) {
+    const a = ring[i], b = ring[(i + 1) % ring.length];
+    const x = b[0] - a[0], z = b[1] - a[1], length = Math.hypot(x, z);
+    if (length > longest) {
+      longest = length;
+      const sign = z < 0 ? -1 : 1;
+      ax = sign * x / length;
+      az = sign * z / length;
+    }
+  }
+  const u = ring.map(p => az * p[0] - ax * p[1]);
+  const v = ring.map(p => ax * p[0] + az * p[1]);
+  const u0 = Math.min(...u), u1 = Math.max(...u), v0 = Math.min(...v), v1 = Math.max(...v);
+  const um = (u0 + u1) / 2, vm = (v0 + v1) / 2;
+  return { x: az * um + ax * vm, z: -ax * um + az * vm, ax, az, width: u1-u0, length: v1-v0 };
+}
+
 /** Centred on the OSM way in world x/z metres. Set only position.y to the terrain height. */
 export function createHamzaMosque(ring: Ring, minaretRings: readonly Ring[] = [], domeRing?: Ring, wing?: Ring, smallDomes: readonly Ring[] = []): T.Group {
   const frame = localFrame(ring);
