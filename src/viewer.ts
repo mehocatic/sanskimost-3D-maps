@@ -71,6 +71,11 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
     return {x:(v.x*.5+.5)*host.clientWidth,y:(.5-v.y*.5)*host.clientHeight,visible:v.z>-1&&v.z<1};
   }
   const layers={buildings:blocks.group,trees:life.trees,cars:life.traffic};
+  function layer(k:string,value:boolean){
+    if(k==='labels')overlay.hidden=!value;
+    else if(k in layers){layers[k as keyof typeof layers].visible=value;if(k==='buildings')special.visible=value;renderer.shadowMap.needsUpdate=true}
+    dirty=true;
+  }
   let down=[0,0],previousTouch=0;
   renderer.domElement.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];if(!e.isPrimary)previousTouch=performance.now()});
   renderer.domElement.addEventListener('pointerup',e=>{
