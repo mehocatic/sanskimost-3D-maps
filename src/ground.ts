@@ -90,6 +90,11 @@ export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
   const mosque=city.buildings.find(b=>b.id==='w346178044');
   const f=mosque && localFrame(mosque.points);
   const floor=f?sampleTerrain(dem,f.x,f.z):0;
+  function courtyardDistance(x:number,z:number){
+    if(!f)return Infinity;
+    const dx=x-f.x,dz=z-f.z;
+    return Math.max(Math.abs(dx*f.az-dz*f.ax)-14,Math.abs(dx*f.ax+dz*f.az+10)-25);
+  }
   const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=8;
   const land=new T.Group();
   const g=new T.PlaneGeometry(bound*2,bound*2,360,360);g.rotateX(-Math.PI/2);
