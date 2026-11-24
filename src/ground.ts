@@ -12,6 +12,13 @@ const palette: Record<string,string> = {
 };
 
 export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
+  function surface(size:number) {
+    const c=document.createElement('canvas'); c.width=c.height=size;
+    const ctx=c.getContext('2d',{willReadFrequently:true})!;
+    const scale=size/(2*bound);ctx.setTransform(scale,0,0,scale,size/2,size/2);
+    ctx.lineCap='round';ctx.lineJoin='round';
+    return {c,ctx};
+  }
   const {c,ctx}=surface(side),{ctx:mask}=surface(1024);
   const rand=rng(1704);
   ctx.fillStyle='#afbd8d';ctx.fillRect(-bound,-bound,2*bound,2*bound);
