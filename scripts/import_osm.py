@@ -136,3 +136,20 @@ def measure(raw):
     if match:
         value = float(match[1].replace(',', '.')) * (0.3048 if match[2] in ('ft', "'") else 1)
         return round(value, 2) if value > 0 else None
+
+
+def building_height(tags, area, osm_id):
+    measured = measure(tags.get('height'))
+    if measured:
+        return measured, 'osm:height'
+    levels = measure(tags.get('building:levels'))
+    if levels:
+        return round(levels*3.1 + (measure(tags.get('roof:height')) or 0), 1), 'osm:levels'
+    kind = tags.get('building', 'yes')
+    if kind in {'garage', 'garages', 'shed', 'greenhouse', 'roof', 'carport'} or area < 38:
+        return 3.3, 'estimate'
+    if kind == 'apartments':
+        return 12 + 3*(osm_id % 3), 'estimate'
+    if kind in {'industrial', 'retail', 'commercial', 'public', 'school', 'supermarket'}:
+        return 7 + osm_id % 4, 'estimate'
+    return (5.8 if area < 170 else 7.8) + (osm_id % 5)*0.5, 'estimate'
