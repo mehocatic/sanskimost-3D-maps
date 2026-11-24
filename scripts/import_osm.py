@@ -187,3 +187,28 @@ def read_sources(paths):
                     if key not in index or int(item.get('version', '0')) > int(index[key].get('version', '0')):
                         index[key] = item
     return objects
+
+
+def rings(parts):
+    """Stitch relation members by endpoint node ID, including reversed ways."""
+    remaining = list(parts)
+    while remaining:
+        chain = list(remaining.pop())
+        while chain[0] != chain[-1]:
+            for i, part in enumerate(remaining):
+                if chain[-1] == part[0]:
+                    chain.extend(part[1:])
+                elif chain[-1] == part[-1]:
+                    chain.extend(part[-2::-1])
+                elif chain[0] == part[-1]:
+                    chain = part[:-1] + chain
+                elif chain[0] == part[0]:
+                    chain = part[:0:-1] + chain
+                else:
+                    continue
+                remaining.pop(i)
+                break
+            else:
+                break
+        if chain[0] == chain[-1] and len(chain) >= 4:
+            yield chain
