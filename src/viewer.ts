@@ -59,6 +59,12 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
     go(controls.target.clone(),flat?new T.Vector3(0,d,.1):homeOffset.clone().normalize().multiplyScalar(d));return flat}
   function north(){go(controls.target.clone(),new T.Vector3(0,flat?1:.79,flat?.0001:.75).normalize().multiplyScalar(camera.position.distanceTo(controls.target)))}
   function zoom(f:number){const offset=camera.position.clone().sub(controls.target);go(controls.target.clone(),offset.setLength(T.MathUtils.clamp(offset.length()*f,72,3200)),280)}
+  function night(active:boolean){
+    sky.set(active?'#223641':'#d4dfd2');(scene.fog as T.FogExp2).color.copy(sky);
+    light.color.set(active?'#96acdd':'#f4f8ff');light.intensity=active?.53:1.8;sun.color.set(active?'#afc2ff':'#fff2db');sun.intensity=active?.48:2.22;
+    blocks.wallMat.emissiveIntensity=active?.94:0;life.glow.visible=active;life.bulbMat.color.set(active?'#ffd289':'#d8d7bc');
+    (water.material as T.ShaderMaterial).uniforms.night.value=active?1:0;dirty=true;
+  }
   const overlay=document.querySelector<HTMLElement>('#labels')!;
   const layers={buildings:blocks.group,trees:life.trees,cars:life.traffic};
   let down=[0,0],previousTouch=0;
