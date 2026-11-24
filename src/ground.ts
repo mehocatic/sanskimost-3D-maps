@@ -95,6 +95,13 @@ export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
     const dx=x-f.x,dz=z-f.z;
     return Math.max(Math.abs(dx*f.az-dz*f.ax)-14,Math.abs(dx*f.ax+dz*f.az+10)-25);
   }
+  function height(x:number,z:number){
+    let h=sampleTerrain(dem,x,z);
+    if(value(x,z,2)>128)h=waterY-.5;
+    else if([[-6,0],[6,0],[0,-6],[0,6]].some(([a,b])=>value(x+a,z+b,2)>128))h=waterY+.25;
+    const blend=Math.max(0,Math.min(1,(courtyardDistance(x,z)-4)/9));
+    return floor+(h-floor)*blend;
+  }
   const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=8;
   const land=new T.Group();
   const g=new T.PlaneGeometry(bound*2,bound*2,360,360);g.rotateX(-Math.PI/2);
