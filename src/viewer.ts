@@ -66,6 +66,10 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
     (water.material as T.ShaderMaterial).uniforms.night.value=active?1:0;dirty=true;
   }
   const overlay=document.querySelector<HTMLElement>('#labels')!;
+  function project(place:Place,h:number){
+    const v=new T.Vector3(place.pos[0],ground.height(...place.pos)+h,place.pos[1]).project(camera);
+    return {x:(v.x*.5+.5)*host.clientWidth,y:(.5-v.y*.5)*host.clientHeight,visible:v.z>-1&&v.z<1};
+  }
   const layers={buildings:blocks.group,trees:life.trees,cars:life.traffic};
   let down=[0,0],previousTouch=0;
   renderer.domElement.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];if(!e.isPrimary)previousTouch=performance.now()});
