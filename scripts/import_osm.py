@@ -173,3 +173,17 @@ def area_kind(t):
         return 'grass'
     if t.get('highway') and t.get('area') == 'yes' or t.get('amenity') == 'bus_station':
         return 'paved'
+
+
+def read_sources(paths):
+    objects = {kind: {} for kind in ('node', 'way', 'relation')}
+    for path in paths:
+        opener = gzip.open if path.suffix == '.gz' else open
+        with opener(path, 'rb') as f:
+            for item in ET.parse(f).getroot():
+                if item.tag in objects:
+                    index = objects[item.tag]
+                    key = item.get('id')
+                    if key not in index or int(item.get('version', '0')) > int(index[key].get('version', '0')):
+                        index[key] = item
+    return objects
