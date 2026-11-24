@@ -50,6 +50,10 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
     flight={start:performance.now(),duration:motion?1:duration,from:controls.target.clone(),eye:camera.position.clone(),to,end:to.clone().add(offset)};
     dirty=true;
   }
+  function focus(pos:Point,distance=260,courtyard=false){
+    if(courtyard&&!flat&&mosque){const model=special.children[0];const target=new T.Vector3(0,21,-6).applyMatrix4(model.matrixWorld);const offset=new T.Vector3(-17,41,-Math.max(110,78/camera.aspect)).applyQuaternion(model.quaternion);go(target,offset);return}
+    const offset=camera.position.clone().sub(controls.target).normalize().multiplyScalar(distance);
+    go(new T.Vector3(pos[0],ground.height(...pos)+3,pos[1]),offset)}
   function home(){flat=false;controls.enableRotate=true;go(homeTarget.clone(),homeOffset)}
   function north(){go(controls.target.clone(),new T.Vector3(0,flat?1:.79,flat?.0001:.75).normalize().multiplyScalar(camera.position.distanceTo(controls.target)))}
   function zoom(f:number){const offset=camera.position.clone().sub(controls.target);go(controls.target.clone(),offset.setLength(T.MathUtils.clamp(offset.length()*f,72,3200)),280)}
