@@ -1,0 +1,121 @@
+import * as T from 'three';
+import {Building,Point,centerOf,rng} from './types';
+type Vertex=[number,number,number];
+class Surfaces {
+  pos:number[]=[]; uv:number[]=[]; color:number[]=[]; ids:number[]=[];
+  tri(a:Vertex,b:Vertex,c:Vertex,uv:number[],tint:T.Color,id:number){
+    this.pos.push(...a,...b,...c);this.uv.push(...uv);
+    for(let i=0;i<3;i++)this.color.push(tint.r,tint.g,tint.b);
+    this.ids.push(id);
+  }
+  mesh(mat:T.Material){
+    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(this.pos,3));
+    g.setAttribute('uv',new T.Float32BufferAttribute(this.uv,2));g.setAttribute('color',new T.Float32BufferAttribute(this.color,3));g.computeVertexNormals();
+    const m=new T.Mesh(g,mat);m.castShadow=m.receiveShadow=true;m.userData.ids=this.ids;return m;
+  }
+}
+export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>number){
+  const walls=new Surfaces(),roofs=new Surfaces(),flatRoofs=new Surfaces(),rand=rng(9125);
+  const facadeColors=['#eddfc9','#eedfc0','#eed5af','#e5e2d4','#dacfbf','#f3e8cb','#dfc9a9','#edcbb7','#e9dfce'];
+  const roofColors=['#af6247','#ad5940','#bd7152','#cc7e58','#aa624e','#c88767','#965641','#c47956','#ad6650','#a57561'];
+  const flatColors=['#b9b5a8','#b5afa4','#a6a7a1','#c0b9af'];
+  const noGeneric=new Set(['w225470278','w346178044','w346178046','w346178047','w346178048','w346178049']);
+  const chimneys:T.Matrix4[]=[],roofDetails:T.Matrix4[]=[];const dummy=new T.Object3D();
+  buildings.forEach((b,id)=>{
+    if(noGeneric.has(b.id)||b.points.length<3)return;
+    const ring=b.points,[cx,cz]=centerOf(ring),base=height(cx,cz),low=Math.min(base,...ring.map(p=>height(...p)))-1.4;
+    let vx=1,vz=0,minArea=Infinity,minB=0,maxB=0;
+    for(let i=0;i<ring.length;i++){
+      const a=ring[i],n=ring[(i+1)%ring.length],dx=n[0]-a[0],dz=n[1]-a[1],l=Math.hypot(dx,dz);if(l<.2)continue;
+      const u=dx/l,v=dz/l,along=ring.map(([x,z])=>x*u+z*v),across=ring.map(([x,z])=>-x*v+z*u);
+      const w=Math.max(...along)-Math.min(...along),h=Math.max(...across)-Math.min(...across);
+      if(w*h>=minArea)continue;
+      minArea=w*h;
+      if(w>=h){vx=u;vz=v;minB=Math.min(...across);maxB=Math.max(...across)}
+      else{vx=v;vz=-u;minB=Math.min(...along);maxB=Math.max(...along)}
+    }
+    const mid=(minB+maxB)/2,half=Math.max(1,(maxB-minB)/2);
+    const flat=b.tags['roof:shape']==='flat'||!!b.holes?.length||b.height>=15||minArea>800;
+    const rise=flat?0:Math.min(half*.48,4.5,b.height*.4);
+    const eave=base+b.height-rise, measure=(p:Point)=>-p[0]*vz+p[1]*vx-mid;
+    const along=ring.map(([x,z])=>x*vx+z*vz),amin=Math.min(...along),amax=Math.max(...along);
+    const hip=!flat&&ring.length<=6&&(b.tags['roof:shape']==='hipped'||(!b.tags['roof:shape']&&rand()<.54));
+    const hipRun=Math.min(half*.85,(amax-amin)*.39);
+    const planes=[(p:Point)=>1-measure(p)/half,(p:Point)=>1+measure(p)/half];
+    if(hip)planes.push(([x,z])=>(x*vx+z*vz-amin)/hipRun,([x,z])=>(amax-x*vx-z*vz)/hipRun);
+    const top=(p:Point)=>eave+rise*Math.max(0,Math.min(...planes.map(fn=>fn(p))));
+    const wallCol=new T.Color(facadeColors[Math.floor(rand()*facadeColors.length)]);
+    const colors=flat?flatColors:roofColors;const roofCol=new T.Color(colors[Math.floor(rand()*colors.length)]);
+    const vec=(p:Point):Vertex=>[p[0],top(p),p[1]];
+    const cut=(a:Point,b:Point):Point=>{const t=measure(a)/(measure(a)-measure(b));return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]};
+    const holes=b.holes||[],rings=[ring,...holes];
+    // Orient each boundary so the normals point out, also around courtyards.
+    rings.forEach((input,k)=>{
+      const pts=[...input], signed=pts.reduce((s,a,i)=>{const n=pts[(i+1)%pts.length];return s+a[0]*n[1]-n[0]*a[1]},0);
+      if((signed>0)!==(k===0))pts.reverse();
+      for(let i=0;i<pts.length;i++){
+        const a=pts[i],n=pts[(i+1)%pts.length],parts=rise&&measure(a)*measure(n)<0?[a,cut(a,n),n]:[a,n];
+        const len=Math.hypot(a[0]-n[0],a[1]-n[1]), repeat=Math.max(1,Math.round(len/3.15));
+        for(let j=0;j<parts.length-1;j++){
+          const p=parts[j],q=parts[j+1],pp:Vertex=[p[0],low,p[1]],qq:Vertex=[q[0],low,q[1]];
+          const u=(v:Point)=>Math.hypot(v[0]-a[0],v[1]-a[1])/Math.max(.01,len)*repeat;
+          const bottom=(low-eave)/3.05,up=(v:Point)=>(top(v)-eave)/3.05;
+          walls.tri(pp,vec(p),qq,[u(p),bottom,u(p),up(p),u(q),bottom],wallCol,id);
+          walls.tri(qq,vec(p),vec(q),[u(q),bottom,u(p),up(p),u(q),up(q)],wallCol,id);
+        }
+      }
+    });
+    const all=rings.flat(),tri=T.ShapeUtils.triangulateShape(ring.map(p=>new T.Vector2(...p)),holes.map(h=>h.map(p=>new T.Vector2(...p))));
+    for(const ids of tri){
+      const pts=ids.map(i=>all[i]);
+      if(hip){
+        for(const plane of planes){
+          let poly=pts;
+          for(const other of planes){
+            if(other===plane||!poly.length)continue;
+            const next:Point[]=[];
+            poly.forEach((a,j)=>{const b=poly[(j+1)%poly.length],da=plane(a)-other(a),db=plane(b)-other(b);
+              if(da<=0)next.push(a);
+              if(da*db<0){const k=da/(da-db);next.push([a[0]+k*(b[0]-a[0]),a[1]+k*(b[1]-a[1])])}
+            });poly=next;
+          }
+          emit(poly);
+        }
+        continue;
+      }
+      if(!rise||pts.every(p=>measure(p)<=0)||pts.every(p=>measure(p)>=0)){emit(pts);continue}
+      for(const sign of [-1,1]){
+        const side:Point[]=[];
+        pts.forEach((a,j)=>{const b=pts[(j+1)%3];if(measure(a)*sign>=0)side.push(a);if(measure(a)*measure(b)<0)side.push(cut(a,b))});
+        emit(side);
+      }
+    }
+    if(!flat&&minArea<350&&ring.length<=6&&rand()>.32){const x=(cx+ring[0][0])/2,z=(cz+ring[0][1])/2;
+      dummy.position.set(x,top([x,z])+.2,z);dummy.scale.set(.65,1.65,.85);dummy.rotation.y=-Math.atan2(vz,vx);dummy.updateMatrix();chimneys.push(dummy.matrix.clone())}
+    if(flat && !holes.length){
+      for(let i=0;i<ring.length;i++){
+        const a=ring[i],b=ring[(i+1)%ring.length],dx=b[0]-a[0],dz=b[1]-a[1];
+        dummy.position.set((a[0]+b[0])/2,eave+.16,(a[1]+b[1])/2);dummy.scale.set(.28,.42,Math.hypot(dx,dz));dummy.rotation.y=Math.atan2(dx,dz);dummy.updateMatrix();roofDetails.push(dummy.matrix.clone());
+      }
+      for(const face of tri.filter((_,j)=>j%4===0).slice(0,5)){
+        const [a,b,c]=face.map(i=>all[i]);
+        if(Math.abs((b[0]-a[0])*(c[1]-a[1])-(c[0]-a[0])*(b[1]-a[1]))<40)continue;
+        dummy.position.set((a[0]+b[0]+c[0])/3,eave+.49,(a[1]+b[1]+c[1])/3);
+        dummy.scale.set(1.5,.85,2.1);dummy.rotation.y=-Math.atan2(vz,vx);dummy.updateMatrix();roofDetails.push(dummy.matrix.clone());
+      }
+    }
+  });
+  const fac=facadeTexture(),wallMat=new T.MeshLambertMaterial({map:fac,vertexColors:true,side:T.DoubleSide});
+  const roofMat=new T.MeshLambertMaterial({map:roofTexture(),vertexColors:true,side:T.DoubleSide});
+  const group=new T.Group();group.add(walls.mesh(wallMat),roofs.mesh(roofMat),flatRoofs.mesh(new T.MeshLambertMaterial({vertexColors:true,side:T.DoubleSide})));
+  const chim=new T.InstancedMesh(new T.BoxGeometry(),new T.MeshLambertMaterial({color:'#996b52'}),chimneys.length);
+  chimneys.forEach((m,i)=>chim.setMatrixAt(i,m));chim.castShadow=true;group.add(chim);
+  const trim=new T.InstancedMesh(new T.BoxGeometry(),new T.MeshLambertMaterial({color:'#c2bdb1'}),roofDetails.length);
+  roofDetails.forEach((m,i)=>trim.setMatrixAt(i,m));trim.castShadow=true;trim.receiveShadow=true;group.add(trim);
+  const lit=document.createElement('canvas');lit.width=lit.height=64;const l=lit.getContext('2d')!;
+  l.fillStyle='black';l.fillRect(0,0,64,64);l.fillStyle='#ffd481';l.fillRect(17,17,11,23);l.fillRect(31,17,11,23);
+  const lights=new T.CanvasTexture(lit);lights.wrapS=lights.wrapT=T.RepeatWrapping;lights.colorSpace=T.SRGBColorSpace;
+  wallMat.emissiveMap=lights;wallMat.emissive.set('#ffcf82');wallMat.emissiveIntensity=0;
+  return {group,wallMat};
+}
+
