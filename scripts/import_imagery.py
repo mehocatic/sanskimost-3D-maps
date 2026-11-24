@@ -52,3 +52,43 @@ def http_range(url, start, count):
     if len(data) != count:
         raise IOError('Incomplete COG response')
     return data
+
+
+def sample_cog(asset, east, north, bilinear):
+    """Read only intersecting native-resolution Deflate tiles from this COG."""
+    url = COG + '/' + asset + '.tif'
+    with Image.open(BytesIO(http_range(url, 0, 65536))) as image:
+        tif = dict(image.tag_v2)
+    if (tif[259], tif.get(284, 1), tif.get(317, 1)) not in ((8,1,1),(8,1,2)):
+        raise ValueError('Unexpected compression/layout for selected GeoTIFF')
+    channels = tif.get(277,1)
+    if tuple(tif[258]) != (8,)*channels or 'UTM zone 33N' not in tif[34737]:
+        raise ValueError('Unexpected source CRS or sample type')
+    _, _, _, west, top, _ = tif[33922]
+    dx, dy, _ = tif[33550]
+    px, py = (east-west)/dx-0.5, (top-north)/dy-0.5
+    width, height = tif[322], tif[323]
+    tx0, tx1 = math.floor(px.min()/width), math.floor((px.max()+1)/width)
+    ty0, ty1 = math.floor(py.min()/height), math.floor((py.max()+1)/height)
+    mosaic = np.zeros(((ty1-ty0+1)*height,(tx1-tx0+1)*width,channels), dtype=np.uint8)
+    tiles_per_row = math.ceil(tif[256]/width)
+    def tile(position):
+        x,y = position
+        i = y*tiles_per_row+x
+        packed = http_range(url, tif[324][i], tif[325][i])
+        array = np.frombuffer(zlib.decompress(packed),dtype=np.uint8).reshape(height,width,channels)
+        if tif.get(317,1)==2:
+            array = np.cumsum(array,axis=1,dtype=np.uint8)
+        return (x-tx0)*width, (y-ty0)*height, array
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        positions = [(x,y) for y in range(ty0,ty1+1) for x in range(tx0,tx1+1)]
+        for x,y,array in pool.map(tile,positions):
+            mosaic[y:y+height,x:x+width] = array
+    px, py = px-tx0*width, py-ty0*height
+    if not bilinear:
+        return mosaic[np.rint(py).astype(int),np.rint(px).astype(int),0]
+    i,j = np.floor(px).astype(int), np.floor(py).astype(int)
+    fx,fy = (px-i)[:,:,None], (py-j)[:,:,None]
+    upper = mosaic[j,i]*(1-fx)+mosaic[j,i+1]*fx
+    lower = mosaic[j+1,i]*(1-fx)+mosaic[j+1,i+1]*fx
+    return np.rint(upper*(1-fy)+lower*fy).astype(np.uint8)
