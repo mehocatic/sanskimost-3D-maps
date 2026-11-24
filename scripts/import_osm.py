@@ -108,3 +108,12 @@ def center(ring):
         for i in (0, 1):
             sums[i] += (a[i]+b[i])*cross
     return tuple(round(v / (6*area), 2) for v in sums)
+
+
+def contains(point, ring):
+    inside = False
+    x, z = point
+    for (ax, az), (bx, bz) in zip(ring, ring[1:] + ring[:1]):
+        if (az > z) != (bz > z) and x < ax + (z - az) * (bx - ax) / (bz - az):
+            inside = not inside
+    return inside
