@@ -1,5 +1,20 @@
 import * as T from 'three';
 import {Building,Point,centerOf,rng} from './types';
+
+function facadeTexture(){
+  const c=document.createElement('canvas');c.width=128;c.height=128;
+  const g=c.getContext('2d')!,rand=rng(337);
+  g.fillStyle='#f0efea';g.fillRect(0,0,128,128);
+  for(let i=0;i<1800;i++){g.fillStyle=i%2?'#e8e6e2':'#f5f4ef';g.fillRect(rand()*128,rand()*128,2,2)}
+  g.fillStyle='#dad7ce';g.fillRect(0,121,128,5);
+  g.fillStyle='#cfcbc0';g.fillRect(32,30,63,66);
+  g.fillStyle='#fdf8eb';g.fillRect(29,27,63,64);
+  g.fillStyle='#6e797a';g.fillRect(33,31,55,55);
+  const gradient=g.createLinearGradient(30,28,95,94);gradient.addColorStop(0,'#788b93');gradient.addColorStop(.55,'#a7b6b5');gradient.addColorStop(1,'#708282');
+  g.fillStyle=gradient;g.fillRect(35,33,51,51);g.fillStyle='#ddd9cf';g.fillRect(58,32,3,53);g.fillRect(34,51,53,2);
+  g.fillStyle='#fffaf0';g.fillRect(26,88,69,5);g.fillStyle='#c3c0b7';g.fillRect(27,93,67,3);
+  const t=new T.CanvasTexture(c);t.wrapS=t.wrapT=T.RepeatWrapping;t.colorSpace=T.SRGBColorSpace;t.anisotropy=4;return t;
+}
 type Vertex=[number,number,number];
 class Surfaces {
   pos:number[]=[]; uv:number[]=[]; color:number[]=[]; ids:number[]=[];
