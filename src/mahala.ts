@@ -127,5 +127,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       }
       box(0,wallH-.64,.04,len,.64,.15,'#848884');return;
     }
+    const bays=Math.max(1,Math.round(len/3.35)),spacing=len/bays;
   });
 }
