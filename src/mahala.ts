@@ -141,6 +141,8 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       shopDoor(len*.06,1.44);
       pane(len*.31,.35,len*.23,2.20);
       sign('PEKARA KLAS',0,3.07,Math.min(6.3,len*.74));
+      // Stall at the end towards the adjacent shop house, with a clear pedestrian passage.
+      const s=b.points[3],endX=(s[0]-mx)*Math.cos(frame.rotation.y)-(s[1]-mz)*Math.sin(frame.rotation.y);
     }else if(front&&style==='arcade'){
     }else{
     }
