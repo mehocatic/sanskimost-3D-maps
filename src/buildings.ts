@@ -160,6 +160,6 @@ export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>n
   l.fillStyle='black';l.fillRect(0,0,64,64);l.fillStyle='#ffd481';l.fillRect(17,17,11,23);l.fillRect(31,17,11,23);
   const lights=new T.CanvasTexture(lit);lights.wrapS=lights.wrapT=T.RepeatWrapping;lights.colorSpace=T.SRGBColorSpace;
   wallMat.emissiveMap=lights;wallMat.emissive.set('#ffcf82');wallMat.emissiveIntensity=0;
-  return {group,wallMat};
+  return {group,wallMat,street};
 }
 
