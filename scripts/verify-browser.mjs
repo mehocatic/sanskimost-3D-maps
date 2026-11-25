@@ -23,6 +23,17 @@ try{
   await snapshot(page,'sanski-most-dan');
   await page.locator('#night').click();await expect(page.locator('#night')).toHaveAttribute('aria-pressed','true');await page.waitForTimeout(300);
   await snapshot(page,'sanski-most-noc');await page.locator('#day').click();
+  for(const [query,id,filename] of [
+    ['Pekara Klas','w510393876','pekara-klas'],
+    ['Stambeno-poslovna','w510393874','ugao-mahale'],
+    ['Kuća s arkadama','w1562605845','hamzibegova-ulica'],
+  ]){
+    await page.locator('#query').fill(query);
+    await page.locator('#places [data-id="'+id+'"]').click();
+    await expect(page.locator('#detail')).toContainText('procjena');
+    await page.waitForTimeout(1000);
+    await snapshot(page,filename);
+  }
   await page.locator('#query').fill('Hamdije Pozderca');await expect(page.locator('#places')).toContainText('Hamdije Pozderca');await page.locator('#query').press('Enter');
   await expect(page.locator('#detail')).toContainText('Hamdije Pozderca');await page.locator('#detail .save').click();
   await page.locator('[data-tab="saved"]').click();await expect(page.locator('#places')).toContainText('Hamdije Pozderca');
