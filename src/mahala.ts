@@ -46,6 +46,6 @@ function facadePattern(kind:'brick'|'stone'){
   g.fillStyle=kind==='brick'?'#a49a88':'#979284';g.fillRect(0,0,256,128);
   const shades=kind==='brick'?['#c28365','#b97856','#c88b66','#bd7553']:['#ccc5b4','#d6cdbb','#bdb6a3','#c4bdad'];
   for(let row=0;row<8;row++)for(let col=-1;col<8;col++){
-    g.fillStyle=shades[(row*7+col*col+11)%4];
+    g.fillStyle=shades[(row*7+col*col+11)%4];g.fillRect(col*32+(row%2)*16,row*16,30,14);
   }
 }
