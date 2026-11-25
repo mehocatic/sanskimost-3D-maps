@@ -94,6 +94,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
   function balcony(x:number,y:number,w:number){
     box(x,y, .66,w,.20,1.5,'#bca68c');box(x,y+.2,1.34,w,.86,.15,'#d5ac7d');
     for(const side of [-1,1]){
+      box(x+side*(w/2-.06),y+.23,.69,.08,.07,1.3,'#ece9dc');
     }
   }
 }
