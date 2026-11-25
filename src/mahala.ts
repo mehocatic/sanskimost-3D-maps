@@ -54,5 +54,5 @@ const signMaterials=new Map<string,T.MeshBasicMaterial>();
 function signMaterial(text:string){
   if(signMaterials.has(text))return signMaterials.get(text)!;
   const c=document.createElement('canvas');c.width=512;c.height=72;const g=c.getContext('2d')!;
-  g.fillStyle=text==='VOĆE I POVRĆE'?'#375943':'#363b38';
+  g.fillStyle=text==='VOĆE I POVRĆE'?'#375943':'#363b38';g.fillRect(0,0,512,72);
 }
