@@ -151,6 +151,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       }
       for(const side of [-1,1])box(sx+side*1.85,.05,2.23,.075,2.5,.075,'#5d5147');
       for(let j=0;j<4;j++){
+        const x=sx+(j-1.5)*.86;
       }
     }else if(front&&style==='arcade'){
     }else{
