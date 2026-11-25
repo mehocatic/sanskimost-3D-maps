@@ -87,4 +87,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     box(x+w*.26,.96,.35,.045,.34,.06,'#e0d8ba');
     box(x,-.06,.23,w+.22,.12,.42,'#aaa598');
   }
+  function sign(text:string,x:number,y:number,w:number,z=.23){
+  }
 }
