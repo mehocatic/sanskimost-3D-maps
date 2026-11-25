@@ -174,6 +174,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
         item.position.set(x,1.67,.24);
         item.scale.setScalar(1);
         item.rotation.set(0,0,0);
+        bake(moulding,material,'#d6d6b9');
       }
     }else{
     }
