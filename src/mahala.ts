@@ -133,7 +133,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       const uv=geo.attributes.uv;
       for(let j=0;j<uv.count;j++)uv.setXY(j,uv.getX(j)*len/4,uv.getY(j)*geo.parameters.height/2);
       const panel=new T.Mesh(geo,new T.MeshLambertMaterial({map:facadePattern(style==='brick'?'brick':'stone')}));
-      panel.position.set(0,geo.parameters.height/2,.012);panel.applyMatrix4(frame.matrix);
+      panel.position.set(0,geo.parameters.height/2,.012);panel.applyMatrix4(frame.matrix);result.add(panel);
     }
   });
 }
