@@ -138,6 +138,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     if(front&&style==='bakery'){
       box(0,.1,.04,len,3.18,.1,'#d7aa6e');
       pane(-len*.23,.38,len*.37,2.18);
+      shopDoor(len*.06,1.44);
     }else if(front&&style==='arcade'){
     }else{
     }
