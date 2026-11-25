@@ -3,7 +3,7 @@ import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
 
 const url=process.env.MAP_TEST_URL || 'http://127.0.0.1:5174/';
-const output=path.resolve('screenshots');
+const output=path.resolve(process.env.MAP_SCREENSHOTS || 'screenshots');
 await mkdir(output,{recursive:true});
 const browser=await chromium.launch({channel:process.env.CHROME_CHANNEL || 'chrome',headless:true,args:['--enable-unsafe-swiftshader']});
 const errors=[], external=[],failed=[];
