@@ -34,3 +34,5 @@ export function cornerRing(ring:Point[]):Point[]{
   }
   return result;
 }
+
+const material=new T.MeshLambertMaterial({vertexColors:true});
