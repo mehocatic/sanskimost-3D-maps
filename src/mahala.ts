@@ -73,4 +73,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     const flat=part.index?part.toNonIndexed():part;if(flat!==part)part.dispose();
     if(!batches.has(mat))batches.set(mat,[]);batches.get(mat)!.push(flat);
   }
+  function box(x:number,y:number,z:number,w:number,h:number,d:number,color:string,mat=material,tilt=0){
+  }
 }
