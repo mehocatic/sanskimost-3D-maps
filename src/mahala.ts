@@ -181,6 +181,8 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       for(let j=0;j<bays;j++){
         const x=(j+.5)*spacing-len/2,shop=front&&['gable','salon'].includes(style);
         const width=Math.min(spacing*.76,shop?2.35:1.6);
+        if(shop&&j===0)shopDoor(x,Math.min(1.65,width));
+        else pane(x,shop?.19:.78,width,shop?2.22:1.42);
       }
     }
   });
