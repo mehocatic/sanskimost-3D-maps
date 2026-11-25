@@ -99,4 +99,5 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       for(let j=0;j<4;j++)box(x+side*(w/2-.06),y+.24,.20+j*.28,.045,.82,.045,'#d6d2c9');
     }
   }
+  const winding=Math.sign(ring.reduce((v,a,i)=>{const c=ring[(i+1)%ring.length];return v+a[0]*c[1]-a[1]*c[0]},0));
 }
