@@ -191,5 +191,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
         if(shop)box(x,2.78,.55,Math.min(spacing*.88,2.7),.10,1.05,'#d6ae7e',material,.19);
       }
     }
+    if(front&&style==='salon')sign('FRIZERSKI SALON',0,2.98,Math.min(4.4,len*.72));
   });
 }
