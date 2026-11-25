@@ -78,5 +78,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
   }
   function pane(x:number,y:number,w:number,h:number,z=.09){
     box(x,y,z,w,h,.10,'#e3dfcd');box(x,y+.1,z+.07,w-.17,h-.20,.08,'#71868c',streetGlass);
+    box(x,y+.10,z+.13,.06,h-.20,.05,'#c9c8bc');
   }
 }
