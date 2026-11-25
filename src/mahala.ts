@@ -69,5 +69,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     item.updateMatrix();const part=geo.clone();part.applyMatrix4(item.matrix);part.applyMatrix4(frame.matrix);
     const tint=new T.Color(color),colors=new Float32Array(part.attributes.position.count*3);
     for(let i=0;i<colors.length;i+=3)tint.toArray(colors,i);
+    part.setAttribute('color',new T.BufferAttribute(colors,3));
   }
 }
