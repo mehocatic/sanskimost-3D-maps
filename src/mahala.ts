@@ -195,6 +195,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     const floors=Math.max(0,Math.floor((wallH-2.3)/2.85));
     for(let level=1;level<=floors;level++)for(let j=0;j<bays;j++){
       const x=(j+.5)*spacing-len/2,y=1+level*2.78;
+      pane(x,y,Math.min(spacing*.62,1.68),1.35);
     }
   });
 }
