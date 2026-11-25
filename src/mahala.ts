@@ -110,5 +110,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       box(0,0,.014,len+.03,wallH,.065,'#777d79');
       if(len>.42)for(let floor=0;floor<5;floor++)pane(0,4.18+floor*3.15,Math.min(.95,len*.78),1.52);
     }
+    if(len<1.1)return;
   });
 }
