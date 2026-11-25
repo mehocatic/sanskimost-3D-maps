@@ -92,5 +92,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     plane.applyMatrix4(frame.matrix);result.add(plane);
   }
   function balcony(x:number,y:number,w:number){
+    box(x,y, .66,w,.20,1.5,'#bca68c');
   }
 }
