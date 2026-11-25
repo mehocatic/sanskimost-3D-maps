@@ -102,5 +102,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
   const winding=Math.sign(ring.reduce((v,a,i)=>{const c=ring[(i+1)%ring.length];return v+a[0]*c[1]-a[1]*c[0]},0));
   const entry=b.points[0];const wallH=eave-base;
   ring.forEach((a,i)=>{
+    const c=ring[(i+1)%ring.length],dx=c[0]-a[0],dz=c[1]-a[1],len=Math.hypot(dx,dz);
   });
 }
