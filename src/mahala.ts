@@ -201,4 +201,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     if(style==='brick')for(let y=3;y<wallH;y+=3)box(0,y,.045,len,.18,.10,'#aaa399');
     if(style==='old')box(0,wallH-.23,.12,len,.20,.29,'#755c45');
   });
+  for(const [mat,parts] of batches){
+  }
 }
