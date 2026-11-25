@@ -107,6 +107,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     frame.position.set(mx,base,mz);frame.rotation.set(0,Math.atan2(winding*dz/len,-winding*dx/len),0);frame.updateMatrix();
     const isCorner=style==='corner',rounded=isCorner&&Math.hypot(mx-entry[0],mz-entry[1])<3.3;
     if(rounded){
+      box(0,0,.014,len+.03,wallH,.065,'#777d79');
     }
   });
 }
