@@ -89,6 +89,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
   }
   function sign(text:string,x:number,y:number,w:number,z=.23){
     const plane=new T.Mesh(new T.PlaneGeometry(w,.52),signMaterial(text));plane.position.set(x,y,z);
-    plane.applyMatrix4(frame.matrix);
+    plane.applyMatrix4(frame.matrix);result.add(plane);
   }
 }
