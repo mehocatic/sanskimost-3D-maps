@@ -135,5 +135,9 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       const panel=new T.Mesh(geo,new T.MeshLambertMaterial({map:facadePattern(style==='brick'?'brick':'stone')}));
       panel.position.set(0,geo.parameters.height/2,.012);panel.applyMatrix4(frame.matrix);result.add(panel);
     }
+    if(front&&style==='bakery'){
+    }else if(front&&style==='arcade'){
+    }else{
+    }
   });
 }
