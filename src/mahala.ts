@@ -36,3 +36,4 @@ export function cornerRing(ring:Point[]):Point[]{
 }
 
 const material=new T.MeshLambertMaterial({vertexColors:true});
+export const streetGlass=new T.MeshLambertMaterial({vertexColors:true,emissive:'#ffcc83',emissiveIntensity:0});
