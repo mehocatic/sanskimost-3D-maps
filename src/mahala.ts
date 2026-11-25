@@ -44,4 +44,5 @@ function facadePattern(kind:'brick'|'stone'){
   const canvas=document.createElement('canvas');canvas.width=256;canvas.height=128;
   const g=canvas.getContext('2d')!;
   g.fillStyle=kind==='brick'?'#a49a88':'#979284';g.fillRect(0,0,256,128);
+  const shades=kind==='brick'?['#c28365','#b97856','#c88b66','#bd7553']:['#ccc5b4','#d6cdbb','#bdb6a3','#c4bdad'];
 }
