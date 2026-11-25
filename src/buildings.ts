@@ -63,6 +63,11 @@ export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>n
       if(w>=h){vx=u;vz=v;minB=Math.min(...across);maxB=Math.max(...across)}
       else{vx=v;vz=-u;minB=Math.min(...along);maxB=Math.max(...along)}
     }
+    if(profile?.style==='gable'||profile?.style==='brick'){
+      const i=profile.fronts![0],a=ring[i],b=ring[(i+1)%ring.length],len=Math.hypot(b[0]-a[0],b[1]-a[1]);
+      vx=(b[1]-a[1])/len;vz=(a[0]-b[0])/len;
+      const across=ring.map(([x,z])=>-x*vz+z*vx);minB=Math.min(...across);maxB=Math.max(...across);
+    }
     const mid=(minB+maxB)/2,half=Math.max(1,(maxB-minB)/2);
     const flat=b.tags['roof:shape']==='flat'||!!b.holes?.length||b.height>=15||minArea>800;
     const rise=flat?0:Math.min(half*.48,4.5,b.height*.4);
