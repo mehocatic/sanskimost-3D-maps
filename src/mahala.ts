@@ -140,6 +140,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       pane(-len*.23,.38,len*.37,2.18);
       shopDoor(len*.06,1.44);
       pane(len*.31,.35,len*.23,2.20);
+      sign('PEKARA KLAS',0,3.07,Math.min(6.3,len*.74));
     }else if(front&&style==='arcade'){
     }else{
     }
