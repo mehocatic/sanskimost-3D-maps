@@ -42,4 +42,5 @@ const tileMaps=new Map<string,T.CanvasTexture>();
 function facadePattern(kind:'brick'|'stone'){
   if(tileMaps.has(kind))return tileMaps.get(kind)!;
   const canvas=document.createElement('canvas');canvas.width=256;canvas.height=128;
+  const g=canvas.getContext('2d')!;
 }
