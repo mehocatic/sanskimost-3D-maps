@@ -20,6 +20,7 @@ Za produkciju pokreni `npm run build`. Na statički hosting prenesi **sadržaj d
 - Tekstura tla je georeferencirani izrez snimka Sentinel-2B od 14. augusta 2026. Rezolucija je 10 m. Klasifikacija označava 184 od 1.166.400 uzoraka kao ciruse. Podloga je pomiješana s kartiranim površinama. Contains modified Copernicus Sentinel data 2026. [Porijeklo i granice snimka](public/data/ground.json).
 - Za 38 zgrada visina je izvedena iz broja etaža. Ostale generičke visine, fasade i krovovi su procjene. Posebni modeli džamije i stadiona generiraju se u Three.js-u prema stvarnim konturama. [Izvori modela](public/data/landmarks-sources.txt).
 - Vodena površina je izravnata za refleksije. Automobili simuliraju promet duž kartiranih segmenata. Dopunska stabla, trotoari, detalji mostova i svjetiljke predstavljaju ilustrativnu rekonstrukciju.
+- U Mahali i Hamzibegovoj 19 objekata prati lokalne OSM tlocrte. Ugaona zgrada, Pekara Klas s voćarom i još pet objekata imaju posebno modelirane fasade. Visine, materijali i raspored fasadnih detalja procijenjeni su prema dostavljenim pogledima s ulice. U pretragu upiši „Pekara Klas“ ili „Kuća s arkadama“ za pogled na pročelje.
 
 ## Provjera
 
