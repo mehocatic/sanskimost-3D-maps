@@ -178,6 +178,8 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
         moulding.dispose();
       }
     }else{
+      for(let j=0;j<bays;j++){
+      }
     }
   });
 }
