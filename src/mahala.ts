@@ -144,6 +144,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       // Stall at the end towards the adjacent shop house, with a clear pedestrian passage.
       const s=b.points[3],endX=(s[0]-mx)*Math.cos(frame.rotation.y)-(s[1]-mz)*Math.sin(frame.rotation.y);
       const sx=Math.sign(endX)*(len/2-2.1);
+      box(sx,2.55,1.25,4,.17,2.5,'#a9473c',material,.10);
     }else if(front&&style==='arcade'){
     }else{
     }
