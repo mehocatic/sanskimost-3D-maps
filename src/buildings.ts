@@ -73,7 +73,7 @@ export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>n
     const rise=flat?0:Math.min(half*.48,4.5,buildingHeight*.4);
     const eave=base+buildingHeight-rise, measure=(p:Point)=>-p[0]*vz+p[1]*vx-mid;
     const along=ring.map(([x,z])=>x*vx+z*vz),amin=Math.min(...along),amax=Math.max(...along);
-    const hip=!flat&&ring.length<=6&&(b.tags['roof:shape']==='hipped'||(!b.tags['roof:shape']&&rand()<.54));
+    const hip=!flat&&ring.length<=6&&(profile?['old','salon','bakery'].includes(profile.style):b.tags['roof:shape']==='hipped'||(!b.tags['roof:shape']&&rand()<.54));
     const hipRun=Math.min(half*.85,(amax-amin)*.39);
     const planes=[(p:Point)=>1-measure(p)/half,(p:Point)=>1+measure(p)/half];
     if(hip)planes.push(([x,z])=>(x*vx+z*vz-amin)/hipRun,([x,z])=>(amax-x*vx-z*vz)/hipRun);
