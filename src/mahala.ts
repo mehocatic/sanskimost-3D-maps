@@ -122,6 +122,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
         for(let floor=0;floor<5;floor++){
           const y=3.7+floor*3.15;
           pane(x,y+.48,Math.min(1.9,spacing*.72),1.52);
+          if(len>10&&(col===0||col===bays-1)&&!rounded)balcony(x,y,spacing*.90);
         }
       }
     }
