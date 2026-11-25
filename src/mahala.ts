@@ -43,5 +43,5 @@ function facadePattern(kind:'brick'|'stone'){
   if(tileMaps.has(kind))return tileMaps.get(kind)!;
   const canvas=document.createElement('canvas');canvas.width=256;canvas.height=128;
   const g=canvas.getContext('2d')!;
-  g.fillStyle=kind==='brick'?'#a49a88':'#979284';
+  g.fillStyle=kind==='brick'?'#a49a88':'#979284';g.fillRect(0,0,256,128);
 }
