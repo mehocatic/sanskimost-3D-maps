@@ -88,6 +88,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     box(x,-.06,.23,w+.22,.12,.42,'#aaa598');
   }
   function sign(text:string,x:number,y:number,w:number,z=.23){
-    const plane=new T.Mesh(new T.PlaneGeometry(w,.52),signMaterial(text));
+    const plane=new T.Mesh(new T.PlaneGeometry(w,.52),signMaterial(text));plane.position.set(x,y,z);
   }
 }
