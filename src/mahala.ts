@@ -53,4 +53,5 @@ function facadePattern(kind:'brick'|'stone'){
 const signMaterials=new Map<string,T.MeshBasicMaterial>();
 function signMaterial(text:string){
   if(signMaterials.has(text))return signMaterials.get(text)!;
+  const c=document.createElement('canvas');
 }
