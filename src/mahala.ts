@@ -120,6 +120,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
         const x=(col+.5)*spacing-len/2;
         pane(x,.25,spacing*.89,2.72,.16);
         for(let floor=0;floor<5;floor++){
+          const y=3.7+floor*3.15;
         }
       }
     }
