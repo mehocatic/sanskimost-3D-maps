@@ -70,6 +70,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     const tint=new T.Color(color),colors=new Float32Array(part.attributes.position.count*3);
     for(let i=0;i<colors.length;i+=3)tint.toArray(colors,i);
     part.setAttribute('color',new T.BufferAttribute(colors,3));
-    const flat=part.index?part.toNonIndexed():part;
+    const flat=part.index?part.toNonIndexed():part;if(flat!==part)part.dispose();
   }
 }
