@@ -183,6 +183,8 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
         const width=Math.min(spacing*.76,shop?2.35:1.6);
         if(shop&&j===0)shopDoor(x,Math.min(1.65,width));
         else pane(x,shop?.19:.78,width,shop?2.22:1.42);
+        if(style==='old'&&front){
+        }
       }
     }
   });
