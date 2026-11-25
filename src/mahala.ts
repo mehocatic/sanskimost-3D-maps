@@ -118,6 +118,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       box(0,.1,.06,len,3.35,.12,'#404a4b');
       for(let col=0;col<bays;col++){
         const x=(col+.5)*spacing-len/2;
+        pane(x,.25,spacing*.89,2.72,.16);
       }
     }
   });
