@@ -69,9 +69,9 @@ export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>n
       const across=ring.map(([x,z])=>-x*vz+z*vx);minB=Math.min(...across);maxB=Math.max(...across);
     }
     const mid=(minB+maxB)/2,half=Math.max(1,(maxB-minB)/2);
-    const flat=b.tags['roof:shape']==='flat'||!!b.holes?.length||b.height>=15||minArea>800;
-    const rise=flat?0:Math.min(half*.48,4.5,b.height*.4);
-    const eave=base+b.height-rise, measure=(p:Point)=>-p[0]*vz+p[1]*vx-mid;
+    const flat=b.tags['roof:shape']==='flat'||!!b.holes?.length||buildingHeight>=15||minArea>800;
+    const rise=flat?0:Math.min(half*.48,4.5,buildingHeight*.4);
+    const eave=base+buildingHeight-rise, measure=(p:Point)=>-p[0]*vz+p[1]*vx-mid;
     const along=ring.map(([x,z])=>x*vx+z*vz),amin=Math.min(...along),amax=Math.max(...along);
     const hip=!flat&&ring.length<=6&&(b.tags['roof:shape']==='hipped'||(!b.tags['roof:shape']&&rand()<.54));
     const hipRun=Math.min(half*.85,(amax-amin)*.39);
