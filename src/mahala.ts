@@ -50,3 +50,4 @@ function facadePattern(kind:'brick'|'stone'){
   }
   const map=new T.CanvasTexture(canvas);map.wrapS=map.wrapT=T.RepeatWrapping;map.colorSpace=T.SRGBColorSpace;tileMaps.set(kind,map);return map;
 }
+const signMaterials=new Map<string,T.MeshBasicMaterial>();
