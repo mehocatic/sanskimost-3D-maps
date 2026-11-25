@@ -136,6 +136,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       panel.position.set(0,geo.parameters.height/2,.012);panel.applyMatrix4(frame.matrix);result.add(panel);
     }
     if(front&&style==='bakery'){
+      box(0,.1,.04,len,3.18,.1,'#d7aa6e');
     }else if(front&&style==='arcade'){
     }else{
     }
