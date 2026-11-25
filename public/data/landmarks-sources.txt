@@ -22,3 +22,11 @@ Oba modela generira Three.js iz lokalnih podataka.
 © OpenStreetMap contributors · Open Database Licence 1.0
 https://www.openstreetmap.org/copyright
 Avlija: ulazno pročelje i šadrvan modelirani su prema dostavljenoj fotografiji. Tlocrt niskog krila prati OSM w225470278, a šest malih krovnih dijelova w346178041–43 i w346178060–62. Dimenzije detalja, popločenje i položaj šadrvana su procjene.
+
+Mahala i Hamzibegova ulica
+Lokalni OSM izvod određuje tlocrte 19 zgrada, položaje kartiranih lokala i
+kućne brojeve. Ugaona zgrada, kuća sa zabatom i pekara prate objekte
+w510393874–76. Posebne fasade u Hamzibegovoj prate brojeve 1, 3, 5 i 11.
+Zaobljenje ugla, balkoni, arkade, izlozi, tezga, boje i visine vizuelne su
+procjene prema dostavljenim pogledima s ulice. Preostalih 12 kuća koristi
+zajednički model prilagođen tlocrtu. Fotografije nisu dio aplikacije.
