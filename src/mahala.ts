@@ -111,5 +111,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       if(len>.42)for(let floor=0;floor<5;floor++)pane(0,4.18+floor*3.15,Math.min(.95,len*.78),1.52);
     }
     if(len<1.1)return;
+    const front=profile.fronts?.includes(i)??false;
   });
 }
