@@ -1,3 +1,4 @@
+import {mahala,streetGlass} from './mahala';
 import * as T from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {makeGround} from './ground';
@@ -35,7 +36,7 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
   }
   if(pitch){const m=createPodgrmecPitch(pitch.points,ground.height);m.userData.place=pitch.id;special.add(m)}
   const camera=new T.PerspectiveCamera(39,1,1.5,16000),controls=new OrbitControls(camera,renderer.domElement);
-  controls.enableDamping=true;controls.dampingFactor=.12;controls.minDistance=72;controls.maxDistance=3200;controls.maxPolarAngle=Math.PI*.414;
+  controls.enableDamping=true;controls.dampingFactor=.12;controls.minDistance=9;controls.maxDistance=3200;controls.maxPolarAngle=Math.PI*.414;
   controls.mouseButtons={LEFT:T.MOUSE.PAN,MIDDLE:T.MOUSE.DOLLY,RIGHT:T.MOUSE.ROTATE};controls.screenSpacePanning=false;
   controls.touches={ONE:T.TOUCH.PAN,TWO:T.TOUCH.DOLLY_ROTATE};controls.zoomSpeed=1.15;
   const homeTarget=new T.Vector3(-56,ground.height(-56,224),224),homeOffset=new T.Vector3(-369,390,430);
