@@ -14,5 +14,6 @@ export const mahala:Record<string,Profile>={
   w1081338214:{style:'old',name:'Stara kuća · Hamzibegova 11',height:5.1,wall:'#bbac92',roof:'#955f49',fronts:[0]},
 };
 for(const [id,wall,roof,h] of [
-  ['w1081338209','#e0d2ac','#8b5c48',7.5],['w1081338212','#e4dbc4','#ad7760',4.5]
+  ['w1081338209','#e0d2ac','#8b5c48',7.5],['w1081338212','#e4dbc4','#ad7760',4.5],
+  ['w1081338213','#e3d7b8','#ac7259',8.1]
 ] as const)mahala[id]={style:'house',name:'Kuća u džematu',height:h,wall,roof};
