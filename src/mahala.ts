@@ -48,5 +48,5 @@ function facadePattern(kind:'brick'|'stone'){
   for(let row=0;row<8;row++)for(let col=-1;col<8;col++){
     g.fillStyle=shades[(row*7+col*col+11)%4];g.fillRect(col*32+(row%2)*16,row*16,30,14);
   }
-  const map=new T.CanvasTexture(canvas);map.wrapS=map.wrapT=T.RepeatWrapping;map.colorSpace=T.SRGBColorSpace;tileMaps.set(kind,map);
+  const map=new T.CanvasTexture(canvas);map.wrapS=map.wrapT=T.RepeatWrapping;map.colorSpace=T.SRGBColorSpace;tileMaps.set(kind,map);return map;
 }
