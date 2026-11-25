@@ -119,6 +119,8 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       for(let col=0;col<bays;col++){
         const x=(col+.5)*spacing-len/2;
         pane(x,.25,spacing*.89,2.72,.16);
+        for(let floor=0;floor<5;floor++){
+        }
       }
     }
   });
