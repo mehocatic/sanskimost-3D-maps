@@ -1,3 +1,4 @@
+import {mahala} from './mahala';
 import './style.css';
 import {createViewer} from './viewer';
 import {City,Feature,Place,Terrain,centerOf} from './types';
@@ -35,7 +36,7 @@ async function start(){
   const museumNames:Record<string,string>={park:'Park',school:'Škola',hospital:'Zdravstvo',pharmacy:'Apoteka',place_of_worship:'Vjerski objekat',restaurant:'Restoran',cafe:'Kafić',hotel:'Hotel',supermarket:'Prodavnica',pitch:'Sportski teren',stadium:'Stadion',river:'Rijeka',parking:'Parking',cemetery:'Groblje',bank:'Banka',fuel:'Benzinska pumpa',bridge:'Most',village:'Naselje',suburb:'Naselje'};
   for(const poi of city.pois){if(places.has(poi.id))continue;places.set(poi.id,{id:poi.id,name:poi.name,category:museumNames[poi.kind]||'Lokacija',icon:'map-pin',pos:[poi.x,poi.z],tags:poi.tags})}
   for(const r of city.roads){if(!r.name)continue;const old=places.get(r.id);if(old?.art)continue;places.set(r.id,{id:r.id,name:r.name,category:r.bridge?'Most':'Ulica',icon:r.bridge?'milestone':'route',pos:centerOf(r.points),tags:r.tags})}
-  for(const b of city.buildings){if(places.get(b.id)?.art)continue;const old=places.get(b.id);places.set(b.id,{...old,id:b.id,name:b.name||old?.name||'Zgrada',category:old?.category||'Građevina',icon:old?.icon||'building-2',pos:centerOf(b.points),height:b.height,heightSource:b.heightSource,tags:b.tags})}
+  for(const b of city.buildings){if(places.get(b.id)?.art)continue;const old=places.get(b.id);places.set(b.id,{...old,id:b.id,name:b.name||(mahala[b.id]?.style!=='house'&&mahala[b.id]?.name)||old?.name||'Zgrada',category:old?.category||'Građevina',icon:old?.icon||'building-2',pos:centerOf(b.points),height:mahala[b.id]?.height??b.height,heightSource:mahala[b.id]?"estimate":b.heightSource,tags:b.tags})}
   let selected:Place|undefined,tab='places',night=false,step=-1,timer=0;
   const saved=new Set<string>();try{const ids=JSON.parse(localStorage.getItem('sanski.saved')||'[]');if(Array.isArray(ids))ids.forEach(id=>{if(typeof id==='string'&&places.has(id))saved.add(id)})}catch{}
   const photo=new Image();photo.src=base+"data/ground.jpg";await photo.decode();
