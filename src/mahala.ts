@@ -40,4 +40,5 @@ export const streetGlass=new T.MeshLambertMaterial({vertexColors:true,emissive:'
 const cube=new T.BoxGeometry(), produce=new T.IcosahedronGeometry(1,0);
 const tileMaps=new Map<string,T.CanvasTexture>();
 function facadePattern(kind:'brick'|'stone'){
+  if(tileMaps.has(kind))return tileMaps.get(kind)!;
 }
