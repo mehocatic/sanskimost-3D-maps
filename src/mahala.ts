@@ -198,5 +198,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       pane(x,y,Math.min(spacing*.62,1.68),1.35);
       if(style==='gable'&&front&&j===0&&level===floors)balcony(x,y-.45,2.1);
     }
+    if(style==='brick')for(let y=3;y<wallH;y+=3)box(0,y,.045,len,.18,.10,'#aaa399');
   });
 }
