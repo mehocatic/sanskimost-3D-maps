@@ -16,5 +16,5 @@ export const mahala:Record<string,Profile>={
 for(const [id,wall,roof,h] of [
   ['w1081338209','#e0d2ac','#8b5c48',7.5],['w1081338212','#e4dbc4','#ad7760',4.5],
   ['w1081338213','#e3d7b8','#ac7259',8.1],['w1081338215','#d0b9a4','#825a4e',6.6],
-  ['w1081338216','#dfc8aa','#a26c54',7.4]
+  ['w1081338216','#dfc8aa','#a26c54',7.4],['w1081338217','#e5dbc9','#9c6550',7.3]
 ] as const)mahala[id]={style:'house',name:'Kuća u džematu',height:h,wall,roof};
