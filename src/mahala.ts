@@ -9,4 +9,5 @@ export const mahala:Record<string,Profile>={
   w510393875:{style:'gable',name:'Kuća s lokalima u Mahali',height:10.8,wall:'#d2b28d',roof:'#ab7562',fronts:[0]},
   w510393876:{style:'bakery',name:'Pekara Klas i voćara',height:8.1,wall:'#b9afa1',roof:'#8f6552',fronts:[3]},
   w1562605845:{style:'arcade',name:'Kuća s arkadama · Hamzibegova 1',height:10.8,wall:'#bed09f',roof:'#726c61',fronts:[6,8]},
+  w1081338210:{style:'salon',name:'Kuća s poslovnim prizemljem · Hamzibegova 3',height:8.0,wall:'#eadbc7',roof:'#a76c54',fronts:[1]},
 };
