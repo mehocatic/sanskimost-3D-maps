@@ -83,5 +83,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
   function shopDoor(x:number,w:number){
     pane(x,.08,w,2.48,.14);
     box(x,.08,.30,w-.14,.21,.06,'#858a83');
+    box(x,1.93,.30,w-.14,.065,.05,'#d7d6c9');
   }
 }
