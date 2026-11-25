@@ -125,6 +125,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
           if(len>10&&(col===0||col===bays-1)&&!rounded)balcony(x,y,spacing*.90);
         }
       }
+      box(0,wallH-.64,.04,len,.64,.15,'#848884');
     }
   });
 }
