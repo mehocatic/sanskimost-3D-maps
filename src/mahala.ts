@@ -202,6 +202,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     if(style==='old')box(0,wallH-.23,.12,len,.20,.29,'#755c45');
   });
   for(const [mat,parts] of batches){
-    const geometry=mergeGeometries(parts);
+    const geometry=mergeGeometries(parts);parts.forEach(g=>g.dispose());
   }
 }
