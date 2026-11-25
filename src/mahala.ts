@@ -203,5 +203,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
   });
   for(const [mat,parts] of batches){
     const geometry=mergeGeometries(parts);parts.forEach(g=>g.dispose());
+    if(geometry){}
   }
 }
