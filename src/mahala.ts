@@ -188,6 +188,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
             box(x+side*(width/2+.16),.79,.08,.28,1.4,.12,'#756e58');
           }
         }
+        if(shop)box(x,2.78,.55,Math.min(spacing*.88,2.7),.10,1.05,'#d6ae7e',material,.19);
       }
     }
   });
