@@ -51,7 +51,27 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
     flight={start:performance.now(),duration:motion?1:duration,from:controls.target.clone(),eye:camera.position.clone(),to,end:to.clone().add(offset)};
     dirty=true;
   }
-  function focus(pos:Point,distance=260,courtyard=false){
+  const shopBuildings:Record<string,string>={n5424651934:'w510393876',n14220106202:'w510393876',n14220106203:'w510393875',n14220106204:'w510393874',n14220106205:'w510393874'};
+  function focus(pos:Point,distance=260,courtyard=false,placeId=''){
+    const streetId=shopBuildings[placeId]??placeId,profile=mahala[streetId];
+    if(!flat&&profile&&profile.style!=='house'){
+      const building=city.buildings.find(b=>b.id===streetId);
+      if(building){
+        const ring=building.points,i=profile.fronts?.[0]??0,a=ring[i],b=ring[(i+1)%ring.length];
+        const direction=Math.sign(ring.reduce((sum,a,j)=>{const b=ring[(j+1)%ring.length];return sum+a[0]*b[1]-a[1]*b[0]},0));
+        const face=new T.Vector3(b[1]-a[1],0,a[0]-b[0]).normalize().multiplyScalar(direction);
+        const corner=profile.style==='corner';
+        const [x,z]=corner?centerOf(ring):[(a[0]+b[0])/2,(a[1]+b[1])/2];
+        // Keep the bakery viewpoint in the lane, in front of the courtyard canopy.
+        const alley=building.tags['addr:street']==='Hamzibegova ulica';
+        const reach=corner?57:profile.style==='bakery'?14:20;
+        const offset=face.multiplyScalar(reach);
+        // Look along the narrow street from the junction, clear of the opposite roof.
+        offset.applyAxisAngle(new T.Vector3(0,1,0),alley?-1.18:corner?-.28:.10);
+        offset.y=reach*(corner?.4:.30);
+        go(new T.Vector3(x,ground.height(x,z)+profile.height*.47,z),offset);return;
+      }
+    }
     if(courtyard&&!flat&&mosque){const model=special.children[0];const target=new T.Vector3(0,21,-6).applyMatrix4(model.matrixWorld);const offset=new T.Vector3(-17,41,-Math.max(110,78/camera.aspect)).applyQuaternion(model.quaternion);go(target,offset);return}
     const offset=camera.position.clone().sub(controls.target).normalize().multiplyScalar(distance);
     go(new T.Vector3(pos[0],ground.height(...pos)+3,pos[1]),offset)}
