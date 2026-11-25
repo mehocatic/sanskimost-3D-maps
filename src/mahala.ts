@@ -193,5 +193,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     }
     if(front&&style==='salon')sign('FRIZERSKI SALON',0,2.98,Math.min(4.4,len*.72));
     const floors=Math.max(0,Math.floor((wallH-2.3)/2.85));
+    for(let level=1;level<=floors;level++)for(let j=0;j<bays;j++){
+    }
   });
 }
