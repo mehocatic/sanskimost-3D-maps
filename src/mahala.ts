@@ -63,4 +63,5 @@ function signMaterial(text:string){
 // baked together per building so window frames and stalls stay cheap to render.
 export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
   const profile=mahala[b.id],style=profile.style,result=new T.Group();
+  result.userData.place=b.id;
 }
