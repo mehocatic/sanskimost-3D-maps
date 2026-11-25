@@ -83,7 +83,7 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
   function night(active:boolean){
     sky.set(active?'#223641':'#d4dfd2');(scene.fog as T.FogExp2).color.copy(sky);
     light.color.set(active?'#96acdd':'#f4f8ff');light.intensity=active?.53:1.8;sun.color.set(active?'#afc2ff':'#fff2db');sun.intensity=active?.48:2.22;
-    blocks.wallMat.emissiveIntensity=active?.94:0;life.glow.visible=active;life.bulbMat.color.set(active?'#ffd289':'#d8d7bc');
+    streetGlass.emissiveIntensity=active?.53:0;blocks.wallMat.emissiveIntensity=active?.94:0;life.glow.visible=active;life.bulbMat.color.set(active?'#ffd289':'#d8d7bc');
     (water.material as T.ShaderMaterial).uniforms.night.value=active?1:0;dirty=true;
   }
   const overlay=document.querySelector<HTMLElement>('#labels')!;
