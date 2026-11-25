@@ -173,6 +173,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
         const moulding=new T.RingGeometry(rad,rad+.15,20,1,0,Math.PI);
         item.position.set(x,1.67,.24);
         item.scale.setScalar(1);
+        item.rotation.set(0,0,0);
       }
     }else{
     }
