@@ -50,7 +50,9 @@ export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>n
   const chimneys:T.Matrix4[]=[],roofDetails:T.Matrix4[]=[];const dummy=new T.Object3D();
   buildings.forEach((b,id)=>{
     if(noGeneric.has(b.id)||b.points.length<3)return;
-    const ring=b.points,[cx,cz]=centerOf(ring),base=height(cx,cz),low=Math.min(base,...ring.map(p=>height(...p)))-1.4;
+    const profile=mahala[b.id],buildingHeight=profile?.height??b.height;
+    const ring=profile?.style==='corner'?cornerRing(b.points):b.points;
+    const [cx,cz]=centerOf(ring),base=height(cx,cz),low=Math.min(base,...ring.map(p=>height(...p)))-1.4;
     let vx=1,vz=0,minArea=Infinity,minB=0,maxB=0;
     for(let i=0;i<ring.length;i++){
       const a=ring[i],n=ring[(i+1)%ring.length],dx=n[0]-a[0],dz=n[1]-a[1],l=Math.hypot(dx,dz);if(l<.2)continue;
