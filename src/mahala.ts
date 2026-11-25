@@ -65,4 +65,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
   const profile=mahala[b.id],style=profile.style,result=new T.Group();
   result.userData.place=b.id;
   const batches=new Map<T.Material,T.BufferGeometry[]>(),frame=new T.Object3D(),item=new T.Object3D();
+  function bake(geo:T.BufferGeometry,mat:T.Material,color:string){
+  }
 }
