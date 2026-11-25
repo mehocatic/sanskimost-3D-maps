@@ -80,6 +80,8 @@ export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>n
     const top=(p:Point)=>eave+rise*Math.max(0,Math.min(...planes.map(fn=>fn(p))));
     const wallCol=new T.Color(facadeColors[Math.floor(rand()*facadeColors.length)]);
     const colors=flat?flatColors:roofColors;const roofCol=new T.Color(colors[Math.floor(rand()*colors.length)]);
+    const wallSurface=profile?plainWalls:walls;
+    if(profile){wallCol.set(profile.wall);roofCol.set(profile.roof);street.add(streetDetails(b,ring,base,eave))}
     const vec=(p:Point):Vertex=>[p[0],top(p),p[1]];
     const cut=(a:Point,b:Point):Point=>{const t=measure(a)/(measure(a)-measure(b));return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]};
     const holes=b.holes||[],rings=[ring,...holes];
@@ -94,8 +96,8 @@ export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>n
           const p=parts[j],q=parts[j+1],pp:Vertex=[p[0],low,p[1]],qq:Vertex=[q[0],low,q[1]];
           const u=(v:Point)=>Math.hypot(v[0]-a[0],v[1]-a[1])/Math.max(.01,len)*repeat;
           const bottom=(low-eave)/3.05,up=(v:Point)=>(top(v)-eave)/3.05;
-          walls.tri(pp,vec(p),qq,[u(p),bottom,u(p),up(p),u(q),bottom],wallCol,id);
-          walls.tri(qq,vec(p),vec(q),[u(q),bottom,u(p),up(p),u(q),up(q)],wallCol,id);
+          wallSurface.tri(pp,vec(p),qq,[u(p),bottom,u(p),up(p),u(q),bottom],wallCol,id);
+          wallSurface.tri(qq,vec(p),vec(q),[u(q),bottom,u(p),up(p),u(q),up(q)],wallCol,id);
         }
       }
     });
@@ -149,6 +151,7 @@ export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>n
   const fac=facadeTexture(),wallMat=new T.MeshLambertMaterial({map:fac,vertexColors:true,side:T.DoubleSide});
   const roofMat=new T.MeshLambertMaterial({map:roofTexture(),vertexColors:true,side:T.DoubleSide});
   const group=new T.Group();group.add(walls.mesh(wallMat),roofs.mesh(roofMat),flatRoofs.mesh(new T.MeshLambertMaterial({vertexColors:true,side:T.DoubleSide})));
+  group.add(plainWalls.mesh(new T.MeshLambertMaterial({vertexColors:true,side:T.DoubleSide})),street);
   const chim=new T.InstancedMesh(new T.BoxGeometry(),new T.MeshLambertMaterial({color:'#996b52'}),chimneys.length);
   chimneys.forEach((m,i)=>chim.setMatrixAt(i,m));chim.castShadow=true;group.add(chim);
   const trim=new T.InstancedMesh(new T.BoxGeometry(),new T.MeshLambertMaterial({color:'#c2bdb1'}),roofDetails.length);
