@@ -74,6 +74,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     if(!batches.has(mat))batches.set(mat,[]);batches.get(mat)!.push(flat);
   }
   function box(x:number,y:number,z:number,w:number,h:number,d:number,color:string,mat=material,tilt=0){
-    item.position.set(x,y+h/2,z);item.scale.set(w,h,d);item.rotation.set(tilt,0,0);
+    item.position.set(x,y+h/2,z);item.scale.set(w,h,d);item.rotation.set(tilt,0,0);bake(cube,mat,color);
   }
 }
