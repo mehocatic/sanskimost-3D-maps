@@ -105,5 +105,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     const c=ring[(i+1)%ring.length],dx=c[0]-a[0],dz=c[1]-a[1],len=Math.hypot(dx,dz);
     const mx=(a[0]+c[0])/2,mz=(a[1]+c[1])/2;
     frame.position.set(mx,base,mz);frame.rotation.set(0,Math.atan2(winding*dz/len,-winding*dx/len),0);frame.updateMatrix();
+    const isCorner=style==='corner',rounded=isCorner&&Math.hypot(mx-entry[0],mz-entry[1])<3.3;
   });
 }
