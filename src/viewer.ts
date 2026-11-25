@@ -138,7 +138,10 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
   const rate=matchMedia('(max-width:700px)').matches?24:30;
   let visible=true;document.addEventListener('visibilitychange',()=>{visible=!document.hidden;last=0;dirty=true});
   function draw(now:number){
-    requestAnimationFrame(draw);if(!visible || now-until<1000/rate)return;until=now;
+    requestAnimationFrame(draw);
+    const interval=1000/rate;
+    if(!visible||now+.25<until)return;
+    until=Math.max(until+interval,now+interval*.5);
     const dt=last?Math.min(.12,(now-last)/1000):0;last=now;
     if(flight){const t=Math.min(1,(now-flight.start)/flight.duration),s=t*t*(3-2*t);
       controls.target.lerpVectors(flight.from,flight.to,s);camera.position.lerpVectors(flight.eye,flight.end,s);if(t===1)flight=null;dirty=true}
