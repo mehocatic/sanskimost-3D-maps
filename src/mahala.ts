@@ -165,7 +165,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
         const x=(j+.5)*spacing-len/2,rad=Math.min(1.2,spacing*.40);
         const arch=new T.Shape();arch.moveTo(-rad,0);arch.lineTo(rad,0);arch.lineTo(rad,1.55);arch.absarc(0,1.55,rad,0,Math.PI,false);arch.closePath();
         item.position.set(x,.12,.06);item.scale.setScalar(1);item.rotation.set(0,0,0);
-        const geo=new T.ShapeGeometry(arch,10);bake(geo,material,'#52584d');
+        const geo=new T.ShapeGeometry(arch,10);bake(geo,material,'#52584d');geo.dispose();
       }
     }else{
     }
