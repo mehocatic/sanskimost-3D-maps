@@ -55,9 +55,19 @@ export function cityLife(city:City,height:(x:number,z:number)=>number,density:(x
   const leaves=new T.IcosahedronGeometry(1,0),leafColors:number[]=[];
   const vc=new T.Color();for(let i=0;i<leaves.attributes.position.count;i+=3){vc.setScalar(.89+rand()*.14);for(let j=0;j<3;j++)leafColors.push(vc.r,vc.g,vc.b)}
   leaves.setAttribute('color',new T.Float32BufferAttribute(leafColors,3));
-  trees.add(instances(leaves,new T.MeshLambertMaterial({vertexColors:true,flatShading:true}),crowns),
-    instances(new T.CylinderGeometry(.55,1,1,5),new T.MeshLambertMaterial(),trunks),
-    instances(new T.ConeGeometry(1,1,7),new T.MeshLambertMaterial({flatShading:true}),conifers));
+  // Bound instances by neighbourhood so a street view can cull distant groves.
+  function addTrees(geometry:T.BufferGeometry,material:T.Material,items:Item[]){
+    const cells=new Map<string,Item[]>();
+    for(const item of items){
+      const key=Math.floor(item.p[0]/500)+','+Math.floor(item.p[2]/500);
+      if(!cells.has(key))cells.set(key,[]);
+      cells.get(key)!.push(item);
+    }
+    for(const cell of cells.values())trees.add(instances(geometry,material,cell));
+  }
+  addTrees(leaves,new T.MeshLambertMaterial({vertexColors:true,flatShading:true}),crowns);
+  addTrees(new T.CylinderGeometry(.55,1,1,5),new T.MeshLambertMaterial(),trunks);
+  addTrees(new T.ConeGeometry(1,1,7),new T.MeshLambertMaterial({flatShading:true}),conifers);
   const deck:Item[]=[],rails:Item[]=[],piers:Item[]=[],paint:Item[]=[],poles:Item[]=[],bulbs:Item[]=[];
   const bridgeYs=new Map<string,[number,number,number]>();
   function streetlight(x:number,z:number,y:number){
