@@ -91,4 +91,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     const plane=new T.Mesh(new T.PlaneGeometry(w,.52),signMaterial(text));plane.position.set(x,y,z);
     plane.applyMatrix4(frame.matrix);result.add(plane);
   }
+  function balcony(x:number,y:number,w:number){
+  }
 }
