@@ -21,3 +21,16 @@ for(const [id,wall,roof,h] of [
   ['w1081624282','#ded6be','#966b55',7.8],['w1081624284','#e7d3b8','#945f4d',6.7],
   ['w1081624283','#d9c19e','#ab7359',7.6],['w510393873','#dcd5c8','#916b58',7.3]
 ] as const)mahala[id]={style:'house',name:'Kuća u džematu',height:h,wall,roof};
+
+// Round only the street corner, retaining the survey vertices of the other facades.
+export function cornerRing(ring:Point[]):Point[]{
+  const result:Point[]=[];
+  for(let i=0;i<ring.length;i++){
+    if(![7,0,1].includes(i)){result.push(ring[i]);continue}
+    const a=ring[(i+ring.length-1)%ring.length],b=ring[i],c=ring[(i+1)%ring.length];
+    const toward=(p:Point):Point=>{const dx=p[0]-b[0],dz=p[1]-b[1],t=Math.min(.42,.9/Math.hypot(dx,dz));return [b[0]+dx*t,b[1]+dz*t]};
+    const l=toward(a),r=toward(c);
+    for(let k=0;k<=3;k++){const t=k/3,q=1-t;result.push([q*q*l[0]+2*t*q*b[0]+t*t*r[0],q*q*l[1]+2*t*q*b[1]+t*t*r[1]])}
+  }
+  return result;
+}
