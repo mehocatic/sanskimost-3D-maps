@@ -66,6 +66,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
   result.userData.place=b.id;
   const batches=new Map<T.Material,T.BufferGeometry[]>(),frame=new T.Object3D(),item=new T.Object3D();
   function bake(geo:T.BufferGeometry,mat:T.Material,color:string){
-    item.updateMatrix();const part=geo.clone();part.applyMatrix4(item.matrix);
+    item.updateMatrix();const part=geo.clone();part.applyMatrix4(item.matrix);part.applyMatrix4(frame.matrix);
   }
 }
