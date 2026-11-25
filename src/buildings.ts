@@ -1,5 +1,6 @@
 import * as T from 'three';
 import {Building,Point,centerOf,rng} from './types';
+import {cornerRing,mahala,streetDetails} from './mahala';
 
 function facadeTexture(){
   const c=document.createElement('canvas');c.width=128;c.height=128;
@@ -40,7 +41,8 @@ class Surfaces {
   }
 }
 export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>number){
-  const walls=new Surfaces(),roofs=new Surfaces(),flatRoofs=new Surfaces(),rand=rng(9125);
+  const walls=new Surfaces(),plainWalls=new Surfaces(),roofs=new Surfaces(),flatRoofs=new Surfaces(),rand=rng(9125);
+  const street=new T.Group();
   const facadeColors=['#eddfc9','#eedfc0','#eed5af','#e5e2d4','#dacfbf','#f3e8cb','#dfc9a9','#edcbb7','#e9dfce'];
   const roofColors=['#af6247','#ad5940','#bd7152','#cc7e58','#aa624e','#c88767','#965641','#c47956','#ad6650','#a57561'];
   const flatColors=['#b9b5a8','#b5afa4','#a6a7a1','#c0b9af'];
