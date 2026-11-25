@@ -71,5 +71,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     for(let i=0;i<colors.length;i+=3)tint.toArray(colors,i);
     part.setAttribute('color',new T.BufferAttribute(colors,3));
     const flat=part.index?part.toNonIndexed():part;if(flat!==part)part.dispose();
+    if(!batches.has(mat))batches.set(mat,[]);
   }
 }
