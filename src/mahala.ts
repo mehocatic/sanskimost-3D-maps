@@ -6,4 +6,5 @@ type Style = 'corner'|'bakery'|'gable'|'arcade'|'salon'|'brick'|'old'|'house';
 interface Profile {style:Style; name:string; height:number; wall:string; roof:string; fronts?:number[]}
 export const mahala:Record<string,Profile>={
   w510393874:{style:'corner',name:'Stambeno-poslovna zgrada na uglu',height:20.2,wall:'#e4e2ce',roof:'#969b95'},
+  w510393875:{style:'gable',name:'Kuća s lokalima u Mahali',height:10.8,wall:'#d2b28d',roof:'#ab7562',fronts:[0]},
 };
