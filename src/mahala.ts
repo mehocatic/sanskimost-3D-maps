@@ -131,6 +131,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     if(style==='brick'||((style==='salon'||style==='old')&&front)){
       const geo=new T.PlaneGeometry(len,style==='brick'?wallH:style==='old'?1:3);
       const uv=geo.attributes.uv;
+      for(let j=0;j<uv.count;j++)uv.setXY(j,uv.getX(j)*len/4,uv.getY(j)*geo.parameters.height/2);
     }
   });
 }
