@@ -185,6 +185,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
         else pane(x,shop?.19:.78,width,shop?2.22:1.42);
         if(style==='old'&&front){
           for(const side of [-1,1]){
+            box(x+side*(width/2+.16),.79,.08,.28,1.4,.12,'#756e58');
           }
         }
       }
