@@ -25,3 +25,5 @@ Za produkciju pokreni `npm run build`. Na statički hosting prenesi **sadržaj d
 ## Provjera
 
 Uz lokalno pokrenut server na portu 5174 i instaliran Chrome pokreni `node scripts/verify-browser.mjs`. Adresa drugog lokalnog servera može se zadati varijablom `MAP_TEST_URL`. Skripta provjerava desktop i simulirani dodirni prikaz, odabir objekta, pretragu, sačuvane lokacije, slojeve, osvjetljenje, kameru, obilazak i izvore. Prijavljuje greške konzole i neuspjele ili vanjske zahtjeve. Snimke sprema u [screenshots](screenshots).
+
+Za poređenje fasada test snima i ugaonu zgradu, pekaru i arkade. Za spremanje snimaka u drugi direktorij postavi `MAP_SCREENSHOTS`.
