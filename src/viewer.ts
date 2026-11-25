@@ -103,7 +103,7 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
     if(e.button!==0||performance.now()-previousTouch<350||Math.hypot(e.clientX-down[0],e.clientY-down[1])>4)return;
     const r=host.getBoundingClientRect(),ray=new T.Raycaster();ray.setFromCamera(new T.Vector2((e.clientX-r.left)/r.width*2-1,1-(e.clientY-r.top)/r.height*2),camera);
     const clickable:T.Object3D[]=[ground.land.children[0],...life.spans.children];
-    if(blocks.group.visible)clickable.push(...special.children,...blocks.group.children.filter(c=>c.userData.ids));
+    if(blocks.group.visible)clickable.push(blocks.street,...special.children,...blocks.group.children.filter(c=>c.userData.ids));
     const hits=ray.intersectObjects(clickable,true);
     const hit=hits[0];if(!hit)return;let o:T.Object3D|null=hit.object;
     while(o){if(o.userData.place){select(o.userData.place);return}o=o.parent}
