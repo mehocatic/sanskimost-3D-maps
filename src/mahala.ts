@@ -163,6 +163,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     }else if(front&&style==='arcade'){
       for(let j=0;j<bays;j++){
         const x=(j+.5)*spacing-len/2,rad=Math.min(1.2,spacing*.40);
+        const arch=new T.Shape();
       }
     }else{
     }
