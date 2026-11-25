@@ -112,5 +112,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     }
     if(len<1.1)return;
     const front=profile.fronts?.includes(i)??false;
+    if(isCorner){
+    }
   });
 }
