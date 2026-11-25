@@ -79,7 +79,7 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
   function top(){flat=!flat;controls.enableRotate=!flat;const d=camera.position.distanceTo(controls.target);
     go(controls.target.clone(),flat?new T.Vector3(0,d,.1):homeOffset.clone().normalize().multiplyScalar(d));return flat}
   function north(){go(controls.target.clone(),new T.Vector3(0,flat?1:.79,flat?.0001:.75).normalize().multiplyScalar(camera.position.distanceTo(controls.target)))}
-  function zoom(f:number){const offset=camera.position.clone().sub(controls.target);go(controls.target.clone(),offset.setLength(T.MathUtils.clamp(offset.length()*f,72,3200)),280)}
+  function zoom(f:number){const offset=camera.position.clone().sub(controls.target);go(controls.target.clone(),offset.setLength(T.MathUtils.clamp(offset.length()*f,controls.minDistance,controls.maxDistance)),280)}
   function night(active:boolean){
     sky.set(active?'#223641':'#d4dfd2');(scene.fog as T.FogExp2).color.copy(sky);
     light.color.set(active?'#96acdd':'#f4f8ff');light.intensity=active?.53:1.8;sun.color.set(active?'#afc2ff':'#fff2db');sun.intensity=active?.48:2.22;
