@@ -58,3 +58,8 @@ function signMaterial(text:string){
   g.textAlign='center';g.textBaseline='middle';g.fillStyle='#fff6dc';g.font='600 44px sans-serif';g.fillText(text,256,37,480);
   const map=new T.CanvasTexture(c);map.colorSpace=T.SRGBColorSpace;const mat=new T.MeshBasicMaterial({map});signMaterials.set(text,mat);return mat;
 }
+
+// A facade is authored in metres with local +Z facing the pavement. Geometry is
+// baked together per building so window frames and stalls stay cheap to render.
+export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
+}
