@@ -161,6 +161,8 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       }
       sign('VOĆE I POVRĆE',sx,2.42,3.2,2.53);
     }else if(front&&style==='arcade'){
+      for(let j=0;j<bays;j++){
+      }
     }else{
     }
   });
