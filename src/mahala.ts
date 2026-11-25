@@ -80,4 +80,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     box(x,y,z,w,h,.10,'#e3dfcd');box(x,y+.1,z+.07,w-.17,h-.20,.08,'#71868c',streetGlass);
     box(x,y+.10,z+.13,.06,h-.20,.05,'#c9c8bc');box(x,y-.08,z+.05,w+.15,.11,.26,'#d7d0be');
   }
+  function shopDoor(x:number,w:number){
+  }
 }
