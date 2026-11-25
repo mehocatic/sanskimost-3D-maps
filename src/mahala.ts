@@ -146,6 +146,8 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
       const sx=Math.sign(endX)*(len/2-2.1);
       box(sx,2.55,1.25,4,.17,2.5,'#a9473c',material,.10);
       box(sx,2.39,2.48,4,.20,.10,'#933d35');
+      for(const side of [-1,1]){
+      }
     }else if(front&&style==='arcade'){
     }else{
     }
