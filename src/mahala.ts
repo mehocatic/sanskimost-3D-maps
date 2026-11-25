@@ -156,6 +156,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
         box(x,.61,1.73,.83,.11,.05,'#b99564');
         for(let k=0;k<8;k++){
           item.position.set(x+(k%4-1.5)*.16,.72,1.15+Math.floor(k/4)*.28);item.rotation.set(0,k,0);item.scale.set(.13,.12,.13);
+          bake(produce,material,['#b44f35','#b0a14c','#759450','#d48a37'][j]);
         }
       }
     }else if(front&&style==='arcade'){
