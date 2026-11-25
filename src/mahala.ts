@@ -172,6 +172,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
         box(x+rad+.055,.08,.13,.16,1.57,.23,'#c6c9aa');
         const moulding=new T.RingGeometry(rad,rad+.15,20,1,0,Math.PI);
         item.position.set(x,1.67,.24);
+        item.scale.setScalar(1);
       }
     }else{
     }
