@@ -180,6 +180,7 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     }else{
       for(let j=0;j<bays;j++){
         const x=(j+.5)*spacing-len/2,shop=front&&['gable','salon'].includes(style);
+        const width=Math.min(spacing*.76,shop?2.35:1.6);
       }
     }
   });
