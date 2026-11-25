@@ -77,6 +77,6 @@ export function streetDetails(b:Building,ring:Point[],base:number,eave:number){
     item.position.set(x,y+h/2,z);item.scale.set(w,h,d);item.rotation.set(tilt,0,0);bake(cube,mat,color);
   }
   function pane(x:number,y:number,w:number,h:number,z=.09){
-    box(x,y,z,w,h,.10,'#e3dfcd');
+    box(x,y,z,w,h,.10,'#e3dfcd');box(x,y+.1,z+.07,w-.17,h-.20,.08,'#71868c',streetGlass);
   }
 }
