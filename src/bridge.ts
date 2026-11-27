@@ -209,9 +209,9 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       const pos=slab.attributes.position,centre=at(s0,0,0),forward=at(s0+1,0,0).sub(centre);
       for(let i=0;i<pos.count;i++){
         const s=s0+(pos.getX(i)-centre.x)*forward.x+(pos.getZ(i)-centre.z)*forward.z;
-        
+        pos.setY(i,pos.getY(i)+heightAt(s)-base);
       }
-      
+      slab.computeVertexNormals();
       
       
     }
