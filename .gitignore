@@ -2,3 +2,6 @@ node_modules/
 dist/
 .qa/
 __pycache__/
+*.blend1
+*.blend@
+/blender/Centar - Mahala.blend
