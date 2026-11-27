@@ -148,7 +148,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
     g.fillStyle='#6b8882';g.fillRect(18,17,96,122);g.fillRect(126,17,96,122);
     g.fillStyle='#bec1ad';g.fillRect(106,84,4,20);g.fillRect(130,84,4,20);
   });
-  
+  model.add(new T.PlaneGeometry(3.55,2.62),entrance,doorX,base+1.31,doorZ,yaw);
   const riverBlock=clip(clip(clip(ring,p=>u(p)-34),p=>v(p)-7),p=>len-3-u(p));
   
   const konzum=canvasMaterial(640,164,g=>{
