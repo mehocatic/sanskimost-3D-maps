@@ -33,7 +33,7 @@ export class Model {
   build(id:string){
     for(const [material,parts] of this.parts){
       const mesh=new T.Mesh(mergeGeometries(parts),material);mesh.castShadow=mesh.receiveShadow=true;
-      
+      this.group.add(mesh);
     }
     this.group.userData.place=id;return this.group;
   }
