@@ -41,7 +41,7 @@ function plaza(m:Model,w:number,l:number){
     for(const z of [-24,-19,-14,-9])m.box(rampX,.095,z,.13,.03,1.6,metal);
   }
   sign(m,'LC Waikiki',-w/2-.09,8,-l/2+7,12,2,-Math.PI/2,'#243d86','#bcab97');
-  
+  sign(m,'pepco',-w/2-.1,5.8,-l/2+7,10,1.7,-Math.PI/2,'white','#3455a0');
   
   
   
