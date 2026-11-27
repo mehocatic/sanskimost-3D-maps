@@ -244,7 +244,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       const armStart=new T.Vector3(p.x,tip.y,p.z);
       const yaw=Math.atan2(tip.x-p.x,tip.z-p.z);
       model.beam(armStart,tip,.12,.09,metal);
-      
+      model.add(lampHead(),metal,tip.x,tip.y+.015,tip.z,yaw);
       
     }
     for(let s=5;s<len-2;s+=6.8){
