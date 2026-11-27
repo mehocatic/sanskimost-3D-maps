@@ -45,7 +45,7 @@ function plaza(m:Model,w:number,l:number){
   sign(m,'LC Waikiki',-w/2-.09,8,l/2-7,12,2,-Math.PI/2,'#243d86','#bcab97');
   sign(m,'Sinsay',-w/2+5,8,-l/2-.09,8,2.1,Math.PI,'white','#232323');
   sign(m,'SPORT REALITY',-w/2+5,5.8,-l/2-.09,8,1.2,Math.PI,'#273e75','#bcab97');
-  
+  sign(m,'LC Waikiki',w/2-6,8,l/2+.09,11,2,0,'#243d86','#bcab97');
   for(let i=-4;i<=4;i++)m.box(i*1.35,4.8,l/2,.45,9.6,.35,i%3===0?green:dark);
   for(let i=0;i<5;i++)m.box(w/2-4-i*1.3,1,l/2+.7,1.15,1.6,1.1,metal);
 }
