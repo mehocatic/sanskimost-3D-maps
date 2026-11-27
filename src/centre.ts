@@ -45,7 +45,7 @@ function facade(style:Skin){
       g.fillStyle='#939e9e';g.fillRect(0,0,2,512);
     }else if(style==='tower'){
       for(let row=0;row<3;row++)window(15,42+row*152,226,78);
-      g.fillStyle='#cdd4d2';
+      g.fillStyle='#cdd4d2';g.fillRect(0,0,9,512);
     }else if(style==='glass'){
       for(let j=0;j<5;j++)window(2,j*102+3,252,96,true);
     }else{
