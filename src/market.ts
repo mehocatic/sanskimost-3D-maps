@@ -56,11 +56,11 @@ function stalls(m:Model,w:number,l:number,outer:number){
     const z=-l/2+(i+.5)*bay;
     if(i===1&&outer)continue;
     if(outer){
-      
+      m.box(outer*(w/2-.12),1.23,z,.24,2.6,bay,pink);
       if(i%2===0)m.box(outer*w/2,1.55,z,.1,.65,.64,timber);
     }
     for(const s of [-1,1]){
-      
+      m.box(s*(w/2-.13),1.25,z-bay/2+.1,.16,2.6,.18,timber);
       const roof=new T.BoxGeometry(w*.56,.16,bay+.025);
       
     }
