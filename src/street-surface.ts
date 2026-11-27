@@ -63,7 +63,7 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
   const {position,uv}=geo.attributes;
   for(let i=0;i<position.count;i++){
     const x=xs[i%xs.length],z=zs[Math.floor(i/xs.length)];
-    
+    position.setXYZ(i,x,height(x,z),z);
     
   }
   
