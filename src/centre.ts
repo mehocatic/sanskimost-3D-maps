@@ -177,10 +177,10 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
     slab(a+1.9,3.66,7.56,4.8,.13,5.15,'#d9ddd2');
     slab(a+1.3,3.9,5.20,1.3,.13,.82,'#ab9370');
     for(const b of [3.1,4.7])slab(a+1.3,b,4.77,1.35,.26,.43,'#6a634e');
-    
+    slab(a+1.7,1.36,4.76,2.55,.53,.68,'#424b46');
     for(const offset of [.8,1.7,2.55]){
       const [x,z]=point(a+offset,1.35),shrub=new T.IcosahedronGeometry(.48,1);
-      
+      shrub.scale(.72,1.20,.69);
       
     }
   }
