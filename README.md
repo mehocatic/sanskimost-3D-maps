@@ -21,6 +21,7 @@ Za produkciju pokreni `npm run build`. Na statički hosting prenesi **sadržaj d
 - Za 38 zgrada visina je izvedena iz broja etaža. Ostale generičke visine, fasade i krovovi su procjene. Posebni modeli džamije i stadiona generiraju se u Three.js-u prema stvarnim konturama. [Izvori modela](public/data/landmarks-sources.txt).
 - Vodena površina je izravnata za refleksije. Automobili simuliraju promet duž kartiranih segmenata. Dopunska stabla, trotoari, detalji mostova i svjetiljke predstavljaju ilustrativnu rekonstrukciju.
 - U Mahali i Hamzibegovoj 19 objekata prati lokalne OSM tlocrte. Ugaona zgrada, Pekara Klas s voćarom i još pet objekata imaju posebno modelirane fasade. Visine, materijali i raspored fasadnih detalja procijenjeni su prema dostavljenim pogledima s ulice. U pretragu upiši „Pekara Klas“ ili „Kuća s arkadama“ za pogled na pročelje.
+- Na prilazu Gradskom mostu rekonstruisani su Konzum i terasa Hami VF, zelena i roze zgrada, dvije zgrade s bankama, parking te kružno ostrvo s Cvijetom Srebrenice. Most ima dva pješačka proširenja i modeliranu ploču s gradskim grbom. Svaku lokaciju možeš pronaći pretragom. Tlocrt i položaj prate lokalnu bazu, a visine, oprema i detalji su procjene prema dostavljenim fotografijama.
 
 ## Provjera
 
