@@ -118,7 +118,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
     strip(half,-half,0,0,asphalt);
     strip(edge,half,.153,.153,rim);
     strip(-half,-edge,.153,.153,rim);
-    
+    strip(half,half,.153,0,rim);
     
     const baseEdge=(s:number,w:number)=>{
       const p=point(s,w,0);
