@@ -175,7 +175,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   for(let a=terraceStart+.7;a<terraceEnd-3.3;a+=4.9){
     for(const b of [1.12,6.2])slab(a,b,6.0,.12,3.18,.12,'#d9ddd2');
     slab(a+1.9,3.66,7.56,4.8,.13,5.15,'#d9ddd2');
-    
+    slab(a+1.3,3.9,5.20,1.3,.13,.82,'#ab9370');
     for(const b of [3.1,4.7])slab(a+1.3,b,4.77,1.35,.26,.43,'#6a634e');
     
     for(const offset of [.8,1.7,2.55]){
