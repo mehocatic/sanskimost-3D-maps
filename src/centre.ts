@@ -65,7 +65,7 @@ function facade(style:Skin){
   },true);
   if(style!=='cladding'){
     const map=new T.CanvasTexture(mask);map.wrapS=T.RepeatWrapping;map.colorSpace=T.SRGBColorSpace;
-    mat.emissiveMap=map;mat.emissiveIntensity=0;
+    mat.emissiveMap=map;mat.emissive.set('#ffe5b4');mat.emissiveIntensity=0;
   }
   return mat;
 }
