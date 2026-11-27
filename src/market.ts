@@ -12,12 +12,12 @@ function sign(m:Model,label:string,x:number,y:number,z:number,w:number,h:number,
     g.fillStyle=background;g.fillRect(0,0,512,96);g.fillStyle=ink;
     g.textAlign='center';g.textBaseline='middle';g.font='bold 72px Arial';g.fillText(label,256,52,490);
   });
-  
+  m.add(new T.PlaneGeometry(w,h),mat,x,y,z,yaw);
 }
 function plaza(m:Model,w:number,l:number){
   const grey=finish('#b9bfc3'),sand=finish('#bcab97'),green=finish('#64ad36'),dark=finish('#343c41'),metal=finish('#d8dada');
   const h=9.4;
-  
+  m.box(0,h/2-.55,0,w,h+1.1,l,grey);
   
   for(const side of [-1,1]){
     const x=side*w/2;
