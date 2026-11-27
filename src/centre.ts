@@ -265,7 +265,7 @@ export function plazaParking(area:Feature){
     if(i%4===1||!inside(point(s+2.45,5.45)))continue;
     const [x,z]=point(s+1.36,3),y=frontageY,yaw=Math.atan2(uz,-ux);
     const color=finish(['#939b9c','#6b7278','#d9dad4','#a9594f','#637b8c'][i%5]);
-    
+    cars.box(x,y+.53,z,1.74,.75,3.96,color,yaw);
     
     
   }
