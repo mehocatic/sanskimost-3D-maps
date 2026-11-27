@@ -64,9 +64,9 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
   for(let i=0;i<position.count;i++){
     const x=xs[i%xs.length],z=zs[Math.floor(i/xs.length)];
     position.setXYZ(i,x,height(x,z),z);
-    
+    uv.setXY(i,(x-x0)/size,1-(z-z0)/size);
   }
-  
+  geo.computeVertexNormals();
   const mesh=new T.Mesh(geo,new T.MeshLambertMaterial({map,transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1}));
   mesh.receiveShadow=true;return mesh;
 }
