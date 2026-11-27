@@ -139,7 +139,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
     g.fillStyle='#c0dc51';g.fillText('Azel',23,57);
     g.fillStyle='#f1f0e8';g.fillText('France',197,57,293);
   });
-  
+  panel(4.55,-.151,3.93,4.55,.97,azel);
   
   const [doorX,doorZ]=point(len-4.5,-.106);
   const entrance=canvasMaterial(240,160,g=>{
