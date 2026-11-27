@@ -125,8 +125,8 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       p.y=ground(p.x,p.z)-.08;
       return p;
     };
-    
-    
+    ribbon(sequence,s=>baseEdge(s,edge),s=>point(s,edge,.153),concrete);
+    ribbon(sequence,s=>point(s,-edge,.153),s=>baseEdge(s,-edge),concrete);
     const across=samples(2*edge).map(d=>d-edge);
     
     const stairStart=10.4,stairEnd=14.6;
