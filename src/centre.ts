@@ -266,8 +266,8 @@ export function plazaParking(area:Feature){
     const [x,z]=point(s+1.36,3),y=frontageY,yaw=Math.atan2(uz,-ux);
     const color=finish(['#939b9c','#6b7278','#d9dad4','#a9594f','#637b8c'][i%5]);
     cars.box(x,y+.53,z,1.74,.75,3.96,color,yaw);
-    
-    
+    cars.box(x,y+1.06,z,1.52,.55,2.17,finish('#657478'),yaw);
+    cars.box(x,y+1.36,z,1.48,.09,1.8,color,yaw);
   }
   return {lines:model.build(area.id),cars:cars.build(area.id)};
 }
