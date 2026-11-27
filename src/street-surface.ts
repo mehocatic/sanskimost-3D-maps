@@ -50,7 +50,7 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
   const random=rng(6534);ctx.globalCompositeOperation='source-atop';
   for(let i=0;i<37000;i++){
     ctx.fillStyle=i%2?'rgba(84,79,66,.12)':'rgba(242,237,212,.12)';
-    
+    ctx.fillRect(x0+random()*size,z0+random()*size,.18+random()*.19,.16);
   }
   ctx.globalCompositeOperation='destination-out';
   for(const [a,b,c,d] of [[0,0,110,0],[pixels,0,pixels-110,0],[0,0,0,110],[0,pixels,0,pixels-110]]){
