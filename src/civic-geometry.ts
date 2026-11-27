@@ -19,7 +19,7 @@ export class Model {
     geometry.applyMatrix4(this.transform.matrix);
     const part=geometry.index?geometry.toNonIndexed():geometry;
     if(geometry!==part)geometry.dispose();
-    const batch=this.parts.get(material)??[];
+    const batch=this.parts.get(material)??[];batch.push(part);this.parts.set(material,batch);
   }
   box(x:number,y:number,z:number,w:number,h:number,d:number,mat:T.Material,yaw=0){
     
