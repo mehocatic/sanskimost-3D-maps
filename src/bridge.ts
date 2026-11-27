@@ -25,7 +25,7 @@ function cityShield(){
     g.fillStyle='#abaea8';g.fill(shield);g.strokeStyle='#515751';g.lineWidth=7;g.stroke(shield);
     g.textAlign='center';g.fillStyle='#3d423e';g.font='bold 25px sans-serif';g.fillText('SANSKI MOST',128,53,174);
     g.fillRect(41,67,174,66);g.fillStyle='#d4d2c7';
-    
+    g.fill(new Path2D('M46 124L83 89L112 121L128 111L144 121L177 91L211 124Z'));
     
     g.fillStyle='#515751';for(const [x,w] of [[44,38],[92,69],[172,39]]){
       
