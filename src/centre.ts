@@ -236,8 +236,8 @@ export function flowerIsland(area:Feature,height:(x:number,z:number)=>number){
   model.add(new T.CylinderGeometry(r,r+.13,.38,64),finish('#c4c1b4'),x,y+.11,z);
   model.add(new T.CylinderGeometry(r-.17,r-.17,.16,64),finish('#414449'),x,y+.35,z);
   for(let j=0;j<11;j++){
-    const a=j*Math.PI*2/11,petal=new T.SphereGeometry(1,12,8);
-    
+    const a=j*Math.PI*2/11,petal=new T.SphereGeometry(1,12,8);petal.scale(r*.122,.19,r*.31);
+    model.add(petal,finish('#f3f1e3'),x+Math.sin(a)*r*.49,y+.46,z+Math.cos(a)*r*.49,a);
   }
   
   return model.build(area.id);
