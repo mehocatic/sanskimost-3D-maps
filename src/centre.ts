@@ -113,10 +113,10 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   for(let a=.45;a<13;a+=1.24)slab(a,-.099,9.25,.07,9.61,.06,'#a3636a');
   slab(13,6.3,9.25,.40,9.7,.35,'#758e96');
   const residence=clip(clip(clip(ring,p=>u(p)-13),p=>35-u(p)),p=>v(p)-7.2);
-  
+  prism(model,residence,base+4.4,base+12.4,facade('centre'),cap,3.2);
   for(const a of [18.2,27.8]){
     for(const y of [6.8,9.4]){
-      
+      slab(a,6.78,y,2.32,.16,.95,'#aeb2ae');
       
     }
   }
