@@ -58,8 +58,8 @@ function facade(style:Skin){
             g.fillStyle=['#bbaf99','#d4c6ae','#a89f89'][(row+Math.abs(col))%3];g.fillRect(col*65+row%2*32,top+row*h/10,63,h/10-2);
           }
         }
-        
-        if(style==='green'){g.fillStyle='#d9dac0';}
+        window(j===floors-1?12:27,top+h*.16,j===floors-1?232:202,h*(j===floors-1?.77:.56));
+        if(style==='green'){g.fillStyle='#d9dac0';g.fillRect(0,top,256,5)}
       }
     }
   },true);
