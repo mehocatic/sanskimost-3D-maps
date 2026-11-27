@@ -30,7 +30,7 @@ function facade(style:Skin){
     function window(x:number,y:number,w:number,h:number,green=false){
       g.fillStyle='#656c69';g.fillRect(x-3,y-3,w+6,h+8);
       const sky=g.createLinearGradient(x,y,x+w*.65,y+h);
-      sky.addColorStop(0,green?'#68a19b':'#abc3c7');
+      sky.addColorStop(0,green?'#68a19b':'#abc3c7');sky.addColorStop(.47,green?'#469189':'#81969c');
       
       g.fillStyle=sky;
       g.fillStyle=green?'#637d78':'#e2ded2';
