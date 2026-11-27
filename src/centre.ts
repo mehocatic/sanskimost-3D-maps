@@ -103,7 +103,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   slab((2+len)/2,0,4.20,len-2,.72,.19,'#39845c');
   slab((2+len)/2,-.03,3.82,len-2,.09,.20,'#cbc694');
   slab(len,7.75,4.20,.20,.72,15.5,'#39845c');
-  
+  slab(len,7.75,3.82,.21,.09,15.5,'#cbc694');
   for(const y of [.9,2.18,3.44])slab(len,7.75,y,.13,.07,15.5,'#4b8a66');
 
   // The roundabout wing projects above the ground-floor shop and open side entrance.
