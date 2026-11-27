@@ -35,7 +35,7 @@ function plaza(m:Model,w:number,l:number){
     // Covered garage lane opens toward the old market and drops near the pedestrian portal.
     const rampX=x+side*1.8;
     const canopy=new T.BoxGeometry(3.65,.18,17);canopy.rotateX(.16);
-    
+    m.add(canopy,metal,rampX,1.85,-16);
     for(const z of [-24,-17,-9])m.box(x+side*3.5,(1.85-(z+16)*.16)/2,z,.13,1.85-(z+16)*.16,.13,metal);
     
     for(const z of [-24,-19,-14,-9])m.box(rampX,.095,z,.13,.03,1.6,metal);
