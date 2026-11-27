@@ -36,14 +36,14 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
   for(const {r,path} of roads){
     if(r.id==='w41068824')ctx.stroke(path);
   }
-  
+  ctx.setLineDash([]);
   // The marked crossing on the approach between the corner shops and the bank.
   const approach=city.roads.find(r=>r.id==='w41068817');
   if(approach){
     const p=approach.points;let nearest=0;
     for(let i=1;i<p.length;i++)if(Math.hypot(p[i][0]+218,p[i][1]-277)<Math.hypot(p[nearest][0]+218,p[nearest][1]-277))nearest=i;
     const a=p[nearest],b=p[nearest===0?1:nearest-1],angle=Math.atan2(b[1]-a[1],b[0]-a[0]);
-    ctx.fillStyle='#e7e4d7';
+    ctx.save();ctx.fillStyle='#e7e4d7';
     for(let y=-approach.width/2+.4;y<approach.width/2-.3;y+=.83)ctx.fillRect(1.3,y,2.5,.40);
     
   }
