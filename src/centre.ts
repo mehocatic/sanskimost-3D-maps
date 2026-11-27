@@ -215,8 +215,8 @@ export function centreBuilding(b:Building,height:(x:number,z:number)=>number){
       for(let t=4;t<len-2;t+=8.6){
         const x=a[0]+ux*t,z=a[1]+uz*t;
         for(let y=4.4;y<profile.height-1;y+=3.15){
-          
-          
+          model.add(new T.CylinderGeometry(1.35,1.35,2.88,12),finish('#a6b77c'),x,base+y+1.45,z);
+          model.add(new T.CylinderGeometry(1.38,1.38,1.3,12),finish('#829c9c'),x,base+y+1.72,z);
           
         }
         
