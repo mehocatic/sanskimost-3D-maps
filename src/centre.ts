@@ -130,8 +130,8 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   },true);
   panel(7.4,-.081,1.82,10.8,3.64,shop,0,5);
   panel(1.973,5.8,1.82,11.6,3.64,shop,-Math.PI/2,5);
-  
-  
+  panel(len-6.1,-.081,1.82,12.2,3.64,shop,0,5);
+  panel(len+.075,6.7,1.82,13.4,3.64,shop,Math.PI/2,6);
   const azel=canvasMaterial(512,110,g=>{
     g.fillStyle='#142961';
     g.strokeStyle='#a0bac2';g.lineWidth=7;
