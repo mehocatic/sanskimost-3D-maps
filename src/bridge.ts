@@ -245,7 +245,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       const yaw=Math.atan2(tip.x-p.x,tip.z-p.z);
       model.beam(armStart,tip,.12,.09,metal);
       model.add(lampHead(),metal,tip.x,tip.y+.015,tip.z,yaw);
-      
+      lamp(p.x,p.z,p.y,tip.clone().add(new T.Vector3(0,-.08,0)));
     }
     for(let s=5;s<len-2;s+=6.8){
       if(centres.some(c=>s<c+extent&&s+1.2>c-extent))continue;
