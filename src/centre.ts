@@ -195,9 +195,9 @@ export function centreBuilding(b:Building,height:(x:number,z:number)=>number){
       // Separate upper volumes along the mapped curve so glazing is the outer face.
       const joinX=-251.0;
       prism(model,ring,base-1.1,base+4.2,facade('bank'),cap,3.1);
-      
+      prism(model,clip(ring,p=>joinX-p[0]),base+4.2,top-2,facade('green'),cap,3);
       const bay=clip(ring,p=>p[0]-joinX);
-      
+      prism(model,bay,base+4.2,top+.48,facade('glass'),cap,2.1);
       
     }else prism(model,ring,base-1.1,top,facade(profile.style),cap,3.6);
     if(profile.style==='pink'){
