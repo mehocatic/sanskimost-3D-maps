@@ -90,8 +90,8 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
   deck(edge,edge,-.05,.18,rim);
   deck(-edge,-edge,.18,-.05,rim);
   deck(-edge,edge,-1.095,-1.095,concrete);
-  
-  
+  deck(edge,edge,-1.095,-.05,concrete);
+  deck(-edge,-edge,-.05,-1.095,concrete);
 
   function approach(r:Road,side:-1|1,length:number){
     const start=side<0?0:len,anchor=at(start,0,0);
