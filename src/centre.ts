@@ -143,8 +143,8 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   panel(1.876,2.5,3.93,4.55,.97,azel,-Math.PI/2);
   const [doorX,doorZ]=point(len-4.5,-.106);
   const entrance=canvasMaterial(240,160,g=>{
-    g.fillStyle='#3e635d';
-    g.fillStyle='#233e3b';
+    g.fillStyle='#3e635d';g.fillRect(0,0,240,160);
+    g.fillStyle='#233e3b';g.fillRect(10,9,220,151);
     g.fillStyle='#6b8882';
     g.fillStyle='#bec1ad';
   });
