@@ -156,7 +156,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       const treadTop=(i:number)=>T.MathUtils.lerp(upper,frontageY,(i+1)/steps);
       for(let i=0;i<steps-1;i++){
         const y=treadTop(i),p=point(stairCentre,edge+(i+.5)*tread,0);
-        
+        model.box(p.x,(y+frontageY-.08)/2,p.z,stairWidth,y-frontageY+.08,tread+.012,rim,yaw);
       }
       for(const station of [stairStart+.12,stairEnd-.12]){
         const high=point(station,edge,.153),low=point(station,edge+(steps-1)*tread,0);
