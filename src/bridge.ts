@@ -23,8 +23,8 @@ function cityShield(){
     g.fillStyle='#cccac0';g.fillRect(0,0,256,320);
     const shield=new Path2D('M33 17H223V193Q223 262 128 299Q33 262 33 193Z');
     g.fillStyle='#abaea8';g.fill(shield);g.strokeStyle='#515751';g.lineWidth=7;g.stroke(shield);
-    g.textAlign='center';g.fillStyle='#3d423e';g.font='bold 25px sans-serif';
-    g.fillStyle='#d4d2c7';
+    g.textAlign='center';g.fillStyle='#3d423e';g.font='bold 25px sans-serif';g.fillText('SANSKI MOST',128,53,174);
+    g.fillRect(41,67,174,66);g.fillStyle='#d4d2c7';
     
     
     g.fillStyle='#515751';for(const [x,w] of [[44,38],[92,69],[172,39]]){
