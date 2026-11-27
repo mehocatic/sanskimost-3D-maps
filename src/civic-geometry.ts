@@ -48,7 +48,13 @@ export function canvasMaterial(width:number,height:number,draw:(ctx:CanvasRender
 export function prism(model:Model,ring:Point[],bottom:number,top:number,wall:T.Material,roof:T.Material,bay=4){
   if(ring.length<3)return;
   const winding=Math.sign(ring.reduce((s,p,i)=>{const q=ring[(i+1)%ring.length];return s+p[0]*q[1]-q[0]*p[1]},0));
-  
+  ring.forEach(([x,z],i)=>{
+    const [xx,zz]=ring[(i+1)%ring.length],dx=xx-x,dz=zz-z,len=Math.hypot(dx,dz);
+    if(len<.01)return;
+    const g=new T.PlaneGeometry(len,top-bottom),uv=g.attributes.uv;
+    const count=Math.max(1,Math.round(len/bay));for(let j=0;j<uv.count;j++)uv.setX(j,uv.getX(j)*count);
+    model.add(g,wall,(x+xx)/2,(bottom+top)/2,(z+zz)/2,Math.atan2(winding*dz,-winding*dx));
+  });
   const shape=new T.Shape(ring.map(([x,z])=>new T.Vector2(x,-z)));
   const roofGeo=new T.ShapeGeometry(shape);
 }
