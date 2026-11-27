@@ -24,7 +24,7 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
     ctx.lineWidth=r.width+(foot?.25:2.15);ctx.strokeStyle=foot?'#c1b9a7':'#d0c9b8';ctx.stroke(path);
   }
   for(const {r,path} of roads.filter(s=>!s.foot)){
-    ctx.lineWidth=r.width+.30;ctx.strokeStyle='#8e8c81';
+    ctx.lineWidth=r.width+.30;ctx.strokeStyle='#8e8c81';ctx.stroke(path);
   }
   for(const {r,path,foot} of roads){
     if(foot)continue;
