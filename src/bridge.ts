@@ -1,0 +1,246 @@
+import * as T from 'three';
+import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
+import {Point,Road} from './types';
+import {Model,finish,canvasMaterial} from './civic-geometry';
+import {frontageY,westBridgeY,westCoordinates,westLength,westRoadY} from './west-approach';
+
+function lampHead(){
+  const length=.84,drop=.07;
+  const body=new RoundedBoxGeometry(.58,.14,length,5,.055);
+  const {position,normal}=body.attributes;
+  const direction=new T.Vector3();
+  for(let i=0;i<position.count;i++){
+    const along=position.getZ(i)/length+.5;
+    
+    
+    
+  }
+  return body;
+}
+
+function cityShield(){
+  return canvasMaterial(256,320,g=>{
+    g.fillStyle='#cccac0';
+    const shield=new Path2D('M33 17H223V193Q223 262 128 299Q33 262 33 193Z');
+    g.fillStyle='#abaea8';g.strokeStyle='#515751';g.lineWidth=7;
+    g.textAlign='center';g.fillStyle='#3d423e';g.font='bold 25px sans-serif';
+    g.fillStyle='#d4d2c7';
+    
+    
+    g.fillStyle='#515751';for(const [x,w] of [[44,38],[92,69],[172,39]]){
+      
+    }
+    g.lineWidth=10;
+    g.font='bold 24px serif';
+  });
+}
+export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x:number,z:number)=>number,
+  lamp:(x:number,z:number,y:number,head:T.Vector3)=>void){
+  const model=new Model(),path=road.points,marks=[0];
+  for(let i=1;i<path.length;i++)marks.push(marks[i-1]+Math.hypot(path[i][0]-path[i-1][0],path[i][1]-path[i-1][1]));
+  const len=marks.at(-1)!,half=road.width/2,walk=2.1,edge=half+walk;
+  const concrete=finish('#aaa99d'),rim=finish('#c8c6b9'),metal=finish('#a4aeae'),asphalt=finish('#999a96');
+  const paint=finish('#e7e5d8');
+  const smooth=(t:number)=>t*t*(3-2*t);
+  const shoreStart=westBridgeY,shoreEnd=-.75;
+  const heightAt=(s:number)=>T.MathUtils.lerp(shoreStart,shoreEnd,smooth(s/len))+
+    (s<22?.34*Math.sin(Math.PI*s/22)**2:0);
+  function crossSection(a:Point,b:Point){
+    return new T.Vector2(b[0]-a[0],b[1]-a[1]).normalize();
+  }
+  function at(s:number,side:number,up:number){
+    const i=Math.max(1,marks.findIndex((d,i)=>i>0&&d>=s-1e-6));
+    const a=path[i-1],b=path[i],seg=marks[i]-marks[i-1],ux=(b[0]-a[0])/seg,uz=(b[1]-a[1])/seg;
+    const direction=new T.Vector2(ux,uz);
+    if(i<path.length-1&&s===marks[i]){
+      const next=crossSection(b,path[i+1]);
+      
+    }
+    return new T.Vector3(a[0]+ux*(s-marks[i-1])-direction.y*side,heightAt(s)+up,a[1]+uz*(s-marks[i-1])+direction.x*side);
+  }
+  function beam(s:number,end:number,offset:number,y:number,w:number,h:number,mat:T.Material){
+    
+  }
+  function ribbon(stations:number[],left:(s:number)=>T.Vector3,right:(s:number)=>T.Vector3,mat:T.Material){
+    const vertices:number[]=[],uv:number[]=[],indices:number[]=[];
+    
+    const geometry=new T.BufferGeometry();
+    
+    
+    
+    
+  }
+  function samples(length:number){
+    const steps=Math.ceil(length);
+    return Array.from({length:steps+1},(_,i)=>length*i/steps);
+  }
+  const stations=[...new Set([...marks,...samples(len)])].sort((a,b)=>a-b);
+  const deck=(a:number,b:number,ya:number,yb:number,mat:T.Material)=>
+    ribbon(stations,s=>at(s,a,ya),s=>at(s,b,yb),mat);
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  function approach(r:Road,side:-1|1,length:number){
+    const start=side<0?0:len,anchor=at(start,0,0);
+    const towardLand=side<0?crossSection(west.points.at(-1)!,west.points.at(-2)!):crossSection(east.points[0],east.points.at(-1)!);
+    const joinDirection=side<0?crossSection(path[1],path[0]):crossSection(path.at(-2)!,path.at(-1)!);
+    const end=anchor.clone().add(new T.Vector3(towardLand.x*length,0,towardLand.y*length));
+    const base=ground(end.x,end.z)+.065;
+    function point(s:number,w:number,curb:number){
+      const t=s/length,frame=joinDirection.clone().lerp(towardLand,smooth(t)).normalize();
+      const shift=joinDirection.clone().lerp(towardLand,smooth(t));
+      const x=anchor.x+s*shift.x-frame.y*w,z=anchor.z+s*shift.y+frame.x*w;
+      if(side<0){
+        const curbBlend=smooth(Math.min(1,(length-s)/5));
+        return new T.Vector3(x,westRoadY(length-s)+.027+curb*curbBlend,z);
+      }
+      const endHeight=ground(end.x-towardLand.y*w,end.z+towardLand.x*w)+.065;
+      const profile=T.MathUtils.lerp(heightAt(start)+.027,base,smooth(t));
+      const tie=smooth(Math.max(0,(t-.78)/.22));
+      return new T.Vector3(x,T.MathUtils.lerp(profile+curb*(1-t),endHeight,tie),z);
+    }
+    const sequence=samples(length);
+    const strip=(a:number,b:number,ha:number,hb:number,m:T.Material)=>
+      ribbon(sequence,s=>point(s,a,ha),s=>point(s,b,hb),m);
+    
+    
+    
+    
+    
+    const baseEdge=(s:number,w:number)=>{
+      const p=point(s,w,0);
+      p.y=ground(p.x,p.z)-.08;
+      return p;
+    };
+    
+    
+    const across=samples(2*edge).map(d=>d-edge);
+    
+    const stairStart=10.4,stairEnd=14.6;
+    for(const w of [-edge,edge]){
+      const frontage=side<0&&w>0;
+      const railLength=frontage?58:side<0?16:10;
+      const railPosts=samples(railLength).filter((_,i)=>i%2===0);
+      if(frontage){
+        
+        
+      }
+      const railPoint=(d:number,h:number)=>point(d,w,.153).add(new T.Vector3(0,h-.18,0));
+      
+    }
+    if(side<0){
+      const stairCentre=(stairStart+stairEnd)/2,upper=point(stairCentre,edge,.153).y;
+      const steps=Math.ceil((upper-frontageY)/.17),tread=.34,stairWidth=stairEnd-stairStart;
+      const yaw=Math.atan2(towardLand.y,-towardLand.x);
+      const treadTop=(i:number)=>T.MathUtils.lerp(upper,frontageY,(i+1)/steps);
+      for(let i=0;i<steps-1;i++){
+        const y=treadTop(i),p=point(stairCentre,edge+(i+.5)*tread,0);
+        
+      }
+      for(const station of [stairStart+.12,stairEnd-.12]){
+        const high=point(station,edge,.153),low=point(station,edge+(steps-1)*tread,0);
+        low.y=frontageY;
+        const topHigh=high.clone().add(new T.Vector3(0,.85,0)),topLow=low.clone().add(new T.Vector3(0,.85,0));
+        for(const [foot,top] of [[high,topHigh],[low,topLow]]){
+          
+        }
+        
+      }
+      for(let s=1;s<length-3;s+=7){
+        if(s<stairEnd&&s+3.4>stairStart)continue;
+        const dash=samples(3.4).map(d=>s+d);
+        const stripe=(d:number,w:number)=>point(d,w,0).add(new T.Vector3(0,.016,0));
+        
+      }
+      for(let w=-half+.45;w<half-.15;w+=.82){
+        const stripe=(s:number,side:number)=>point(s,side,.014);
+        
+      }
+    }
+    return {id:r.id,height(x:number,z:number){
+      if(side<0)return westRoadY(westCoordinates(x,z)[0]);
+      const dx=x-anchor.x,dz=z-anchor.z,s=dx*towardLand.x+dz*towardLand.y;
+      if(s<0||s>length)return ground(x,z);
+      const w=dz*towardLand.x-dx*towardLand.y;
+      return point(s,w,0).y-.027;
+    }};
+  }
+  const approaches=[approach(west,-1,westLength),approach(east,1,13.5)];
+  for(let s=3;s<len-2;s+=7){
+    const dash=samples(Math.min(len-s,3.4)).map(d=>s+d);
+    
+  }
+  const platformCentres=[len*.35,len*.65],extent=4.4,extra=1.65;
+  const middle=len/2,plaqueHalfWidth=1.05;
+  const lampSpacing=len/4;
+  for(const sign of [-1,1]){
+    const centres=sign<0?platformCentres:[];
+    const platformDistance=(s:number)=>Math.min(...centres.map(c=>Math.abs(c-s)));
+    const offsets=(s:number)=>edge+extra*Math.max(0,Math.min(1,(extent-platformDistance(s))/1.35));
+    const stops=[0,len,...marks];
+    for(const s0 of centres){
+      for(const s of [s0-extent,s0+extent]){
+        
+      }
+      const coords=[at(s0-extent,sign*(edge-.15),0),at(s0-extent+1.35,sign*(edge+extra),0),at(s0+extent-1.35,sign*(edge+extra),0),at(s0+extent,sign*(edge-.15),0)];
+      const base=at(s0,0,0).y,shape=new T.Shape(coords.map(p=>new T.Vector2(p.x,-p.z)));
+      const slab=new T.ExtrudeGeometry(shape,{depth:.35,bevelEnabled:false});
+      const pos=slab.attributes.position,centre=at(s0,0,0),forward=at(s0+1,0,0).sub(centre);
+      for(let i=0;i<pos.count;i++){
+        const s=s0+(pos.getX(i)-centre.x)*forward.x+(pos.getZ(i)-centre.z)*forward.z;
+        
+      }
+      
+      
+      
+    }
+    if(sign>0)stops.push(middle-plaqueHalfWidth,middle+plaqueHalfWidth);
+    for(let s=2;s<len;s+=2.65)stops.push(s);
+    const posts=[...new Set(stops)].sort((a,b)=>a-b);
+    
+    if(sign>0){
+      const a=at(middle,edge,.17),front=at(middle,edge-.204,.17);
+      const yaw=Math.atan2(front.x-a.x,front.z-a.z);
+      
+      
+      
+    }
+    // Mirror the rows so the two lamps flanking the plaque sit equally far from it.
+    for(const index of [-1,0,1]){
+      const s=middle+(index+sign*.5)*lampSpacing;
+      const offset=offsets(s)-.22;
+      const p=at(s,sign*offset,.18);
+      const tip=at(s,sign*(offset-1.05),5.535);
+      const armStart=new T.Vector3(p.x,tip.y,p.z);
+      const yaw=Math.atan2(tip.x-p.x,tip.z-p.z);
+      
+      
+      
+    }
+    for(let s=5;s<len-2;s+=6.8){
+      if(centres.some(c=>s<c+extent&&s+1.2>c-extent))continue;
+      if(sign>0&&s<middle+plaqueHalfWidth&&s+1.2>middle-plaqueHalfWidth)continue;
+      
+      
+      for(let k=0;k<4;k++){
+        const p=at(s+.16+k*.26,sign*(edge+.21),1.14);
+        
+      }
+    }
+  }
+  for(let i=1;i<=3;i++){
+    const s=len*i/4,p=at(s,0,-.91),q=at(s+.1,0,0),yaw=Math.atan2(q.x-p.x,q.z-p.z);
+    const bottom=waterY-2.2,h=p.y-bottom;
+    
+    
+  }
+  return {group:model.build(road.id),heightAt,approaches};
+}
