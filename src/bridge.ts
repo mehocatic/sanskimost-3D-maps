@@ -232,7 +232,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       const a=at(middle,edge,.17),front=at(middle,edge-.204,.17);
       const yaw=Math.atan2(front.x-a.x,front.z-a.z);
       model.box(a.x,a.y+.96,a.z,2*plaqueHalfWidth,1.92,.39,concrete,yaw);
-      
+      model.add(new T.PlaneGeometry(1.42,1.67),cityShield(),front.x,a.y+1.02,front.z,yaw);
       
     }
     // Mirror the rows so the two lamps flanking the plaque sit equally far from it.
