@@ -1,6 +1,9 @@
 import * as T from 'three';
 import {Building,Point,centerOf,rng} from './types';
 import {cornerRing,mahala,streetDetails} from './mahala';
+import {centreBuilding,centreBuildings} from './centre';
+
+import {marketBuilding,marketNames} from './market';
 
 function facadeTexture(){
   const c=document.createElement('canvas');c.width=128;c.height=128;
@@ -50,6 +53,11 @@ export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>n
   const chimneys:T.Matrix4[]=[],roofDetails:T.Matrix4[]=[];const dummy=new T.Object3D();
   buildings.forEach((b,id)=>{
     if(noGeneric.has(b.id)||b.points.length<3)return;
+    if(marketNames[b.id]){street.add(marketBuilding(b,height));return}
+    if(centreBuildings[b.id]){
+      street.add(centreBuilding(b,height));
+      return;
+    }
     const profile=mahala[b.id],buildingHeight=profile?.height??b.height;
     const ring=profile?.style==='corner'?cornerRing(b.points):b.points;
     const [cx,cz]=centerOf(ring),base=height(cx,cz),low=Math.min(base,...ring.map(p=>height(...p)))-1.4;
