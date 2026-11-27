@@ -248,7 +248,7 @@ export function plazaParking(area:Feature){
   const ring=area.points;
   const frontage:Point[]=[ring[0],ring[1],ring[2],westPoint(-15,-5.32),westPoint(66,-5.32),
     westPoint(66,-15.35),westPoint(64.8,-15.38),westPoint(-1.1,-17.22),westPoint(-5,-18),ring[6]];
-  
+  prism(model,frontage,frontageY-.55,frontageY,finish('#9f9a88'),finish('#b7b1a0'));
   const [a,b]=[ring[2],ring[3]],dx=b[0]-a[0],dz=b[1]-a[1],len=Math.hypot(dx,dz);
   const ux=dx/len,uz=dz/len;
   function point(along:number,across:number):Point{return [a[0]+along*ux+across*uz,a[1]+along*uz-across*ux]}
