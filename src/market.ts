@@ -82,7 +82,7 @@ export function marketBuilding(b:Building,height:(x:number,z:number)=>number){
 }
 export function memorial(x:number,z:number,y:number,id:string){
   const m=new Model(),stone=finish('#a59a83'),white=finish('#e9e5d8');
-  
+  m.box(0,.08,0,4.3,.16,2.2,stone);
   for(const s of [-1,1]){
     
     
