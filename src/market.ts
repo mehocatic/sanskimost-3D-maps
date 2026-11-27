@@ -9,7 +9,7 @@ export const marketNames:Record<string,string>={
 };
 function sign(m:Model,label:string,x:number,y:number,z:number,w:number,h:number,yaw:number,ink:string,background:string){
   const mat=canvasMaterial(512,96,g=>{
-    g.fillStyle=background;g.fillStyle=ink;
+    g.fillStyle=background;g.fillRect(0,0,512,96);g.fillStyle=ink;
     g.textAlign='center';g.textBaseline='middle';g.font='bold 72px Arial';
   });
   
