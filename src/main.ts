@@ -1,4 +1,5 @@
 import {mahala} from './mahala';
+import {centreBuildings} from './centre';
 import './style.css';
 import {createViewer} from './viewer';
 import {City,Feature,Place,Terrain,centerOf} from './types';
@@ -23,7 +24,7 @@ document.addEventListener('keydown',e=>{if(e.key==='/'&&e.target!==input&&!modal
 async function local<T>(file:string):Promise<T>{const response=await fetch(base+'data/'+file);if(!response.ok)throw Error('Nije moguće učitati '+file+' ('+response.status+')');return response.json()}
 const catalog=[
   {id:'w346178044',name:'Hamzibegova džamija',category:'Vjerski objekat',icon:'landmark',art:'mosque',description:'Džamija s četiri munare od 51,5 m. Položaj munara i centralne kupole prati kartirane konture.'},
-  {id:'w56396323',name:'Gradski most',category:'Most',icon:'milestone',art:'bridge',description:'Most preko Sane u centru grada. Položaj i pravac mosta preuzeti su iz OpenStreetMapa.'},
+  {id:'w56396323',name:'Gradski most',category:'Most',icon:'milestone',art:'bridge',description:'Most preko Sane s dva proširenja za pješake i gradskim grbom. Osa mosta prati OpenStreetMap. Ograda, terase i oslonci rekonstruisani su prema fotografijama.'},
   {id:'w40699044',name:'Gradski park',category:'Park i priroda',icon:'trees',art:'park',description:'Park generala Mehmeda Alagića na obali Sane. Granica parka i kartirane staze prate OSM podatke.'},
   {id:'w226624055',name:'Stadion Podgrmeča',category:'Sport i rekreacija',icon:'goal',art:'stadium',description:'Fudbalski teren na stadionu Podgrmeča. Podloga prati kartirani obris, a linije i golovi su modelirani.'}
 ];
@@ -36,7 +37,19 @@ async function start(){
   const museumNames:Record<string,string>={park:'Park',school:'Škola',hospital:'Zdravstvo',pharmacy:'Apoteka',place_of_worship:'Vjerski objekat',restaurant:'Restoran',cafe:'Kafić',hotel:'Hotel',supermarket:'Prodavnica',pitch:'Sportski teren',stadium:'Stadion',river:'Rijeka',parking:'Parking',cemetery:'Groblje',bank:'Banka',fuel:'Benzinska pumpa',bridge:'Most',village:'Naselje',suburb:'Naselje'};
   for(const poi of city.pois){if(places.has(poi.id))continue;places.set(poi.id,{id:poi.id,name:poi.name,category:museumNames[poi.kind]||'Lokacija',icon:'map-pin',pos:[poi.x,poi.z],tags:poi.tags})}
   for(const r of city.roads){if(!r.name)continue;const old=places.get(r.id);if(old?.art)continue;places.set(r.id,{id:r.id,name:r.name,category:r.bridge?'Most':'Ulica',icon:r.bridge?'milestone':'route',pos:centerOf(r.points),tags:r.tags})}
-  for(const b of city.buildings){if(places.get(b.id)?.art)continue;const old=places.get(b.id);places.set(b.id,{...old,id:b.id,name:b.name||(mahala[b.id]?.style!=='house'&&mahala[b.id]?.name)||old?.name||'Zgrada',category:old?.category||'Građevina',icon:old?.icon||'building-2',pos:centerOf(b.points),height:mahala[b.id]?.height??b.height,heightSource:mahala[b.id]?"estimate":b.heightSource,tags:b.tags})}
+  for(const b of city.buildings){
+    if(places.get(b.id)?.art)continue;
+    const old=places.get(b.id),profile=centreBuildings[b.id]??mahala[b.id];
+    places.set(b.id,{...old,id:b.id,name:b.name||(profile?.style!=='house'&&profile?.name)||old?.name||'Zgrada',
+      category:old?.category||'Građevina',icon:old?.icon||'building-2',pos:centerOf(b.points),
+      height:profile?.height??b.height,heightSource:profile?'estimate':b.heightSource,tags:b.tags});
+  }
+  for(const [id,name,category] of [
+    ['w292847704','Kružni tok · Cvijet Srebrenice','Trg oslobodilaca'],
+    ['w77938277','Parking kod Konzuma','Parking'],
+  ]){
+    const f=features.get(id);if(f)places.set(id,{id,name,category,icon:'map-pin',pos:centerOf(f.points),tags:f.tags});
+  }
   let selected:Place|undefined,tab='places',night=false,step=-1,timer=0;
   const saved=new Set<string>();try{const ids=JSON.parse(localStorage.getItem('sanski.saved')||'[]');if(Array.isArray(ids))ids.forEach(id=>{if(typeof id==='string'&&places.has(id))saved.add(id)})}catch{}
   const photo=new Image();photo.src=base+"data/ground.jpg";await photo.decode();
@@ -75,6 +88,9 @@ async function start(){
   for(const b of city.buildings){miniPath(b);mg.fillStyle='#c5c7b5';mg.fill()}
   mg.strokeStyle='#f5f4e4';mg.lineWidth=8;for(const r of city.roads){miniPath(r);mg.stroke()}
   function mapUpdate(){
+    const nextView=viewer.flat?'3D':'2D',viewLabel=viewer.flat?'Pogled odozgo':'3D perspektiva';
+    if($('#perspective').textContent!==nextView)$('#perspective').textContent=nextView;
+    if($('#view-label').textContent!==viewLabel)$('#view-label').textContent=viewLabel;
     const d=viewer.distance;const occupied:{x:number;y:number;w:number;h:number}[]=[];
     for(const {p,el} of labels){
       const v=viewer.project(p,p.art==='mosque'?55:p.art==='park'?8:7);let x=v.x,y=v.y-7;
@@ -86,7 +102,8 @@ async function start(){
     }
     river.hidden=!riverAnchor;if(riverAnchor){const v=viewer.project({pos:riverAnchor} as Place,1);river.style.left=v.x+'px';river.style.top=v.y+'px';river.hidden=!v.visible}
     const angle=viewer.bearing;$('#compass svg').style.transform='rotate('+angle+'rad)';
-    const [x,z]=viewer.target;$('#coords').textContent=(44.7667-z/111195).toFixed(4)+'° N   '+(16.667+x/(111195*Math.cos(44.7667*Math.PI/180))).toFixed(4)+'° E';
+    const [x,z]=viewer.target,precision=d<150?5:4;
+    $('#coords').textContent=(44.7667-z/111195).toFixed(precision)+'° N   '+(16.667+x/(111195*Math.cos(44.7667*Math.PI/180))).toFixed(precision)+'° E';
     const metresPerPx=2*d*Math.tan(39*Math.PI/360)/$('#map').clientHeight;
     const len=[5,10,20,50,100,200,500].find(n=>n/metresPerPx>=34)||500;$('#scale').textContent=len+' m';$('#scale').style.width=len/metresPerPx+'px';
     ctx.drawImage(back,0,0);ctx.save();ctx.translate(120+x*.075,74+z*.075);ctx.rotate(-angle);
@@ -105,7 +122,7 @@ async function start(){
   document.addEventListener('pointerdown',e=>{if(!(e.target as HTMLElement).closest('#layer-pop,#layers-btn')){$('#layer-pop').hidden=true;$('#layers-btn').setAttribute('aria-expanded','false')}});
   $('#full').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{dialog('Cijeli ekran','<p>Ovaj preglednik ograničava prikaz preko cijelog ekrana.</p>')}};
   function stopTour(){window.clearTimeout(timer);step=-1;viewer.setTourRotate(false);$('#tour-progress').hidden=true;$('#tour').innerHTML=icon('play')+'Pokreni obilazak'}
-  function advance(){window.clearTimeout(timer);if(step===featured.length-1){stopTour();viewer.home();return}step++;const p=featured[step];$('#detail').hidden=true;$('#tour-progress').hidden=false;$('#tour-number').textContent=(step+1)+' / '+featured.length;$('#tour-name').textContent=p.name;viewer.focus(p.pos,p.art==='mosque'?230:300,p.art==='mosque');viewer.setTourRotate(true);timer=window.setTimeout(advance,8500)}
+  function advance(){window.clearTimeout(timer);if(step===featured.length-1){stopTour();viewer.home();return}step++;const p=featured[step];$('#detail').hidden=true;$('#tour-progress').hidden=false;$('#tour-number').textContent=(step+1)+' / '+featured.length;$('#tour-name').textContent=p.name;viewer.focus(p.pos,p.art==='mosque'?230:300,p.art==='mosque',p.id);viewer.setTourRotate(true);timer=window.setTimeout(advance,8500)}
   $('#tour').onclick=()=>{if(step>=0){stopTour();return}sidebar.classList.remove('open');$('#tour').innerHTML=icon('square')+'Završi obilazak';advance()};$('#next').onclick=advance;$('#stop').onclick=stopTour;
   renderList();$('#loading').hidden=true;document.documentElement.dataset.ready='true';
 }
