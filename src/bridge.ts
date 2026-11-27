@@ -54,7 +54,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
     const direction=new T.Vector2(ux,uz);
     if(i<path.length-1&&s===marks[i]){
       const next=crossSection(b,path[i+1]);
-      
+      direction.add(next).multiplyScalar(1/(1+ux*next.x+uz*next.y));
     }
     return new T.Vector3(a[0]+ux*(s-marks[i-1])-direction.y*side,heightAt(s)+up,a[1]+uz*(s-marks[i-1])+direction.x*side);
   }
