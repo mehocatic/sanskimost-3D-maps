@@ -13,14 +13,14 @@ function lampHead(){
     const along=position.getZ(i)/length+.5;
     position.setY(i,position.getY(i)-drop*along*along);
     direction.set(normal.getX(i),normal.getY(i),normal.getZ(i)+2*drop*along/length*normal.getY(i)).normalize();
-    
+    normal.setXYZ(i,direction.x,direction.y,direction.z);
   }
   return body;
 }
 
 function cityShield(){
   return canvasMaterial(256,320,g=>{
-    g.fillStyle='#cccac0';
+    g.fillStyle='#cccac0';g.fillRect(0,0,256,320);
     const shield=new Path2D('M33 17H223V193Q223 262 128 299Q33 262 33 193Z');
     g.fillStyle='#abaea8';g.strokeStyle='#515751';g.lineWidth=7;
     g.textAlign='center';g.fillStyle='#3d423e';g.font='bold 25px sans-serif';
