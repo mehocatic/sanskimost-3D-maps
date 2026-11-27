@@ -198,7 +198,7 @@ export function centreBuilding(b:Building,height:(x:number,z:number)=>number){
       prism(model,clip(ring,p=>joinX-p[0]),base+4.2,top-2,facade('green'),cap,3);
       const bay=clip(ring,p=>p[0]-joinX);
       prism(model,bay,base+4.2,top+.48,facade('glass'),cap,2.1);
-      
+      prism(model,bay,top+.48,top+.66,finish('#748381'),cap);
     }else prism(model,ring,base-1.1,top,facade(profile.style),cap,3.6);
     if(profile.style==='pink'){
       // A low hipped roof follows the long mapped wing.
