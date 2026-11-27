@@ -22,7 +22,7 @@ function cityShield(){
   return canvasMaterial(256,320,g=>{
     g.fillStyle='#cccac0';g.fillRect(0,0,256,320);
     const shield=new Path2D('M33 17H223V193Q223 262 128 299Q33 262 33 193Z');
-    g.fillStyle='#abaea8';g.strokeStyle='#515751';g.lineWidth=7;
+    g.fillStyle='#abaea8';g.fill(shield);g.strokeStyle='#515751';g.lineWidth=7;
     g.textAlign='center';g.fillStyle='#3d423e';g.font='bold 25px sans-serif';
     g.fillStyle='#d4d2c7';
     
