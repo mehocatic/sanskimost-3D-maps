@@ -18,7 +18,7 @@ function plaza(m:Model,w:number,l:number){
   const grey=finish('#b9bfc3'),sand=finish('#bcab97'),green=finish('#64ad36'),dark=finish('#343c41'),metal=finish('#d8dada');
   const h=9.4;
   m.box(0,h/2-.55,0,w,h+1.1,l,grey);
-  
+  m.box(0,h+.09,0,w-.25,.18,l-.25,finish('#dadad3'));
   for(const side of [-1,1]){
     const x=side*w/2;
     for(const end of [-1,1])m.box(x,6.55,end*(l/2-7),.14,5.7,14,sand);
