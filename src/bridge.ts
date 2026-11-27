@@ -135,8 +135,8 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       const railLength=frontage?58:side<0?16:10;
       const railPosts=samples(railLength).filter((_,i)=>i%2===0);
       if(frontage){
-        
-        
+        railPosts.push(stairStart,stairEnd);
+        railPosts.sort((a,b)=>a-b);
       }
       const railPoint=(d:number,h:number)=>point(d,w,.153).add(new T.Vector3(0,h-.18,0));
       
