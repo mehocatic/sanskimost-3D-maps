@@ -22,7 +22,7 @@ export class Model {
     const batch=this.parts.get(material)??[];batch.push(part);this.parts.set(material,batch);
   }
   box(x:number,y:number,z:number,w:number,h:number,d:number,mat:T.Material,yaw=0){
-    
+    this.add(new T.BoxGeometry(w,h,d),mat,x,y,z,yaw);
   }
   beam(a:T.Vector3,b:T.Vector3,width:number,height:number,mat:T.Material){
     const delta=b.clone().sub(a),mid=b.clone().add(a).multiplyScalar(.5);
