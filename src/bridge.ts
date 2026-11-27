@@ -171,7 +171,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
         if(s<stairEnd&&s+3.4>stairStart)continue;
         const dash=samples(3.4).map(d=>s+d);
         const stripe=(d:number,w:number)=>point(d,w,0).add(new T.Vector3(0,.016,0));
-        
+        ribbon(dash,d=>stripe(d,.065),d=>stripe(d,-.065),paint);
       }
       for(let w=-half+.45;w<half-.15;w+=.82){
         const stripe=(s:number,side:number)=>point(s,side,.014);
