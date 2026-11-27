@@ -175,7 +175,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       }
       for(let w=-half+.45;w<half-.15;w+=.82){
         const stripe=(s:number,side:number)=>point(s,side,.014);
-        
+        ribbon([stairStart+.8,stairEnd-.8],s=>stripe(s,w+.42),s=>stripe(s,w),paint);
       }
     }
     return {id:r.id,height(x:number,z:number){
