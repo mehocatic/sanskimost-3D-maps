@@ -167,7 +167,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   vf.alphaTest=.45;
   panel(40.6,6.943,12.17,4.2,3.7,vf);
   panel(len-7.2,6.90,8.03,8.2,5.5,facade('glass'),0,4);
-  
+  panel(len-2.94,10.4,8.03,6.8,5.5,facade('glass'),Math.PI/2,3);
   // The white pergola and planters occupy the terrace in front of the VF wing.
   const terraceStart=38,terraceEnd=len-1;
   
