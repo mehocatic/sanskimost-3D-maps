@@ -1,4 +1,6 @@
+import {memorial} from './market';
 import {mahala,streetGlass} from './mahala';
+import {centreBuildings,centreShops,centreLighting,flowerIsland} from './centre';
 import * as T from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {makeGround} from './ground';
@@ -26,7 +28,12 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
     if(dirty||now-lastReflection>160){reflect(...args);lastReflection=now}
   };
   const blocks=makeBuildings(city.buildings,ground.height);scene.add(blocks.group);
-  const life=cityLife(city,ground.height,ground.density,ground.waterY);scene.add(life.trees,life.spans,life.lamps,life.traffic);
+  const marker=city.pois.find(p=>p.id==='n14219675362');
+  if(marker)blocks.street.add(memorial(marker.x,marker.z,ground.height(marker.x,marker.z),marker.id));
+  const life=cityLife(city,ground.height,ground.density,ground.waterY,ground.surfaceHeight);scene.add(life.trees,life.spans,life.lamps,life.traffic);
+  const islandArea=city.areas.find(a=>a.id==='w292847704');
+  const island=islandArea&&flowerIsland(islandArea,ground.height);
+  if(island)scene.add(island);
   const special=new T.Group();scene.add(special);
   const mosque=city.buildings.find(b=>b.id==='w346178044'),pitch=city.areas.find(a=>a.id==='w226624055');
   if(mosque){
@@ -53,6 +60,19 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
   }
   const shopBuildings:Record<string,string>={n5424651934:'w510393876',n14220106202:'w510393876',n14220106203:'w510393875',n14220106204:'w510393874',n14220106205:'w510393874'};
   function focus(pos:Point,distance=260,courtyard=false,placeId=''){
+    const centreId=centreShops[placeId]??placeId,centre=centreBuildings[centreId];
+    if(!flat&&(centre||centreId==='w292847704'||centreId==='w56396323'||centreId==='w77938277')){
+      const building=centre&&city.buildings.find(b=>b.id===centreId);
+      const azel=placeId==='n5875402582';
+      const [x,z]=azel?[-209,195]:building?centerOf(building.points):pos;
+      const views:Record<string,[number,number,number]>={
+        centre:[-37,28,70],green:[48,32,23],glass:[42,22,8],pink:[32,19,24],bank:[29,15,-9],
+        w292847704:[13,15,-15],w56396323:[57,37,75],w77938277:[26,24,31]
+      };
+      const offset=azel?new T.Vector3(-29,15,29):new T.Vector3(...views[centre?.style??centreId]);
+      offset.multiplyScalar(Math.max(1,1/camera.aspect));
+      go(new T.Vector3(x,ground.height(x,z)+(centre?.height??1)*.42,z),offset);return;
+    }
     const streetId=shopBuildings[placeId]??placeId,profile=mahala[streetId];
     if(!flat&&profile&&profile.style!=='house'){
       const building=city.buildings.find(b=>b.id===streetId);
@@ -81,6 +101,7 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
   function north(){go(controls.target.clone(),new T.Vector3(0,flat?1:.79,flat?.0001:.75).normalize().multiplyScalar(camera.position.distanceTo(controls.target)))}
   function zoom(f:number){const offset=camera.position.clone().sub(controls.target);go(controls.target.clone(),offset.setLength(T.MathUtils.clamp(offset.length()*f,controls.minDistance,controls.maxDistance)),280)}
   function night(active:boolean){
+    centreLighting(active);
     sky.set(active?'#223641':'#d4dfd2');(scene.fog as T.FogExp2).color.copy(sky);
     light.color.set(active?'#96acdd':'#f4f8ff');light.intensity=active?.53:1.8;sun.color.set(active?'#afc2ff':'#fff2db');sun.intensity=active?.48:2.22;
     streetGlass.emissiveIntensity=active?.53:0;blocks.wallMat.emissiveIntensity=active?.94:0;life.glow.visible=active;life.bulbMat.color.set(active?'#ffd289':'#d8d7bc');
@@ -103,6 +124,7 @@ export function createViewer(host:HTMLElement,city:City & {parts?:Feature[]},dem
     if(e.button!==0||performance.now()-previousTouch<350||Math.hypot(e.clientX-down[0],e.clientY-down[1])>4)return;
     const r=host.getBoundingClientRect(),ray=new T.Raycaster();ray.setFromCamera(new T.Vector2((e.clientX-r.left)/r.width*2-1,1-(e.clientY-r.top)/r.height*2),camera);
     const clickable:T.Object3D[]=[ground.land.children[0],...life.spans.children];
+    if(island)clickable.push(island);
     if(blocks.group.visible)clickable.push(blocks.street,...special.children,...blocks.group.children.filter(c=>c.userData.ids));
     const hits=ray.intersectObjects(clickable,true);
     const hit=hits[0];if(!hit)return;let o:T.Object3D|null=hit.object;
