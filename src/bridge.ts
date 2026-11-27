@@ -189,7 +189,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
   const approaches=[approach(west,-1,westLength),approach(east,1,13.5)];
   for(let s=3;s<len-2;s+=7){
     const dash=samples(Math.min(len-s,3.4)).map(d=>s+d);
-    
+    ribbon(dash,d=>at(d,.065,.043),d=>at(d,-.065,.043),paint);
   }
   const platformCentres=[len*.35,len*.65],extent=4.4,extra=1.65;
   const middle=len/2,plaqueHalfWidth=1.05;
@@ -201,7 +201,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
     const stops=[0,len,...marks];
     for(const s0 of centres){
       for(const s of [s0-extent,s0+extent]){
-        
+        model.beam(at(s,sign*(edge-.1),.08),at(s0,sign*(edge+extra-.2),.08),.24,.3,concrete);
       }
       const coords=[at(s0-extent,sign*(edge-.15),0),at(s0-extent+1.35,sign*(edge+extra),0),at(s0+extent-1.35,sign*(edge+extra),0),at(s0+extent,sign*(edge-.15),0)];
       const base=at(s0,0,0).y,shape=new T.Shape(coords.map(p=>new T.Vector2(p.x,-p.z)));
