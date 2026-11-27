@@ -162,7 +162,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   const vf=canvasMaterial(240,210,g=>{
     g.font='italic bold 148px Georgia';g.textAlign='center';g.textBaseline='middle';
     g.lineWidth=12;g.strokeStyle='#32645a';g.fillStyle='#e5b33f';
-    for(const [letter,x,y] of [['V',83,85],['F',153,126]] as const){}
+    for(const [letter,x,y] of [['V',83,85],['F',153,126]] as const){g.strokeText(letter,x,y);}
   });
   vf.alphaTest=.45;
   
