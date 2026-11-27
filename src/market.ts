@@ -26,8 +26,8 @@ function plaza(m:Model,w:number,l:number){
       m.box(x,4.75,z,.35,9.5,.55,z===21||z===23?green:z%2?dark:sand);
     }
     for(let j=0;j<12;j++)m.box(x,7.35,-6+j*.95,.42,4.1,.30,sand);
-    
-    
+    m.box(x+side*.15,2.25,0,.42,4.5,8,dark);
+    m.box(x+side*.4,2,0,.12,3.9,6.9,finish('#65818a'));
     for(const z of [-3.4,0,3.4])m.box(x+side*.49,2,z,.12,4,.12,dark);
     
     
