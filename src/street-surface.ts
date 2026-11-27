@@ -55,11 +55,11 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
   ctx.resetTransform();ctx.globalCompositeOperation='destination-out';
   for(const [a,b,c,d] of [[0,0,110,0],[pixels,0,pixels-110,0],[0,0,0,110],[0,pixels,0,pixels-110]]){
     const fade=ctx.createLinearGradient(a,b,c,d);fade.addColorStop(0,'#000');fade.addColorStop(1,'transparent');
-    ctx.fillStyle=fade;
+    ctx.fillStyle=fade;ctx.fillRect(0,0,pixels,pixels);
   }
   const map=new T.CanvasTexture(canvas);map.colorSpace=T.SRGBColorSpace;map.anisotropy=8;
   const xs=terrainX.filter(x=>x>=x0&&x<=x0+size),zs=terrainZ.filter(z=>z>=z0&&z<=z0+size);
-  const geo=new T.PlaneGeometry(size,size,xs.length-1,zs.length-1);
+  const geo=new T.PlaneGeometry(size,size,xs.length-1,zs.length-1);geo.rotateX(-Math.PI/2);
   const {position,uv}=geo.attributes;
   for(let i=0;i<position.count;i++){
     const x=xs[i%xs.length],z=zs[Math.floor(i/xs.length)];
