@@ -11,7 +11,7 @@ function lampHead(){
   const direction=new T.Vector3();
   for(let i=0;i<position.count;i++){
     const along=position.getZ(i)/length+.5;
-    
+    position.setY(i,position.getY(i)-drop*along*along);
     
     
   }
