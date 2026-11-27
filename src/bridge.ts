@@ -12,7 +12,7 @@ function lampHead(){
   for(let i=0;i<position.count;i++){
     const along=position.getZ(i)/length+.5;
     position.setY(i,position.getY(i)-drop*along*along);
-    
+    direction.set(normal.getX(i),normal.getY(i),normal.getZ(i)+2*drop*along/length*normal.getY(i)).normalize();
     
   }
   return body;
