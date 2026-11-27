@@ -34,6 +34,29 @@ try{
     await page.waitForTimeout(1000);
     await snapshot(page,filename);
   }
+  for(const [query,id,filename] of [
+    ['Gradski most','w56396323','gradski-most'],
+    ['Hami VF','n14220668092','konzum-vf'],
+    ['Zelena stambeno','w510397159','zelena-zgrada'],
+    ['UniCredit','n1619087343','banka'],
+    ['Roze zgrada','w1080919896','roze-zgrada'],
+    ['Zgrada banke na Trgu','w959151441','banka-trg'],
+    ['Cvijet Srebrenice','w292847704','kruzni-tok'],
+    ['Parking kod Konzuma','w77938277','parking-konzum'],
+  ]){
+    await page.locator('#query').fill(query);
+    const place=page.locator('#places [data-id="'+id+'"]');
+    const title=await place.locator('strong').innerText();
+    await place.click();await expect(page.locator('#detail h2')).toHaveText(title);
+    await page.waitForTimeout(950);await snapshot(page,filename);
+    if(id==='n14220668092'||id==='w292847704'){
+      await page.locator('#detail .close').click();
+      const canvas=page.locator('#map > canvas');
+      const bounds=await canvas.boundingBox();
+      await canvas.click({position:{x:bounds.width/2,y:bounds.height/2}});
+      await expect(page.locator('#detail h2')).toHaveText(id==='n14220668092'?'Konzum i terasa Hami VF':title);
+    }
+  }
   await page.locator('#query').fill('Hamdije Pozderca');await expect(page.locator('#places')).toContainText('Hamdije Pozderca');await page.locator('#query').press('Enter');
   await expect(page.locator('#detail')).toContainText('Hamdije Pozderca');await page.locator('#detail .save').click();
   await page.locator('[data-tab="saved"]').click();await expect(page.locator('#places')).toContainText('Hamdije Pozderca');
@@ -53,6 +76,7 @@ try{
   }
   await page.locator('#layers-btn').click();
   await page.locator('#perspective').click();await expect(page.locator('#perspective')).toHaveText('3D');await page.waitForTimeout(900);
+  await expect(page.locator('#view-label')).toHaveText('Pogled odozgo');
   await page.locator('#perspective').click();await expect(page.locator('#perspective')).toHaveText('2D');
   await page.locator('#plus').click();await page.waitForTimeout(350);await page.locator('#minus').click();await page.waitForTimeout(350);
   const coords=await page.locator('#coords').innerText();await page.mouse.move(900,435);await page.mouse.down();await page.mouse.move(995,480,{steps:12});await page.mouse.up();
@@ -74,6 +98,9 @@ try{
   const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:1});monitor(mobile);await ready(mobile);
   await expect(mobile.locator('#mobile-open')).toBeVisible();expect(await mobile.evaluate(()=>document.documentElement.scrollWidth)).toBe(390);
   await snapshot(mobile,'mobilni-prikaz');await mobile.locator('#mobile-open').tap();await mobile.locator('#places [data-id="w346178044"]').tap();await expect(mobile.locator('#detail h2')).toHaveText('Hamzibegova džamija');
+  await mobile.locator('#mobile-open').tap();await mobile.locator('#query').fill('Cvijet Srebrenice');await mobile.locator('#query').press('Enter');
+  await expect(mobile.locator('#detail h2')).toContainText('Cvijet Srebrenice');await mobile.waitForTimeout(950);
+  await snapshot(mobile,'kruzni-tok-mobilni');
   const cdp=await mobile.context().newCDPSession(mobile),before=await mobile.locator('#coords').innerText();
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:120,y:240}]});
   await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:177,y:283}]});
