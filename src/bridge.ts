@@ -205,7 +205,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       }
       const coords=[at(s0-extent,sign*(edge-.15),0),at(s0-extent+1.35,sign*(edge+extra),0),at(s0+extent-1.35,sign*(edge+extra),0),at(s0+extent,sign*(edge-.15),0)];
       const base=at(s0,0,0).y,shape=new T.Shape(coords.map(p=>new T.Vector2(p.x,-p.z)));
-      const slab=new T.ExtrudeGeometry(shape,{depth:.35,bevelEnabled:false});
+      const slab=new T.ExtrudeGeometry(shape,{depth:.35,bevelEnabled:false});slab.rotateX(-Math.PI/2);
       const pos=slab.attributes.position,centre=at(s0,0,0),forward=at(s0+1,0,0).sub(centre);
       for(let i=0;i<pos.count;i++){
         const s=s0+(pos.getX(i)-centre.x)*forward.x+(pos.getZ(i)-centre.z)*forward.z;
