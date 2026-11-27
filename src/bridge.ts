@@ -139,7 +139,15 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
         railPosts.sort((a,b)=>a-b);
       }
       const railPoint=(d:number,h:number)=>point(d,w,.153).add(new T.Vector3(0,h-.18,0));
-      
+      railPosts.forEach((d,i)=>{
+        if(i===0||(frontage&&d>stairStart&&d<stairEnd))return;
+        const material=frontage&&d>8?finish('#60685c'):metal;
+        model.beam(railPoint(d,.18),railPoint(d,1.31),.09,.09,material);
+        if(frontage&&d===stairEnd)return;
+        for(const h of [.39,.61,.83,1.06,1.32]){
+          model.beam(railPoint(railPosts[i-1],h),railPoint(d,h),h>1.3?.105:.043,h>1.3?.09:.043,material);
+        }
+      });
     }
     if(side<0){
       const stairCentre=(stairStart+stairEnd)/2,upper=point(stairCentre,edge,.153).y;
