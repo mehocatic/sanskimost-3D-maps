@@ -83,8 +83,8 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
   const deck=(a:number,b:number,ya:number,yb:number,mat:T.Material)=>
     ribbon(stations,s=>at(s,a,ya),s=>at(s,b,yb),mat);
   deck(half,-half,.027,.027,asphalt);
-  
-  
+  deck(edge,half,.18,.18,rim);
+  deck(-half,-edge,.18,.18,rim);
   
   
   
