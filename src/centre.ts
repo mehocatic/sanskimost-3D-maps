@@ -170,8 +170,8 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   panel(len-2.94,10.4,8.03,6.8,5.5,facade('glass'),Math.PI/2,3);
   // The white pergola and planters occupy the terrace in front of the VF wing.
   const terraceStart=38,terraceEnd=len-1;
-  
-  
+  slab((terraceStart+terraceEnd)/2,.74,4.85,terraceEnd-terraceStart,.83,.16,'#397c59');
+  slab((terraceStart+terraceEnd)/2,.74,5.28,terraceEnd-terraceStart,.10,.20,'#73a687');
   for(let a=terraceStart+.7;a<terraceEnd-3.3;a+=4.9){
     for(const b of [1.12,6.2])slab(a,b,6.0,.12,3.18,.12,'#d9ddd2');
     
