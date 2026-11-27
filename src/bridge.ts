@@ -82,7 +82,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
   const stations=[...new Set([...marks,...samples(len)])].sort((a,b)=>a-b);
   const deck=(a:number,b:number,ya:number,yb:number,mat:T.Material)=>
     ribbon(stations,s=>at(s,a,ya),s=>at(s,b,yb),mat);
-  
+  deck(half,-half,.027,.027,asphalt);
   
   
   
