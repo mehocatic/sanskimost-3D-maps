@@ -155,10 +155,10 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
     g.font='900 120px sans-serif';g.textAlign='center';g.textBaseline='middle';
     g.shadowColor='#352421';g.shadowOffsetX=4;g.shadowOffsetY=6;g.shadowBlur=5;
     g.fillStyle='#d66d53';g.fillText('KONZUM',320,97,600);
-    g.fillStyle='#558558';g.beginPath();g.moveTo(163,26);g.lineTo(171,10);g.lineTo(183,19);g.lineTo(171,33);
+    g.fillStyle='#558558';g.beginPath();g.moveTo(163,26);g.lineTo(171,10);g.lineTo(183,19);g.lineTo(171,33);g.fill();
   });
   konzum.alphaTest=.45;
-  
+  panel(33.946,13.25,13.5,11.6,2.97,konzum,-Math.PI/2);
   const vf=canvasMaterial(240,210,g=>{
     g.font='italic bold 148px Georgia';g.textAlign='center';g.textBaseline='middle';
     g.lineWidth=12;g.strokeStyle='#32645a';g.fillStyle='#e5b33f';
