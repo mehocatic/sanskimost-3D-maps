@@ -37,10 +37,10 @@ function plaza(m:Model,w:number,l:number){
     const canopy=new T.BoxGeometry(3.65,.18,17);canopy.rotateX(.16);
     m.add(canopy,metal,rampX,1.85,-16);
     for(const z of [-24,-17,-9])m.box(x+side*3.5,(1.85-(z+16)*.16)/2,z,.13,1.85-(z+16)*.16,.13,metal);
-    
+    m.box(rampX,.038,-24,3.6,.08,3,dark);
     for(const z of [-24,-19,-14,-9])m.box(rampX,.095,z,.13,.03,1.6,metal);
   }
-  
+  sign(m,'LC Waikiki',-w/2-.09,8,-l/2+7,12,2,-Math.PI/2,'#243d86','#bcab97');
   
   
   
