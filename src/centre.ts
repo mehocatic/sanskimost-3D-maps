@@ -181,7 +181,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
     for(const offset of [.8,1.7,2.55]){
       const [x,z]=point(a+offset,1.35),shrub=new T.IcosahedronGeometry(.48,1);
       shrub.scale(.72,1.20,.69);
-      
+      model.add(shrub,finish('#596f38'),x,base+5.37,z,yaw);
     }
   }
 }
