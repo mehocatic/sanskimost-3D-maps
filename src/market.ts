@@ -29,7 +29,7 @@ function plaza(m:Model,w:number,l:number){
     m.box(x+side*.15,2.25,0,.42,4.5,8,dark);
     m.box(x+side*.4,2,0,.12,3.9,6.9,finish('#65818a'));
     for(const z of [-3.4,0,3.4])m.box(x+side*.49,2,z,.12,4,.12,dark);
-    
+    m.box(x,4.9,0,.95,1.1,13,green);
     
     
     // Covered garage lane opens toward the old market and drops near the pedestrian portal.
