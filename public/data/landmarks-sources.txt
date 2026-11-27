@@ -30,3 +30,22 @@ w510393874–76. Posebne fasade u Hamzibegovoj prate brojeve 1, 3, 5 i 11.
 Zaobljenje ugla, balkoni, arkade, izlozi, tezga, boje i visine vizuelne su
 procjene prema dostavljenim pogledima s ulice. Preostalih 12 kuća koristi
 zajednički model prilagođen tlocrtu. Fotografije nisu dio aplikacije.
+
+Trg oslobodilaca i Gradski most
+Osa mosta, dva saobraćajna traka i obostrani trotoari prate OSM w56396323.
+Raspored oslonaca, pješačka proširenja, metalna ograda, cvjetne kutije i
+svjetiljke procijenjeni su prema dostavljenim pogledima s mosta i obale.
+Reljefni grb predstavljen je pojednostavljenim autorskim crtežom.
+
+Konzum i Hami VF dijele tlocrt w1080919891 prema položaju OSM tačaka
+n1619084112 i n14220668092. Terasa, gornji volumeni, obloga i izlozi
+modelirani su prema referencama. Zelena zgrada prati w510397159, ugao
+UniCredit banke w1080919898, roze zgrada w1080919896, a druga zgrada
+s bankarskim lokalima w959151441. Visine i fasadni detalji su procjene.
+Nazivi lokala odgovaraju lokalnom snimku podataka.
+
+Kružno ostrvo prati w292847704. Jedanaest bijelih latica i zelena sredina
+rekonstruisani su prema fotografiji Cvijeta Srebrenice. Granice parkinga
+(w77938277) i parka (w77938276) su kartirane. Pojedina parking mjesta,
+vozila, dopunsko drveće, oznake na kolovozu i rasvjeta su ilustrativni.
+Fotografije i snimci uličnog pogleda nisu distribuirani s aplikacijom.
