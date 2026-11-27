@@ -23,7 +23,7 @@ function plaza(m:Model,w:number,l:number){
     const x=side*w/2;
     for(const end of [-1,1])m.box(x,6.55,end*(l/2-7),.14,5.7,14,sand);
     for(const z of [4,7,10,21,23,25,34,36,38]){
-      
+      m.box(x,4.75,z,.35,9.5,.55,z===21||z===23?green:z%2?dark:sand);
     }
     for(let j=0;j<12;j++)m.box(x,7.35,-6+j*.95,.42,4.1,.30,sand);
     
