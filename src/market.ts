@@ -61,7 +61,7 @@ function stalls(m:Model,w:number,l:number,outer:number){
     }
     for(const s of [-1,1]){
       m.box(s*(w/2-.13),1.25,z-bay/2+.1,.16,2.6,.18,timber);
-      const roof=new T.BoxGeometry(w*.56,.16,bay+.025);
+      const roof=new T.BoxGeometry(w*.56,.16,bay+.025);roof.rotateZ(-s*.31);
       
     }
     
