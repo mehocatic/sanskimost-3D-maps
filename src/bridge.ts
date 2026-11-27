@@ -70,7 +70,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       if(i)indices.push(j-2,j,j-1,j-1,j,j+1);
     });
     const geometry=new T.BufferGeometry();
-    
+    geometry.setAttribute('position',new T.Float32BufferAttribute(vertices,3));
     
     
     
