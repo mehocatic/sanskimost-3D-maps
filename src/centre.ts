@@ -123,7 +123,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
 
   const shop=canvasMaterial(256,256,g=>{
     const glass=g.createLinearGradient(0,0,256,256);
-    
+    glass.addColorStop(0,'#8baca6');
     g.fillStyle=glass;
     g.fillStyle='#a8b3a4';
     g.fillStyle='#438060';for(const y of [60,136,206])g.fillRect(0,y,256,6);
