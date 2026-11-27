@@ -1,4 +1,6 @@
 import {localFrame} from './landmarks';
+import {streetSurface} from './street-surface';
+import {gradeWestBank,terrainAxis} from './west-approach';
 import * as T from 'three';
 import { City, Feature, Point, Road, Terrain, rng, sampleTerrain, centerOf } from './types';
 
@@ -37,6 +39,7 @@ export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
     if(['residential','grass','meadow','garden'].includes(a.kind))density=40;
     if(['park','forest','scrub','orchard'].includes(a.kind))density=a.kind==='forest'?245:155;
     if(['parking','paved','water','pitch','industrial','commercial','cemetery','farmland'].includes(a.kind))density=0;
+    if(a.id==='w292847704')density=0;
     mask.fillStyle='rgb('+density+',0,'+(a.kind==='water'?255:0)+')';mask.fill(p,'evenodd');
     if(a.kind==='farmland' || a.kind==='orchard'){
       ctx.save();ctx.clip(p,'evenodd');ctx.strokeStyle='rgba(97,105,56,.16)';ctx.lineWidth=1;
@@ -100,15 +103,22 @@ export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
     if(value(x,z,2)>128)h=waterY-.5;
     else if([[-6,0],[6,0],[0,-6],[0,6]].some(([a,b])=>value(x+a,z+b,2)>128))h=waterY+.25;
     const blend=Math.max(0,Math.min(1,(courtyardDistance(x,z)-4)/9));
-    return floor+(h-floor)*blend;
+    return gradeWestBank(x,z,floor+(h-floor)*blend);
   }
   const tex=new T.CanvasTexture(c);tex.colorSpace=T.SRGBColorSpace;tex.anisotropy=8;
   const land=new T.Group();
-  const g=new T.PlaneGeometry(bound*2,bound*2,360,360);g.rotateX(-Math.PI/2);
+  const xs=terrainAxis(-bound,bound,-279,-126),zs=terrainAxis(-bound,bound,135,252);
+  const g=new T.PlaneGeometry(bound*2,bound*2,xs.length-1,zs.length-1);g.rotateX(-Math.PI/2);
   const attr=g.attributes.position;
-  for(let i=0;i<attr.count;i++)attr.setY(i,height(attr.getX(i),attr.getZ(i)));
+  const uv=g.attributes.uv;
+  for(let i=0;i<attr.count;i++){
+    const x=xs[i%xs.length],z=zs[Math.floor(i/xs.length)];
+    attr.setXYZ(i,x,height(x,z),z);
+    uv.setXY(i,(x+bound)/(2*bound),1-(z+bound)/(2*bound));
+  }
   g.computeVertexNormals();
   const ground=new T.Mesh(g,new T.MeshLambertMaterial({map:tex}));ground.receiveShadow=true;land.add(ground);
+  land.add(streetSurface(city,height,xs,zs));
   const env=new T.PlaneGeometry(dem.step*(dem.cols-1),dem.step*(dem.rows-1),dem.cols-1,dem.rows-1);env.rotateX(-Math.PI/2);
   const ep=env.attributes.position,colors:number[]=[];
   const envIndices:number[]=[];
@@ -123,6 +133,13 @@ export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
     if([a,b,c].every(j=>Math.abs(ep.getX(j))<bound-5&&Math.abs(ep.getZ(j))<bound-5))continue;envIndices.push(a,b,c)}
   env.setIndex(envIndices);env.setAttribute('color',new T.Float32BufferAttribute(colors,3));env.computeVertexNormals();
   const imagery=new T.Texture(photo);imagery.colorSpace=T.SRGBColorSpace;imagery.needsUpdate=true;land.add(new T.Mesh(env,new T.MeshLambertMaterial({map:imagery})));
-  return {land,height,waterY,density:(x:number,z:number)=>courtyardDistance(x,z)<0?0:value(x,z,0),waterAreas};
+  function surfaceHeight(x:number,z:number){
+    const col=Math.max(0,xs.findIndex(k=>k>x)-1),row=Math.max(0,zs.findIndex(k=>k>z)-1);
+    if(x<xs[0]||x>=xs.at(-1)!||z<zs[0]||z>=zs.at(-1)!)return height(x,z);
+    const u=(x-xs[col])/(xs[col+1]-xs[col]),v=(z-zs[row])/(zs[row+1]-zs[row]),i=row*xs.length+col;
+    const a=attr.getY(i),b=attr.getY(i+1),c=attr.getY(i+xs.length),d=attr.getY(i+xs.length+1);
+    return u+v<=1?a+(b-a)*u+(c-a)*v:d+(c-d)*(1-u)+(b-d)*(1-v);
+  }
+  return {land,height,surfaceHeight,waterY,density:(x:number,z:number)=>courtyardDistance(x,z)<0?0:value(x,z,0),waterAreas};
 }
 
