@@ -33,7 +33,7 @@ function facade(style:Skin){
       sky.addColorStop(0,green?'#68a19b':'#abc3c7');sky.addColorStop(.47,green?'#469189':'#81969c');
       sky.addColorStop(.5,green?'#39837d':'#697880');sky.addColorStop(1,green?'#2a6865':'#4a595e');
       g.fillStyle=sky;g.fillRect(x,y,w,h);
-      g.fillStyle=green?'#637d78':'#e2ded2';
+      g.fillStyle=green?'#637d78':'#e2ded2';g.fillRect(x+w*.5-2,y,4,h);
       g.fillStyle='#e6e0d1';
       if(y>250||green){
         glow.fillStyle=green?'#506465':'#c1a77d';
