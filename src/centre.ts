@@ -150,11 +150,11 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   });
   model.add(new T.PlaneGeometry(3.55,2.62),entrance,doorX,base+1.31,doorZ,yaw);
   const riverBlock=clip(clip(clip(ring,p=>u(p)-34),p=>v(p)-7),p=>len-3-u(p));
-  
+  prism(model,riverBlock,base+4.4,base+14.8,facade('cladding'),finish('#9b9e9c'));
   const konzum=canvasMaterial(640,164,g=>{
     g.font='900 120px sans-serif';g.textAlign='center';g.textBaseline='middle';
     g.shadowColor='#352421';g.shadowOffsetX=4;g.shadowOffsetY=6;g.shadowBlur=5;
-    g.fillStyle='#d66d53';
+    g.fillStyle='#d66d53';g.fillText('KONZUM',320,97,600);
     g.fillStyle='#558558';
   });
   konzum.alphaTest=.45;
