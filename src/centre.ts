@@ -225,7 +225,7 @@ export function centreBuilding(b:Building,height:(x:number,z:number)=>number){
     if(profile.style==='bank'){
       const [a,b]=[ring[3],ring[0]],x=(a[0]+b[0])/2,z=(a[1]+b[1])/2;
       const yaw=Math.atan2(b[1]-a[1],a[0]-b[0]);
-      
+      label(model,'BANKA',5.2,.9,x+Math.sin(yaw)*.08,base+3.7,z+Math.cos(yaw)*.08,yaw,'#edf1f1','#476878');
     }
   }
   return model.build(b.id);
@@ -233,7 +233,7 @@ export function centreBuilding(b:Building,height:(x:number,z:number)=>number){
 export function flowerIsland(area:Feature,height:(x:number,z:number)=>number){
   const [x,z]=centerOf(area.points),y=height(x,z),r=Math.min(...area.points.map(p=>Math.hypot(p[0]-x,p[1]-z)));
   const model=new Model();
-  
+  model.add(new T.CylinderGeometry(r,r+.13,.38,64),finish('#c4c1b4'),x,y+.11,z);
   
   for(let j=0;j<11;j++){
     const a=j*Math.PI*2/11,petal=new T.SphereGeometry(1,12,8);
