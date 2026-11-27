@@ -163,9 +163,9 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
         low.y=frontageY;
         const topHigh=high.clone().add(new T.Vector3(0,.85,0)),topLow=low.clone().add(new T.Vector3(0,.85,0));
         for(const [foot,top] of [[high,topHigh],[low,topLow]]){
-          
+          model.beam(foot,top,.058,.058,finish('#60685c'));
         }
-        
+        model.beam(topHigh,topLow,.064,.064,finish('#60685c'));
       }
       for(let s=1;s<length-3;s+=7){
         if(s<stairEnd&&s+3.4>stairStart)continue;
