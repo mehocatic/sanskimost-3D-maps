@@ -32,7 +32,7 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
   }
   const island=city.areas.find(a=>a.id==='w292847704');
   if(island){ctx.fillStyle='#aaa99c';ctx.fill(line(island.points,true))}
-  ctx.lineCap='butt';ctx.lineWidth=.13;ctx.strokeStyle='#deded1';
+  ctx.lineCap='butt';ctx.setLineDash([3,4]);ctx.lineWidth=.13;ctx.strokeStyle='#deded1';
   for(const {r,path} of roads){
     if(r.id==='w41068824')ctx.stroke(path);
   }
