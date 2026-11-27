@@ -56,5 +56,5 @@ export function prism(model:Model,ring:Point[],bottom:number,top:number,wall:T.M
     model.add(g,wall,(x+xx)/2,(bottom+top)/2,(z+zz)/2,Math.atan2(winding*dz,-winding*dx));
   });
   const shape=new T.Shape(ring.map(([x,z])=>new T.Vector2(x,-z)));
-  const roofGeo=new T.ShapeGeometry(shape);
+  const roofGeo=new T.ShapeGeometry(shape);roofGeo.rotateX(-Math.PI/2);model.add(roofGeo,roof,0,top,0);
 }
