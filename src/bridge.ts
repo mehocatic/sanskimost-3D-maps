@@ -116,8 +116,8 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
     const strip=(a:number,b:number,ha:number,hb:number,m:T.Material)=>
       ribbon(sequence,s=>point(s,a,ha),s=>point(s,b,hb),m);
     strip(half,-half,0,0,asphalt);
-    
-    
+    strip(edge,half,.153,.153,rim);
+    strip(-half,-edge,.153,.153,rim);
     
     
     const baseEdge=(s:number,w:number)=>{
