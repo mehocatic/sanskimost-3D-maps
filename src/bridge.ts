@@ -30,8 +30,8 @@ function cityShield(){
     g.fillStyle='#515751';for(const [x,w] of [[44,38],[92,69],[172,39]]){
       g.beginPath();g.moveTo(x,188);g.lineTo(x,155);g.quadraticCurveTo(x+w/2,144,x+w,155);g.lineTo(x+w,187);g.closePath();g.fill();
     }
-    g.beginPath();g.moveTo(48,202);g.bezierCurveTo(99,221,145,180,207,199);g.lineWidth=10;
-    g.font='bold 24px serif';
+    g.beginPath();g.moveTo(48,202);g.bezierCurveTo(99,221,145,180,207,199);g.lineWidth=10;g.stroke();
+    g.font='bold 24px serif';g.fillText('1244',128,254);
   });
 }
 export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x:number,z:number)=>number,
