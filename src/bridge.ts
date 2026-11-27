@@ -261,8 +261,8 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
   for(let i=1;i<=3;i++){
     const s=len*i/4,p=at(s,0,-.91),q=at(s+.1,0,0),yaw=Math.atan2(q.x-p.x,q.z-p.z);
     const bottom=waterY-2.2,h=p.y-bottom;
-    
-    
+    model.box(p.x,bottom+h/2,p.z,2*edge-1,h,1.17,concrete,yaw);
+    model.box(p.x,p.y-.25,p.z,2*edge-.3,.53,1.72,rim,yaw);
   }
   return {group:model.build(road.id),heightAt,approaches};
 }
