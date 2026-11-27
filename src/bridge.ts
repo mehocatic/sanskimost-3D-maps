@@ -218,11 +218,20 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
     if(sign>0)stops.push(middle-plaqueHalfWidth,middle+plaqueHalfWidth);
     for(let s=2;s<len;s+=2.65)stops.push(s);
     const posts=[...new Set(stops)].sort((a,b)=>a-b);
-    
+    posts.forEach((s,i)=>{
+      if(sign>0&&s>middle-plaqueHalfWidth&&s<middle+plaqueHalfWidth)return;
+      const shift=sign*offsets(s);
+      model.beam(at(s,shift,.16),at(s,shift,1.31),.09,.09,metal);
+      if(i===0||(sign>0&&s===middle+plaqueHalfWidth))return;
+      const prev=posts[i-1];
+      for(const h of [.39,.61,.83,1.06,1.32]){
+        model.beam(at(prev,sign*offsets(prev),h),at(s,shift,h),h>1.3?.105:.043,h>1.3?.09:.043,metal);
+      }
+    });
     if(sign>0){
       const a=at(middle,edge,.17),front=at(middle,edge-.204,.17);
       const yaw=Math.atan2(front.x-a.x,front.z-a.z);
-      
+      model.box(a.x,a.y+.96,a.z,2*plaqueHalfWidth,1.92,.39,concrete,yaw);
       
       
     }
