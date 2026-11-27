@@ -129,7 +129,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
     g.fillStyle='#438060';for(const y of [60,136,206])g.fillRect(0,y,256,6);
   },true);
   panel(7.4,-.081,1.82,10.8,3.64,shop,0,5);
-  
+  panel(1.973,5.8,1.82,11.6,3.64,shop,-Math.PI/2,5);
   
   
   const azel=canvasMaterial(512,110,g=>{
