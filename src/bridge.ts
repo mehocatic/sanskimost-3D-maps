@@ -212,7 +212,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
         pos.setY(i,pos.getY(i)+heightAt(s)-base);
       }
       slab.computeVertexNormals();
-      
+      model.add(slab,rim,0,base-.18,0);
       
     }
     if(sign>0)stops.push(middle-plaqueHalfWidth,middle+plaqueHalfWidth);
