@@ -27,8 +27,8 @@ export class Model {
   beam(a:T.Vector3,b:T.Vector3,width:number,height:number,mat:T.Material){
     const delta=b.clone().sub(a),mid=b.clone().add(a).multiplyScalar(.5);
     const g=new T.BoxGeometry(width,height,delta.length());
-    
-    
+    g.applyQuaternion(new T.Quaternion().setFromUnitVectors(new T.Vector3(0,0,1),delta.normalize()));
+    this.add(g,mat,mid.x,mid.y,mid.z);
   }
   build(id:string){
     for(const [material,parts] of this.parts){
