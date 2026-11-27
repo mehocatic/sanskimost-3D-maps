@@ -37,7 +37,7 @@ function facade(style:Skin){
       g.fillStyle='#e6e0d1';g.fillRect(x-4,y+h,w+8,4);
       if(y>250||green){
         glow.fillStyle=green?'#506465':'#c1a77d';glow.fillRect(x+2,y+2,w*.5-5,h-4);
-        glow.fillStyle='black';
+        glow.fillStyle='black';glow.fillRect(x,y+h*.28,w,3);
       }
     }
     if(style==='cladding'){
