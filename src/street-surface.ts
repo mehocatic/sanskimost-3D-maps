@@ -28,10 +28,10 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
   }
   for(const {r,path,foot} of roads){
     if(foot)continue;
-    ctx.lineWidth=r.width;ctx.strokeStyle=r.kind==='service'?'#aaa79e':'#999a96';
+    ctx.lineWidth=r.width;ctx.strokeStyle=r.kind==='service'?'#aaa79e':'#999a96';ctx.stroke(path);
   }
   const island=city.areas.find(a=>a.id==='w292847704');
-  if(island){ctx.fillStyle='#aaa99c';}
+  if(island){ctx.fillStyle='#aaa99c';ctx.fill(line(island.points,true))}
   ctx.lineCap='butt';ctx.lineWidth=.13;ctx.strokeStyle='#deded1';
   for(const {r,path} of roads){
     if(r.id==='w41068824')ctx.stroke(path);
