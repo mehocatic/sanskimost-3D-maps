@@ -233,7 +233,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       const yaw=Math.atan2(front.x-a.x,front.z-a.z);
       model.box(a.x,a.y+.96,a.z,2*plaqueHalfWidth,1.92,.39,concrete,yaw);
       model.add(new T.PlaneGeometry(1.42,1.67),cityShield(),front.x,a.y+1.02,front.z,yaw);
-      
+      model.box(a.x,a.y+1.97,a.z,2.23,.13,.48,rim,yaw);
     }
     // Mirror the rows so the two lamps flanking the plaque sit equally far from it.
     for(const index of [-1,0,1]){
@@ -243,7 +243,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       const tip=at(s,sign*(offset-1.05),5.535);
       const armStart=new T.Vector3(p.x,tip.y,p.z);
       const yaw=Math.atan2(tip.x-p.x,tip.z-p.z);
-      
+      model.beam(armStart,tip,.12,.09,metal);
       
       
     }
