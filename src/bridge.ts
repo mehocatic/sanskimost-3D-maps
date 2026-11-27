@@ -213,7 +213,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
       }
       slab.computeVertexNormals();
       model.add(slab,rim,0,base-.18,0);
-      
+      stops.push(s0-extent,s0-extent+1.35,s0+extent-1.35,s0+extent);
     }
     if(sign>0)stops.push(middle-plaqueHalfWidth,middle+plaqueHalfWidth);
     for(let s=2;s<len;s+=2.65)stops.push(s);
