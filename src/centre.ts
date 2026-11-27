@@ -45,7 +45,7 @@ function facade(style:Skin){
       g.fillStyle='#939e9e';g.fillRect(0,0,2,512);
     }else if(style==='tower'){
       for(let row=0;row<3;row++)window(15,42+row*152,226,78);
-      g.fillStyle='#cdd4d2';g.fillRect(0,0,9,512);
+      g.fillStyle='#cdd4d2';g.fillRect(0,0,9,512);g.fillRect(247,0,9,512);
     }else if(style==='glass'){
       for(let j=0;j<5;j++)window(2,j*102+3,252,96,true);
     }else{
@@ -53,7 +53,7 @@ function facade(style:Skin){
       for(let j=0;j<floors;j++){
         const h=512/floors,top=j*h;
         if(j===floors-1&&style==='pink'){
-          g.fillStyle='#b6a38b';
+          g.fillStyle='#b6a38b';g.fillRect(0,top,256,h);
           for(let row=0;row<10;row++)for(let col=-1;col<5;col++){
             g.fillStyle=['#bbaf99','#d4c6ae','#a89f89'][(row+Math.abs(col))%3];
           }
