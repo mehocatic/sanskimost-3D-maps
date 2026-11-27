@@ -8,7 +8,7 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
   const ctx=canvas.getContext('2d')!,scale=pixels/size;
   ctx.setTransform(scale,0,0,scale,-x0*scale,-z0*scale);
   function line(points:Point[],close=false){
-    const p=new Path2D();
+    const p=new Path2D();p.moveTo(...points[0]);
     for(const q of points.slice(1))p.lineTo(...q);if(close)p.closePath();return p;
   }
   const intersects=(points:Point[])=>Math.max(...points.map(p=>p[0]))>=x0&&Math.min(...points.map(p=>p[0]))<=x0+size&&
