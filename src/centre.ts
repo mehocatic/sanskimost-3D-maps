@@ -55,7 +55,7 @@ function facade(style:Skin){
         if(j===floors-1&&style==='pink'){
           g.fillStyle='#b6a38b';g.fillRect(0,top,256,h);
           for(let row=0;row<10;row++)for(let col=-1;col<5;col++){
-            g.fillStyle=['#bbaf99','#d4c6ae','#a89f89'][(row+Math.abs(col))%3];
+            g.fillStyle=['#bbaf99','#d4c6ae','#a89f89'][(row+Math.abs(col))%3];g.fillRect(col*65+row%2*32,top+row*h/10,63,h/10-2);
           }
         }
         
