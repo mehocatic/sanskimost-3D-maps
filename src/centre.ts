@@ -24,7 +24,7 @@ function facade(style:Skin){
   if(skins.has(style))return skins.get(style)!;
   const colors:Record<Skin,string>={green:'#acb981',glass:'#438a86',pink:'#dba99c',bank:'#dad8ce',centre:'#d9dcd6',cladding:'#b8c1c1',tower:'#abb7bb'};
   const mask=document.createElement('canvas');mask.width=256;mask.height=512;
-  const glow=mask.getContext('2d')!;glow.fillStyle='black';
+  const glow=mask.getContext('2d')!;glow.fillStyle='black';glow.fillRect(0,0,256,512);
   const mat=canvasMaterial(256,512,g=>{
     g.fillStyle=colors[style];
     function window(x:number,y:number,w:number,h:number,green=false){
