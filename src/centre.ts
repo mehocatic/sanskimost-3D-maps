@@ -26,7 +26,7 @@ function facade(style:Skin){
   const mask=document.createElement('canvas');mask.width=256;mask.height=512;
   const glow=mask.getContext('2d')!;glow.fillStyle='black';glow.fillRect(0,0,256,512);
   const mat=canvasMaterial(256,512,g=>{
-    g.fillStyle=colors[style];
+    g.fillStyle=colors[style];g.fillRect(0,0,256,512);
     function window(x:number,y:number,w:number,h:number,green=false){
       g.fillStyle='#656c69';
       const sky=g.createLinearGradient(x,y,x+w*.65,y+h);
