@@ -85,9 +85,9 @@ export function memorial(x:number,z:number,y:number,id:string){
   m.box(0,.08,0,4.3,.16,2.2,stone);m.box(0,1.25,0,2.55,2.45,.48,stone);
   for(const s of [-1,1]){
     m.box(s*1.36,1.43,0,.42,2.86,.63,stone);m.box(s*1.36,2.89,0,.5,.11,.7,white);
-    m.box(s*1.95,2.35,0,.07,4.7,.07,white);
+    m.box(s*1.95,2.35,0,.07,4.7,.07,white);m.box(s*1.95+.19,4.05,0,.37,1.15,.035,finish('#556585'));
   }
-  
+  m.box(0,1.38,.265,1.72,1.85,.09,white);
   const lily=new T.Shape();
   
   
