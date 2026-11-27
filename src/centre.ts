@@ -155,7 +155,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
     g.font='900 120px sans-serif';g.textAlign='center';g.textBaseline='middle';
     g.shadowColor='#352421';g.shadowOffsetX=4;g.shadowOffsetY=6;g.shadowBlur=5;
     g.fillStyle='#d66d53';g.fillText('KONZUM',320,97,600);
-    g.fillStyle='#558558';g.beginPath();
+    g.fillStyle='#558558';g.beginPath();g.moveTo(163,26);
   });
   konzum.alphaTest=.45;
   
