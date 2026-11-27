@@ -64,7 +64,7 @@ function stalls(m:Model,w:number,l:number,outer:number){
       const roof=new T.BoxGeometry(w*.56,.16,bay+.025);roof.rotateZ(-s*.31);
       m.add(roof,tile,s*w*.25,2.72+w*.08,z);
     }
-    
+    m.box(0,.85,z,w*.70,.22,bay*.77,timber);
     for(let j=0;j<3;j++)m.box(0,1.07,z+(j-1)*bay*.22,w*.50,.20,bay*.18,finish(['#979242','#be6943','#65824c'][(j+i)%3]));
   }
   if(outer)sign(m,'VAKUFSKA PIJACA',outer*(w/2+.06),1.5,-l/2+bay*.6,2.5,.95,outer*Math.PI/2,'#396147','#e7e1cf');
@@ -78,7 +78,7 @@ export function marketBuilding(b:Building,height:(x:number,z:number)=>number){
   const w=span(axis.y,-axis.x),l=span(axis.x,axis.y),m=new Model();
   if(b.id==='w1185290181')plaza(m,w,l);
   else stalls(m,w,l,b.id==='w1185290176'?-1:b.id==='w1185290178'?1:0);
-  const group=m.build(b.id);group.rotation.y=Math.atan2(axis.x,axis.y);return group;
+  const group=m.build(b.id);group.position.set(x,height(x,z),z);group.rotation.y=Math.atan2(axis.x,axis.y);return group;
 }
 export function memorial(x:number,z:number,y:number,id:string){
   const m=new Model(),stone=finish('#a59a83'),white=finish('#e9e5d8');
