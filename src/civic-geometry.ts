@@ -33,14 +33,14 @@ export class Model {
   build(id:string){
     for(const [material,parts] of this.parts){
       const mesh=new T.Mesh(mergeGeometries(parts),material);mesh.castShadow=mesh.receiveShadow=true;
-      this.group.add(mesh);
+      this.group.add(mesh);parts.forEach(p=>p.dispose());
     }
     this.group.userData.place=id;return this.group;
   }
 }
 export function canvasMaterial(width:number,height:number,draw:(ctx:CanvasRenderingContext2D)=>void,repeat=false){
   const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
-  
+  draw(canvas.getContext('2d')!);
   const map=new T.CanvasTexture(canvas);map.colorSpace=T.SRGBColorSpace;map.anisotropy=4;
   if(repeat)map.wrapS=T.RepeatWrapping;
   return new T.MeshLambertMaterial({map});
