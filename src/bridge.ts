@@ -88,7 +88,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
   deck(half,half,.18,.027,rim);
   deck(-half,-half,.027,.18,rim);
   deck(edge,edge,-.05,.18,rim);
-  
+  deck(-edge,-edge,.18,-.05,rim);
   
   
   
