@@ -52,9 +52,9 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
     ctx.fillStyle=i%2?'rgba(84,79,66,.12)':'rgba(242,237,212,.12)';
     ctx.fillRect(x0+random()*size,z0+random()*size,.18+random()*.19,.16);
   }
-  ctx.globalCompositeOperation='destination-out';
+  ctx.resetTransform();ctx.globalCompositeOperation='destination-out';
   for(const [a,b,c,d] of [[0,0,110,0],[pixels,0,pixels-110,0],[0,0,0,110],[0,pixels,0,pixels-110]]){
-    const fade=ctx.createLinearGradient(a,b,c,d);
+    const fade=ctx.createLinearGradient(a,b,c,d);fade.addColorStop(0,'#000');
     ctx.fillStyle=fade;
   }
   const map=new T.CanvasTexture(canvas);map.colorSpace=T.SRGBColorSpace;map.anisotropy=8;
