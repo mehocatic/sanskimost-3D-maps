@@ -208,7 +208,7 @@ export function centreBuilding(b:Building,height:(x:number,z:number)=>number){
       const roof=new T.BufferGeometry(),verts=[a,b,ridgeB,a,ridgeB,ridgeA,b,c,ridgeB,c,d,ridgeA,c,ridgeA,ridgeB,d,a,ridgeA];
       roof.setAttribute('position',new T.Float32BufferAttribute(verts.flatMap(p=>p.toArray()),3));roof.computeVertexNormals();
       roof.setAttribute('uv',new T.Float32BufferAttribute(new Float32Array(verts.length*2),2));
-      const tile=finish('#907363');tile.side=T.DoubleSide;
+      const tile=finish('#907363');tile.side=T.DoubleSide;model.add(roof,tile);
     }
     if(profile.style==='green'){
       const [a,b]=ring,dx=b[0]-a[0],dz=b[1]-a[1],len=Math.hypot(dx,dz),ux=dx/len,uz=dz/len;
