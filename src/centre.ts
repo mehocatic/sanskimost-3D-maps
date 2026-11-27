@@ -234,7 +234,7 @@ export function flowerIsland(area:Feature,height:(x:number,z:number)=>number){
   const [x,z]=centerOf(area.points),y=height(x,z),r=Math.min(...area.points.map(p=>Math.hypot(p[0]-x,p[1]-z)));
   const model=new Model();
   model.add(new T.CylinderGeometry(r,r+.13,.38,64),finish('#c4c1b4'),x,y+.11,z);
-  
+  model.add(new T.CylinderGeometry(r-.17,r-.17,.16,64),finish('#414449'),x,y+.35,z);
   for(let j=0;j<11;j++){
     const a=j*Math.PI*2/11,petal=new T.SphereGeometry(1,12,8);
     
