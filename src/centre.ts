@@ -146,7 +146,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
     g.fillStyle='#3e635d';g.fillRect(0,0,240,160);
     g.fillStyle='#233e3b';g.fillRect(10,9,220,151);
     g.fillStyle='#6b8882';g.fillRect(18,17,96,122);g.fillRect(126,17,96,122);
-    g.fillStyle='#bec1ad';g.fillRect(106,84,4,20);
+    g.fillStyle='#bec1ad';g.fillRect(106,84,4,20);g.fillRect(130,84,4,20);
   });
   
   const riverBlock=clip(clip(clip(ring,p=>u(p)-34),p=>v(p)-7),p=>len-3-u(p));
