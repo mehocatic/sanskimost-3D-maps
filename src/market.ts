@@ -62,7 +62,7 @@ function stalls(m:Model,w:number,l:number,outer:number){
     for(const s of [-1,1]){
       m.box(s*(w/2-.13),1.25,z-bay/2+.1,.16,2.6,.18,timber);
       const roof=new T.BoxGeometry(w*.56,.16,bay+.025);roof.rotateZ(-s*.31);
-      
+      m.add(roof,tile,s*w*.25,2.72+w*.08,z);
     }
     
     for(let j=0;j<3;j++)m.box(0,1.07,z+(j-1)*bay*.22,w*.50,.20,bay*.18,finish(['#979242','#be6943','#65824c'][(j+i)%3]));
