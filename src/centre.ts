@@ -254,14 +254,14 @@ export function plazaParking(area:Feature){
   function point(along:number,across:number):Point{return [a[0]+along*ux+across*uz,a[1]+along*uz-across*ux]}
   function inside([x,z]:Point){
     let hit=false;
-    
+    ring.forEach(([ax,az],i)=>{const [bx,bz]=ring[(i+1)%ring.length];if((az>z)!==(bz>z)&&x<ax+(z-az)*(bx-ax)/(bz-az))hit=!hit});
     return hit;
   }
   const paint=finish('#dedbd0');
   for(let i=0;i<len/2.75;i++){
     const s=1.4+i*2.75,start=point(s,.6),end=point(s,5.45);
     if(!inside(start)||!inside(end))continue;
-    
+    model.beam(new T.Vector3(start[0],frontageY+.016,start[1]),new T.Vector3(end[0],frontageY+.016,end[1]),.11,.03,paint);
     if(i%4===1||!inside(point(s+2.45,5.45)))continue;
     const [x,z]=point(s+1.36,3),y=frontageY,yaw=Math.atan2(uz,-ux);
     const color=finish(['#939b9c','#6b7278','#d9dad4','#a9594f','#637b8c'][i%5]);
