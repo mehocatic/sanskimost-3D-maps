@@ -107,9 +107,9 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   for(const y of [.9,2.18,3.44])slab(len,7.75,y,.13,.07,15.5,'#4b8a66');
 
   // The roundabout wing projects above the ground-floor shop and open side entrance.
-  
+  prism(model,clip(ring,p=>13-u(p)),base+4.4,base+14.1,facade('tower'),finish('#a9b2b4'),1.65);
   for(const b of [7.1,12.5])slab(-1.3,b,2.17,.62,4.34,.61,'#7e817b');
-  
+  slab(6.5,0,9.25,13,9.7,.16,'#aab5b9');
   for(let a=.45;a<13;a+=1.24)slab(a,-.099,9.25,.07,9.61,.06,'#a3636a');
   
   const residence=clip(clip(clip(ring,p=>u(p)-13),p=>35-u(p)),p=>v(p)-7.2);
