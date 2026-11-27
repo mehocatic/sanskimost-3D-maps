@@ -6,7 +6,7 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
   const x0=-297,z0=126,size=216,pixels=1536;
   const canvas=document.createElement('canvas');canvas.width=canvas.height=pixels;
   const ctx=canvas.getContext('2d')!,scale=pixels/size;
-  
+  ctx.setTransform(scale,0,0,scale,-x0*scale,-z0*scale);
   function line(points:Point[],close=false){
     const p=new Path2D();
     for(const q of points.slice(1))p.lineTo(...q);if(close)p.closePath();return p;
