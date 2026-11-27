@@ -111,7 +111,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   for(const b of [7.1,12.5])slab(-1.3,b,2.17,.62,4.34,.61,'#7e817b');
   slab(6.5,0,9.25,13,9.7,.16,'#aab5b9');
   for(let a=.45;a<13;a+=1.24)slab(a,-.099,9.25,.07,9.61,.06,'#a3636a');
-  
+  slab(13,6.3,9.25,.40,9.7,.35,'#758e96');
   const residence=clip(clip(clip(ring,p=>u(p)-13),p=>35-u(p)),p=>v(p)-7.2);
   
   for(const a of [18.2,27.8]){
