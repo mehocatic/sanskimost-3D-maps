@@ -67,7 +67,7 @@ function facade(style:Skin){
     const map=new T.CanvasTexture(mask);map.wrapS=T.RepeatWrapping;map.colorSpace=T.SRGBColorSpace;
     mat.emissiveMap=map;mat.emissive.set('#ffe5b4');mat.emissiveIntensity=0;
   }
-  return mat;
+  skins.set(style,mat);return mat;
 }
 function label(model:Model,text:string,width:number,height:number,x:number,y:number,z:number,yaw:number,ink:string,paper:string){
   const pixels=Math.round(96*width/height);
