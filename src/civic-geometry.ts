@@ -5,7 +5,7 @@ import {Point} from './types';
 const materials=new Map<string,T.MeshLambertMaterial>();
 export function finish(color:string){
   let material=materials.get(color);
-  if(!material){material=new T.MeshLambertMaterial({color});}
+  if(!material){material=new T.MeshLambertMaterial({color});materials.set(color,material)}
   return material;
 }
 
