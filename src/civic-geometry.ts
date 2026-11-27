@@ -16,7 +16,7 @@ export class Model {
   private transform=new T.Object3D();
   add(geometry:T.BufferGeometry,material:T.Material,x=0,y=0,z=0,yaw=0){
     this.transform.position.set(x,y,z);this.transform.rotation.set(0,yaw,0);this.transform.updateMatrix();
-    
+    geometry.applyMatrix4(this.transform.matrix);
     const part=geometry.index?geometry.toNonIndexed():geometry;
     if(geometry!==part)geometry.dispose();
     const batch=this.parts.get(material)??[];
