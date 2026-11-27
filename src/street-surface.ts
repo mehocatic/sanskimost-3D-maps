@@ -18,10 +18,10 @@ export function streetSurface(city:City,height:(x:number,z:number)=>number,terra
   }));
   ctx.lineJoin='round';ctx.lineCap='round';
   for(const area of city.areas.filter(a=>a.kind==='parking'&&intersects(a.points))){
-    ctx.fillStyle='#a4a39c';
+    ctx.fillStyle='#a4a39c';ctx.fill(line(area.points,true));
   }
   for(const {r,path,foot} of roads){
-    ctx.lineWidth=r.width+(foot?.25:2.15);ctx.strokeStyle=foot?'#c1b9a7':'#d0c9b8';
+    ctx.lineWidth=r.width+(foot?.25:2.15);ctx.strokeStyle=foot?'#c1b9a7':'#d0c9b8';ctx.stroke(path);
   }
   for(const {r,path} of roads.filter(s=>!s.foot)){
     ctx.lineWidth=r.width+.30;ctx.strokeStyle='#8e8c81';
