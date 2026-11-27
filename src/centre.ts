@@ -89,12 +89,12 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   const u=([x,z]:Point)=>(x-ox)*ux+(z-oz)*uz,v=([x,z]:Point)=>(x-ox)*uz-(z-oz)*ux;
   const point=(a:number,b:number):Point=>[ox+ux*a+uz*b,oz+uz*a-ux*b];
   function slab(a:number,b:number,y:number,w:number,h:number,d:number,color:string){
-    const [x,z]=point(a,b);
+    const [x,z]=point(a,b);model.box(x,base+y,z,w,h,d,finish(color),yaw);
   }
   function panel(a:number,b:number,y:number,w:number,h:number,material:T.Material,turn=0,repeats=1){
     const [x,z]=point(a,b),geometry=new T.PlaneGeometry(w,h),uv=geometry.attributes.uv;
     for(let i=0;i<uv.count;i++)uv.setX(i,uv.getX(i)*repeats);
-    
+    model.add(geometry,material,x,base+y,z,yaw+turn);
   }
   const cap=finish('#b1ae9f');
   const podium=clip(ring,p=>u(p)-2);
