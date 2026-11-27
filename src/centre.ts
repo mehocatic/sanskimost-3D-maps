@@ -79,7 +79,9 @@ function label(model:Model,text:string,width:number,height:number,x:number,y:num
 }
 function clip(ring:Point[],distance:(p:Point)=>number):Point[]{
   const out:Point[]=[];
-  return out;
+  ring.forEach((a,i)=>{const b=ring[(i+1)%ring.length],da=distance(a),db=distance(b);if(da>=0)out.push(a);
+    if(da*db<0){const t=da/(da-db);out.push([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t])}
+  });return out;
 }
 function shoppingCentre(model:Model,ring:Point[],base:number){
   const [ox,oz]=ring[0],end=ring.at(-1)!,len=Math.hypot(end[0]-ox,end[1]-oz);
