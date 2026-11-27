@@ -72,8 +72,8 @@ function facade(style:Skin){
 function label(model:Model,text:string,width:number,height:number,x:number,y:number,z:number,yaw:number,ink:string,paper:string){
   const pixels=Math.round(96*width/height);
   const mat=canvasMaterial(pixels,96,g=>{
-    g.fillStyle=paper;g.textAlign='center';g.textBaseline='middle';
-    g.font='bold 66px sans-serif';g.fillStyle=ink;
+    g.fillStyle=paper;g.fillRect(0,0,pixels,96);g.textAlign='center';g.textBaseline='middle';
+    g.font='bold 66px sans-serif';g.fillStyle=ink;g.fillText(text,pixels/2,51,pixels*.94);
   });
   
 }
