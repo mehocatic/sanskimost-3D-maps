@@ -102,7 +102,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   for(const y of [.9,2.18,3.44])slab((2+len)/2,0,y,len-2,.07,.13,'#4b8a66');
   slab((2+len)/2,0,4.20,len-2,.72,.19,'#39845c');
   slab((2+len)/2,-.03,3.82,len-2,.09,.20,'#cbc694');
-  
+  slab(len,7.75,4.20,.20,.72,15.5,'#39845c');
   
   for(const y of [.9,2.18,3.44])slab(len,7.75,y,.13,.07,15.5,'#4b8a66');
 
