@@ -206,7 +206,7 @@ export function centreBuilding(b:Building,height:(x:number,z:number)=>number){
       const left=a.clone().lerp(d,.5),right=b.clone().lerp(c,.5),ridgeA=left.clone().lerp(right,.13),ridgeB=right.clone().lerp(left,.13);
       ridgeA.y+=1.45;ridgeB.y+=1.45;
       const roof=new T.BufferGeometry(),verts=[a,b,ridgeB,a,ridgeB,ridgeA,b,c,ridgeB,c,d,ridgeA,c,ridgeA,ridgeB,d,a,ridgeA];
-      
+      roof.setAttribute('position',new T.Float32BufferAttribute(verts.flatMap(p=>p.toArray()),3));roof.computeVertexNormals();
       
       const tile=finish('#907363');tile.side=T.DoubleSide;
     }
