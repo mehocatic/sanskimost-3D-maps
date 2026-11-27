@@ -250,8 +250,8 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
     for(let s=5;s<len-2;s+=6.8){
       if(centres.some(c=>s<c+extent&&s+1.2>c-extent))continue;
       if(sign>0&&s<middle+plaqueHalfWidth&&s+1.2>middle-plaqueHalfWidth)continue;
-      
-      
+      beam(s,s+1.2,sign*(edge+.16),.90,.30,.28,finish('#60685c'));
+      beam(s,s+1.2,sign*(edge+.16),1.05,.30,.15,finish('#5b714b'));
       for(let k=0;k<4;k++){
         const p=at(s+.16+k*.26,sign*(edge+.21),1.14);
         
