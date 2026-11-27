@@ -41,7 +41,7 @@ function facade(style:Skin){
       }
     }
     if(style==='cladding'){
-      for(let y=0;y<512;y+=36){g.fillStyle='#668275';g.fillStyle='#dae0df';}
+      for(let y=0;y<512;y+=36){g.fillStyle='#668275';g.fillRect(0,y,256,3);g.fillStyle='#dae0df';g.fillRect(0,y+3,256,2)}
       g.fillStyle='#939e9e';
     }else if(style==='tower'){
       for(let row=0;row<3;row++)window(15,42+row*152,226,78);
