@@ -89,7 +89,7 @@ export function memorial(x:number,z:number,y:number,id:string){
   }
   m.box(0,1.38,.265,1.72,1.85,.09,white);
   const lily=new T.Shape();lily.moveTo(0,0);lily.lineTo(-.22,.06);lily.quadraticCurveTo(-.62,.60,-.12,.36);lily.quadraticCurveTo(-.25,.65,0,.9);lily.quadraticCurveTo(.25,.65,.12,.36);lily.quadraticCurveTo(.62,.60,.22,.06);lily.lineTo(0,0);
-  
+  m.add(new T.ExtrudeGeometry(lily,{depth:.10,bevelEnabled:false}),white,0,2.45,0);
   
   for(const dx of [1.76,2.84])m.box(dx,.2,.7,.19,.4,.3,stone);
   const group=m.build(id);group.rotation.y=2.8;group.name='Šehidsko spomen obilježje Lijeva obala';return group;
