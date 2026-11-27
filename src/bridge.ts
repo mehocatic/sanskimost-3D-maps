@@ -128,7 +128,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
     ribbon(sequence,s=>baseEdge(s,edge),s=>point(s,edge,.153),concrete);
     ribbon(sequence,s=>point(s,-edge,.153),s=>baseEdge(s,-edge),concrete);
     const across=samples(2*edge).map(d=>d-edge);
-    
+    ribbon(across,w=>baseEdge(0,w),w=>point(0,w,-1.12),concrete);
     const stairStart=10.4,stairEnd=14.6;
     for(const w of [-edge,edge]){
       const frontage=side<0&&w>0;
