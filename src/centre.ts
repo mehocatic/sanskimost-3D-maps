@@ -239,7 +239,7 @@ export function flowerIsland(area:Feature,height:(x:number,z:number)=>number){
     const a=j*Math.PI*2/11,petal=new T.SphereGeometry(1,12,8);petal.scale(r*.122,.19,r*.31);
     model.add(petal,finish('#f3f1e3'),x+Math.sin(a)*r*.49,y+.46,z+Math.cos(a)*r*.49,a);
   }
-  
+  model.add(new T.CylinderGeometry(r*.18,r*.19,.25,32),finish('#60773e'),x,y+.57,z);
   return model.build(area.id);
 }
 
