@@ -71,7 +71,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
     });
     const geometry=new T.BufferGeometry();
     geometry.setAttribute('position',new T.Float32BufferAttribute(vertices,3));
-    
+    geometry.setAttribute('uv',new T.Float32BufferAttribute(uv,2));
     
     
   }
