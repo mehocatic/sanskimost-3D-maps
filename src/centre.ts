@@ -98,7 +98,7 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
   }
   const cap=finish('#b1ae9f');
   const podium=clip(ring,p=>u(p)-2);
-  
+  prism(model,podium,base-1.4,base+4.4,finish('#aeb8b9'),cap);
   for(const y of [.9,2.18,3.44])slab((2+len)/2,0,y,len-2,.07,.13,'#4b8a66');
   
   
