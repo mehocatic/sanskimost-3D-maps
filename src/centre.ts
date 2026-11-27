@@ -136,8 +136,8 @@ function shoppingCentre(model:Model,ring:Point[],base:number){
     g.fillStyle='#142961';g.fillRect(0,0,512,110);
     g.strokeStyle='#a0bac2';g.lineWidth=7;g.strokeRect(4,4,504,102);
     g.textBaseline='middle';g.font='bold 85px sans-serif';
-    g.fillStyle='#c0dc51';
-    g.fillStyle='#f1f0e8';
+    g.fillStyle='#c0dc51';g.fillText('Azel',23,57);
+    g.fillStyle='#f1f0e8';g.fillText('France',197,57,293);
   });
   
   
