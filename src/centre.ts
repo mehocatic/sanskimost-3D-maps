@@ -219,7 +219,7 @@ export function centreBuilding(b:Building,height:(x:number,z:number)=>number){
           model.add(new T.CylinderGeometry(1.38,1.38,1.3,12),finish('#829c9c'),x,base+y+1.72,z);
           model.add(new T.CylinderGeometry(1.42,1.42,.15,12),finish('#d7d8c0'),x,base+y+.1,z);
         }
-        
+        model.add(new T.SphereGeometry(1.35,12,6,0,Math.PI*2,0,Math.PI/2),finish('#515b55'),x,top,z);
       }
     }
     if(profile.style==='bank'){
