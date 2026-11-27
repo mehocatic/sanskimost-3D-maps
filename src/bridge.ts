@@ -59,11 +59,16 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
     return new T.Vector3(a[0]+ux*(s-marks[i-1])-direction.y*side,heightAt(s)+up,a[1]+uz*(s-marks[i-1])+direction.x*side);
   }
   function beam(s:number,end:number,offset:number,y:number,w:number,h:number,mat:T.Material){
-    
+    model.beam(at(s,offset,y),at(end,offset,y),w,h,mat);
   }
   function ribbon(stations:number[],left:(s:number)=>T.Vector3,right:(s:number)=>T.Vector3,mat:T.Material){
     const vertices:number[]=[],uv:number[]=[],indices:number[]=[];
-    
+    stations.forEach((s,i)=>{
+      vertices.push(...left(s).toArray(),...right(s).toArray());
+      uv.push(0,s,1,s);
+      const j=2*i;
+      if(i)indices.push(j-2,j,j-1,j-1,j,j+1);
+    });
     const geometry=new T.BufferGeometry();
     
     
