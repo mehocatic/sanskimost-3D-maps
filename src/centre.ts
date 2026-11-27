@@ -75,7 +75,7 @@ function label(model:Model,text:string,width:number,height:number,x:number,y:num
     g.fillStyle=paper;g.fillRect(0,0,pixels,96);g.textAlign='center';g.textBaseline='middle';
     g.font='bold 66px sans-serif';g.fillStyle=ink;g.fillText(text,pixels/2,51,pixels*.94);
   });
-  
+  model.add(new T.PlaneGeometry(width,height),mat,x,y,z,yaw);
 }
 function clip(ring:Point[],distance:(p:Point)=>number):Point[]{
   const out:Point[]=[];
