@@ -73,7 +73,7 @@ export function townBridge(road:Road,west:Road,east:Road,waterY:number,ground:(x
     geometry.setAttribute('position',new T.Float32BufferAttribute(vertices,3));
     geometry.setAttribute('uv',new T.Float32BufferAttribute(uv,2));
     geometry.setIndex(indices);geometry.computeVertexNormals();
-    
+    model.add(geometry,mat);
   }
   function samples(length:number){
     const steps=Math.ceil(length);
