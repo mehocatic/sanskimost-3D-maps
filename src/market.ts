@@ -38,7 +38,7 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
       g.lineTo(224,200);g.stroke();
       g.beginPath();g.moveTo(295,133);g.lineTo(346,200);g.stroke();
       g.fillRect(375,50,6,156);
-      g.font='bold 89px Arial';;;;
+      g.font='bold 89px Arial';g.textAlign='left';;;
     }else ;
   });
   ;
