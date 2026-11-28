@@ -221,7 +221,7 @@ export function memorial(x:number,z:number,y:number,id:string){
   m.box(0,2.39,0,.37,.17,.35,white);
   const lily=new T.Shape();
   lily.moveTo(-.09,0);lily.lineTo(.09,0);lily.quadraticCurveTo(.07,.27,.35,.32);
-  lily.quadraticCurveTo(.27,.49,.085,.4);;
+  lily.quadraticCurveTo(.27,.49,.085,.4);lily.quadraticCurveTo(.22,.68,0,.85);
   ;;
   ;;
   ;
