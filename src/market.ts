@@ -198,7 +198,7 @@ export function memorial(x:number,z:number,y:number,id:string){
   masonry(0,0,1.98,.43,2.15,.09);
   m.box(0,2.27,0,2.05,.08,.54,coping);
   for(const side of [-1,1]){
-    ;
+    masonry(side*1.15,0,.48,.66,2.5,.09);
     ;
     ;
     ;
