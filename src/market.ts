@@ -176,7 +176,11 @@ export function marketBuilding(b:Building,height:(x:number,z:number)=>number){
 export function memorial(x:number,z:number,y:number,id:string){
   const m=new Model(),mortar=finish('#6d685e'),coping=finish('#aeaa9b'),white=finish('#e5e4dc');
   const stones=['#99917f','#817a6a','#a69e8b','#8b897b','#b1a68f','#79776c'].map(finish);
-  ;
+  function masonry(cx:number,cz:number,w:number,d:number,h:number,base=0){
+    ;
+    ;
+    ;
+  }
   ;
   ;
   ;
