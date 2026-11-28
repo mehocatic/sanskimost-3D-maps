@@ -114,7 +114,7 @@ function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
       for(let y=1.25;y<h;y+=1.23)m.box(wallX,y,(a+b)/2,.035,.04,b-a,finish('#8b969f'));
     }
     m.box(side*garageWall,6.55,back+7,.14,5.7,14,sand);
-    ;
+    m.box(x,6.55,front-7,.14,5.7,14,sand);
     ;
     ;
     ;
