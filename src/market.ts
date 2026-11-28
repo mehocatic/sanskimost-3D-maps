@@ -58,7 +58,10 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
   const vector=(a:number,b:number,c:number)=>new T.Vector3(a,b,c);
   const slope=(z:number)=>z<=peak?head:head+(tail-head)*(z-peak)/(end-peak);
   for(const [a,b] of [[start,peak],[peak,end]]){
-    ;
+    for(let i=0;i<17;i++){
+      ;
+      ;
+    }
     ;
   }
   ;
