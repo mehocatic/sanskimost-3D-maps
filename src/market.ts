@@ -194,7 +194,7 @@ export function memorial(x:number,z:number,y:number,id:string){
       }
     }
   }
-  ;
+  m.box(.82,.045,.46,4.75,.09,2.12,finish('#bdb7a7'));
   ;
   ;
   ;
