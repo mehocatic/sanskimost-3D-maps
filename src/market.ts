@@ -14,7 +14,15 @@ function sign(m:Model,label:string,x:number,y:number,z:number,w:number,h:number,
   });
   m.add(new T.PlaneGeometry(w,h),mat,x,y,z,yaw);
 }
-;
+function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:number,yaw:number,ink:string,face?:string){
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+}
 
 ;
 
