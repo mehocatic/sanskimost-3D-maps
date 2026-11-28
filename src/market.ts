@@ -51,7 +51,23 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
   m.add(new T.PlaneGeometry(w,h),mat,x+outward.x*.105,y,z+outward.z*.105,yaw);
 }
 
-;
+function garage(m:Model,side:number,edge:number,depth:number,start:number,end:number){
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;;;;;
+  ;
+  ;
+  ;
+  ;;
+  ;
+  ;
+  ;
+}
 
 ;
 
