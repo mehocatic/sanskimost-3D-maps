@@ -60,7 +60,7 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
   for(const [a,b] of [[start,peak],[peak,end]]){
     for(let i=0;i<17;i++){
       const rib=side*(edge-.12-i*(depth-.24)/16);
-      ;
+      m.beam(vector(rib,slope(a),a),vector(rib,slope(b),b),.21,.11,metal);
     }
     ;
   }
