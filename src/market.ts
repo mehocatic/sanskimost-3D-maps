@@ -90,7 +90,7 @@ function parking(m:Model,w:number,front:number,edge:number,grade:(x:number,z:num
     mesh.setAttribute('position',new T.Float32BufferAttribute(vertices.flatMap(([x,z])=>[x,grade(x,z)+lift,z]),3));
     mesh.computeVertexNormals();m.add(mesh,material);
   }
-  ;
+  const left=-w/2+.7,right=w/2-.7,depth=4.9;
   ;
   ;
   ;
