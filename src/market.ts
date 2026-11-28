@@ -106,7 +106,7 @@ function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
   const garageWall=w/2-depth;
   for(const [a,b,width] of [[back,end,2*garageWall],[end,front,w]]){
     m.box(0,h/2-.55,(a+b)/2,width,h+1.1,b-a,grey);
-    ;
+    m.box(0,h+.09,(a+b)/2,width,.18,b-a,finish('#dadad3'));
   }
   ;
   ;
