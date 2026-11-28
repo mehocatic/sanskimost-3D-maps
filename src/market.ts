@@ -55,7 +55,7 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
   const metal=finish('#d9dce0'),trim=finish('#969fa8'),dark=finish('#30353a'),black=finish('#14191c');
   const x=side*(edge-depth/2),outer=side*(edge-.13),inner=side*(edge-depth+.13);
   const peak=start+3.9,head=2.95,tail=.31;
-  ;
+  const vector=(a:number,b:number,c:number)=>new T.Vector3(a,b,c);
   ;
   ;
   ;
