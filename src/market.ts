@@ -115,7 +115,9 @@ function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
     }
     m.box(side*garageWall,6.55,back+7,.14,5.7,14,sand);
     m.box(x,6.55,front-7,.14,5.7,14,sand);
-    ;
+    for(const z of [9,13,16,20,22,26,29]){
+      ;
+    }
     ;
     ;
     ;
