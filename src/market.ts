@@ -202,7 +202,10 @@ export function memorial(x:number,z:number,y:number,id:string){
     m.box(side*1.15,2.63,0,.62,.08,.79,coping);
     masonry(side*1.15,.63,.48,.58,.38,.09);
     m.box(side*1.15,.47,.63,.39,.035,.45,finish('#63554a'));
-    ;
+    for(let i=0;i<10;i++){
+      const dx=((i*7)%5-2)*.061,dz=((i*3)%7-3)*.057;
+      ;
+    }
   }
   const plaque=canvasMaterial(384,608,g=>{
     ;;;;
