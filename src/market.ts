@@ -218,9 +218,9 @@ export function memorial(x:number,z:number,y:number,id:string){
   m.box(0,1.19,.242,1.25,1.82,.06,white);
   const plate=new T.PlaneGeometry(1.22,1.79);
   m.add(plate,plaque,0,1.19,.274);
-  ;
+  m.box(0,2.39,0,.37,.17,.35,white);
   const lily=new T.Shape();
-  ;;;
+  lily.moveTo(-.09,0);;;
   ;;
   ;;
   ;;
