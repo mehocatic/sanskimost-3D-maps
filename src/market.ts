@@ -48,7 +48,7 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
     const backing=mat.clone();backing.color.set('#59616c');
     m.add(new T.PlaneGeometry(w,h),backing,x+outward.x*.025,y-.035,z+outward.z*.025,yaw);
   }
-  ;
+  m.add(new T.PlaneGeometry(w,h),mat,x+outward.x*.105,y,z+outward.z*.105,yaw);
 }
 
 ;
