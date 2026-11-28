@@ -62,7 +62,7 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
       const rib=side*(edge-.12-i*(depth-.24)/16);
       m.beam(vector(rib,slope(a),a),vector(rib,slope(b),b),.21,.11,metal);
     }
-    ;
+    m.beam(vector(outer,slope(a)-.09,a),vector(outer,slope(b)-.09,b),.15,.23,trim);
   }
   ;
   ;;;;;
