@@ -231,7 +231,7 @@ export function memorial(x:number,z:number,y:number,id:string){
   for(let i=0;i<4;i++)m.box(3.03,.52,.30+i*.09,1.28,.055,.073,finish('#75614c'));
   for(const [dx,flag] of [[-1.63,'#e4e3db'],[2.13,'#364f85']] as const){
     m.box(dx,2.28,-.29,.042,4.56,.042,finish('#a5abb0'));
-    ;
+    m.box(dx+.225,4.22,-.29,.45,.62,.024,finish(flag));
     ;
   }
   const group=m.build(id);
