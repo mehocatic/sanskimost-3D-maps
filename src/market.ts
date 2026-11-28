@@ -204,7 +204,7 @@ export function memorial(x:number,z:number,y:number,id:string){
     m.box(side*1.15,.47,.63,.39,.035,.45,finish('#63554a'));
     for(let i=0;i<10;i++){
       const dx=((i*7)%5-2)*.061,dz=((i*3)%7-3)*.057;
-      ;
+      m.add(new T.IcosahedronGeometry(.045,0),finish(i%3?'#a62e37':'#e5d3bd'),side*1.15+dx,.52+(i%3)*.038,.63+dz);
     }
   }
   const plaque=canvasMaterial(384,608,g=>{
