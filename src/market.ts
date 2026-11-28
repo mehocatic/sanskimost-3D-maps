@@ -225,7 +225,7 @@ export function memorial(x:number,z:number,y:number,id:string){
   lily.quadraticCurveTo(-.22,.68,-.085,.4);lily.quadraticCurveTo(-.27,.49,-.35,.32);
   lily.quadraticCurveTo(-.07,.27,-.09,0);lily.closePath();
   m.add(new T.ExtrudeGeometry(lily,{depth:.08,bevelEnabled:true,bevelThickness:.015,bevelSize:.012,bevelSegments:1}),white,0,2.47,-.035);
-  masonry(1.83,.05,.85,.37,1.12,.09);;
+  masonry(1.83,.05,.85,.37,1.12,.09);masonry(2.1,.35,.3,.62,.80,.09);
   ;
   ;
   ;
