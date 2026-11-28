@@ -104,7 +104,10 @@ function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
   const h=9.4,back=-l/2,front=l/2-8;
   const start=-28,end=-7.3,depth=4.05;
   const garageWall=w/2-depth;
-  ;
+  for(const [a,b,width] of [[back,end,2*garageWall],[end,front,w]]){
+    ;
+    ;
+  }
   ;
   ;
   ;
