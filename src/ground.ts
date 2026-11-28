@@ -50,7 +50,7 @@ export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
   }
   const plantableYards=city.buildings.filter(b=>['yes','house','detached','residential','apartments'].includes(b.kind));
   for(const b of plantableYards){
-    const p=areaPath(b);ctx.strokeStyle=['#a9b885','#91b961','#78a34a','#89b758'][Math.floor(rand()*4)];
+    const p=areaPath(b);ctx.strokeStyle=['#79ab4e','#91b961','#78a34a','#89b758'][Math.floor(rand()*4)];
     ctx.lineWidth=5+rand()*5;ctx.stroke(p);
   }
   ctx.save();ctx.globalAlpha=.18;ctx.drawImage(photo,dem.x0,dem.z0,dem.step*(dem.cols-1),dem.step*(dem.rows-1));ctx.restore();
