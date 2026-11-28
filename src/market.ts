@@ -82,7 +82,14 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
   }
 }
 
-;
+function parking(m:Model,w:number,front:number,edge:number,grade:(x:number,z:number)=>number){
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+}
 
 function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
   const grey=finish('#a6afb7'),sand=finish('#baaa95'),green=finish('#55a82b'),dark=finish('#323b42'),metal=finish('#d8dada');
