@@ -48,7 +48,7 @@ export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>n
   const street=new T.Group();
   const facadeColors=['#eddfc9','#eedfc0','#eed5af','#e5e2d4','#dacfbf','#f3e8cb','#dfc9a9','#edcbb7','#e9dfce'];
   const roofColors=['#af6247','#ad5940','#bd7152','#cc7e58','#aa624e','#c88767','#965641','#c47956','#ad6650','#a57561'];
-  const flatColors=['#b9b5a8','#b5afa4','#a6a7a1','#c0b9af'];
+  const flatColors=['#b9b5a8','#b5afa4','#a6a7a1','#dad5c7'];
   const noGeneric=new Set(['w225470278','w346178044','w346178046','w346178047','w346178048','w346178049']);
   const chimneys:T.Matrix4[]=[],roofDetails:T.Matrix4[]=[];const dummy=new T.Object3D();
   buildings.forEach((b,id)=>{
