@@ -96,7 +96,7 @@ function parking(m:Model,w:number,front:number,edge:number,grade:(x:number,z:num
     surface(x,front+.45,x+.09,front+depth,.067,paint);
   }
   surface(left,front+.45,right,front+.54,.07,paint);
-  ;
+  surface(right-.09,front+.45,right,front+depth,.07,paint);
 }
 
 function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
