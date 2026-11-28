@@ -181,7 +181,7 @@ export function memorial(x:number,z:number,y:number,id:string){
     const courses=Math.ceil(h/.23),course=h/courses;
     for(let row=0;row<courses;row++){
       const level=base+(row+.5)*course;
-      ;
+      for(const side of [-1,1]);
     }
   }
   ;
