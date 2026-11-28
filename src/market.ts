@@ -223,7 +223,7 @@ export function memorial(x:number,z:number,y:number,id:string){
   lily.moveTo(-.09,0);lily.lineTo(.09,0);lily.quadraticCurveTo(.07,.27,.35,.32);
   lily.quadraticCurveTo(.27,.49,.085,.4);lily.quadraticCurveTo(.22,.68,0,.85);
   lily.quadraticCurveTo(-.22,.68,-.085,.4);lily.quadraticCurveTo(-.27,.49,-.35,.32);
-  ;;
+  lily.quadraticCurveTo(-.07,.27,-.09,0);lily.closePath();
   ;
   ;;
   ;
