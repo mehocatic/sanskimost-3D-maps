@@ -16,7 +16,7 @@ function sign(m:Model,label:string,x:number,y:number,z:number,w:number,h:number,
 }
 function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:number,yaw:number,ink:string,face?:string){
   const depth=.18;
-  if(face);
+  if(face)m.box(x,y,z,w,h,depth,finish(face),yaw);
   ;
   ;
   ;
