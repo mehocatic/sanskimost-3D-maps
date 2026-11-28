@@ -195,7 +195,7 @@ export function memorial(x:number,z:number,y:number,id:string){
     }
   }
   m.box(.82,.045,.46,4.75,.09,2.12,finish('#bdb7a7'));
-  ;
+  masonry(0,0,1.98,.43,2.15,.09);
   ;
   ;
   const plaque=canvasMaterial(384,608,g=>{
