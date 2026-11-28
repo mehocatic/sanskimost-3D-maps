@@ -184,8 +184,8 @@ export function memorial(x:number,z:number,y:number,id:string){
       for(const side of [-1,1])for(const [width,depth,turn] of [[w,d,0],[d,w,Math.PI/2]]){
         let offset=-width/2;
         for(let col=0;offset<width/2-.001;col++){
-          ;
-          ;
+          const size=Math.min(width/2-offset,(row%2&&col===0?.16:.29)+((row*11+col*7)%5)*.042);
+          const along=offset+size/2,edge=side*(depth/2-.012),jitter=((row*7+col*3)%3)*.013;
           ;
           ;
           ;
