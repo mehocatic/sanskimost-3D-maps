@@ -32,7 +32,7 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
       g.quadraticCurveTo(193,201,193,182);g.lineTo(193,151);
       g.quadraticCurveTo(193,132,174,132);g.lineTo(117,132);
       g.quadraticCurveTo(94,132,94,109);g.lineTo(94,85);
-      g.quadraticCurveTo(94,57,123,57);;
+      g.quadraticCurveTo(94,57,123,57);g.lineTo(312,57);
       ;;
       ;;
       ;;
