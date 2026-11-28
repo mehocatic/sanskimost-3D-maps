@@ -211,7 +211,9 @@ export function memorial(x:number,z:number,y:number,id:string){
     g.fillStyle='#dbdfdd';g.fillRect(0,0,384,608);g.fillStyle='#385474';g.textAlign='center';
     g.font='bold 20px Arial';g.fillText('ŠEHIDSKO SPOMEN-OBILJEŽJE',192,43);g.fillText('1992–1995',192,86);
     g.fillStyle='#737b80';
-    ;
+    for(const y of [46,561])for(const x of [18,366]){
+      ;;;
+    }
   });
   ;
   const plate=new T.PlaneGeometry(1.22,1.79);
