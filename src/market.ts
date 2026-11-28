@@ -110,7 +110,9 @@ function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
   }
   for(const side of [-1,1]){
     const x=side*w/2;
-    ;
+    for(const [a,b,wallX] of [[back,end,side*garageWall],[end,front,x]]){
+      ;
+    }
     ;
     ;
     ;
