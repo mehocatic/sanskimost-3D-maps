@@ -91,7 +91,10 @@ function parking(m:Model,w:number,front:number,edge:number,grade:(x:number,z:num
     mesh.computeVertexNormals();m.add(mesh,material);
   }
   const left=-w/2+.7,right=w/2-.7,depth=4.9;
-  ;
+  for(let x=left;x<right;x+=2.5){
+    ;
+    ;
+  }
   ;
   ;
 }
