@@ -137,7 +137,7 @@ function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
   wordmark(m,'SPORT REALITY',-garageWall+5.5,6.1,back-.085,6.8,1.18,Math.PI,'#285494');
   wordmark(m,'LC Waikiki',w/2-6.6,8.1,front+.085,11,2.35,0,'#284b9a');
   for(let i=-4;i<=4;i++)m.box(i*1.35,4.8,front,.45,9.6,.35,i%3===0?green:dark);
-  ;
+  for(let i=0;i<5;i++);
   ;
 }
 function stalls(m:Model,w:number,l:number,outer:number){
