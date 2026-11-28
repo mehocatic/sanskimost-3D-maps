@@ -75,9 +75,9 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
   m.add(ramp,dark,x,-.29,peak-1.6);
   if(side<0){
     m.box(inner+side*.29,.51,start+2,.29,1.02,.33,dark);
-    for(let i=0;i<9;i++);
+    for(let i=0;i<9;i++)m.box(x+(i-4)*.32,.94,start+2,.32,.075,.074,finish(i%2?'#b63837':'#efeee7'));
   }
-  ;
+  for(const boundary of [outer,inner]);
 }
 
 ;
