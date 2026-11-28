@@ -128,7 +128,7 @@ function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
     // Open the lane toward the market by setting the entry back into the corner bay.
     garage(m,side,w/2,depth,start,end);
   }
-  ;
+  for(const side of [-1,1])m.box(side*(w/2-7),6.55,front,14,5.7,.14,sand);
   ;
   ;
   ;
