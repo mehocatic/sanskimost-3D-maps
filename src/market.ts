@@ -21,7 +21,7 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
     if(label==='pepco'){
       const gradient=g.createLinearGradient(0,0,1024,0);
       gradient.addColorStop(0,'#1458a1');gradient.addColorStop(.83,'#28549a');gradient.addColorStop(1,'#884858');
-      g.fillStyle=gradient;;
+      g.fillStyle=gradient;g.fillRect(0,0,1024,256);
     }
     ;;;
     ;
