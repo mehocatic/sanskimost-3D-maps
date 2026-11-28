@@ -19,8 +19,8 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
   if(face)m.box(x,y,z,w,h,depth,finish(face),yaw);
   const mat=canvasMaterial(1024,256,g=>{
     if(label==='pepco'){
-      ;
-      ;;;
+      const gradient=g.createLinearGradient(0,0,1024,0);
+      gradient.addColorStop(0,'#1458a1');;;
       ;;
     }
     ;;;
