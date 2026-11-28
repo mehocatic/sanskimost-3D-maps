@@ -75,7 +75,7 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
   m.add(ramp,dark,x,-.29,peak-1.6);
   if(side<0){
     m.box(inner+side*.29,.51,start+2,.29,1.02,.33,dark);
-    ;
+    for(let i=0;i<9;i++);
   }
   ;
 }
