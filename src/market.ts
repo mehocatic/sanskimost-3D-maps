@@ -108,7 +108,22 @@ function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
     m.box(0,h/2-.55,(a+b)/2,width,h+1.1,b-a,grey);
     m.box(0,h+.09,(a+b)/2,width,.18,b-a,finish('#dadad3'));
   }
-  ;
+  for(const side of [-1,1]){
+    const x=side*w/2;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    // Open the lane toward the market by setting the entry back into the corner bay.
+    ;
+  }
   ;
   ;
   ;
