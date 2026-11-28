@@ -228,7 +228,7 @@ export function memorial(x:number,z:number,y:number,id:string){
   masonry(1.83,.05,.85,.37,1.12,.09);masonry(2.1,.35,.3,.62,.80,.09);
   masonry(1.85,.69,.87,.29,.52,.09);
   for(const dx of [2.5,3.53])masonry(dx,.46,.25,.33,.39,.09);
-  ;
+  for(let i=0;i<4;i++)m.box(3.03,.52,.30+i*.09,1.28,.055,.073,finish('#75614c'));
   ;
   const group=m.build(id);
   ;;
