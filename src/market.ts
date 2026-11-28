@@ -25,7 +25,21 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
     }
     g.fillStyle=ink;g.textAlign='center';g.textBaseline='middle';
     g.font=label==='pepco'?'160px Arial':'bold 174px Arial';
-    ;
+    if(label==='SPORT REALITY'){
+      // Continuous bent strokes form the interlocked blue SR monogram on the facade.
+      ;;;;
+      ;;;
+      ;;
+      ;;
+      ;;
+      ;;
+      ;;
+      ;;
+      ;;
+      ;;;;
+      ;
+      ;;;;
+    }else ;
   });
   ;
   ;
