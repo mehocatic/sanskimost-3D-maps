@@ -224,7 +224,7 @@ export function memorial(x:number,z:number,y:number,id:string){
   lily.quadraticCurveTo(.27,.49,.085,.4);lily.quadraticCurveTo(.22,.68,0,.85);
   lily.quadraticCurveTo(-.22,.68,-.085,.4);lily.quadraticCurveTo(-.27,.49,-.35,.32);
   lily.quadraticCurveTo(-.07,.27,-.09,0);lily.closePath();
-  ;
+  m.add(new T.ExtrudeGeometry(lily,{depth:.08,bevelEnabled:true,bevelThickness:.015,bevelSize:.012,bevelSegments:1}),white,0,2.47,-.035);
   ;;
   ;
   ;
