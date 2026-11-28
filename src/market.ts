@@ -72,7 +72,7 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
   }
   m.box(x,1.29,peak+.14,depth-.29,2.58,.12,black);
   const ramp=new T.BoxGeometry(depth-.34,.08,5.8);ramp.rotateX(.15);
-  ;
+  m.add(ramp,dark,x,-.29,peak-1.6);
   ;
   ;
 }
