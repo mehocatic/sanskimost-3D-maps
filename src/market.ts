@@ -45,7 +45,7 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
   const outward=new T.Vector3(Math.sin(yaw),0,Math.cos(yaw));
   if(!face){
     // Project individual letters from the panels using the same silhouette for their return.
-    ;;
+    const backing=mat.clone();;
     ;
   }
   ;
