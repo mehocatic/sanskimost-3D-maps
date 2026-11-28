@@ -23,7 +23,7 @@ export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
   }
   const {c,ctx}=surface(side),{ctx:mask}=surface(1024);
   const rand=rng(1704);
-  ctx.fillStyle='#afbd8d';ctx.fillRect(-bound,-bound,2*bound,2*bound);
+  ctx.fillStyle='#87ae55';ctx.fillRect(-bound,-bound,2*bound,2*bound);
   mask.fillStyle='rgb(20,0,0)';mask.fillRect(-bound,-bound,2*bound,2*bound);
   const path=(p:Point[], close:boolean)=>{
     const a=new Path2D(); if(!p.length)return a;
