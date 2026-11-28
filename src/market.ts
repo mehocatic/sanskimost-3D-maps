@@ -52,7 +52,7 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
 }
 
 function garage(m:Model,side:number,edge:number,depth:number,start:number,end:number){
-  ;
+  const metal=finish('#d9dce0'),trim=finish('#969fa8'),dark=finish('#30353a'),black=finish('#14191c');
   ;
   ;
   ;
