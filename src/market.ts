@@ -227,7 +227,7 @@ export function memorial(x:number,z:number,y:number,id:string){
   m.add(new T.ExtrudeGeometry(lily,{depth:.08,bevelEnabled:true,bevelThickness:.015,bevelSize:.012,bevelSegments:1}),white,0,2.47,-.035);
   masonry(1.83,.05,.85,.37,1.12,.09);masonry(2.1,.35,.3,.62,.80,.09);
   masonry(1.85,.69,.87,.29,.52,.09);
-  ;
+  for(const dx of [2.5,3.53]);
   ;
   ;
   const group=m.build(id);
