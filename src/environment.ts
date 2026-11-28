@@ -51,7 +51,7 @@ export function cityLife(city:City,height:(x:number,z:number)=>number,density:(x
     const y=height(x,z),h=5.5+rand()*8.4,w=h*(.32+rand()*.15),r=rand()*6.28,color=greens[Math.floor(rand()*greens.length)];
     const [s,offset]=westCoordinates(x,z),paved=s> -30&&s<68&&offset> -17&&offset<6;
     if(!paved)trunks.push({p:[x,y+h*.24,z],s:[h*.036,h*.53,h*.036],r,color:'#726549'});
-    if(rand()<.08){if(!paved)conifers.push({p:[x,y+h*.55,z],s:[w*.82,h*.95,w*.82],r,color:'#58784f'});return}
+    if(rand()<.08){if(!paved)conifers.push({p:[x,y+h*.55,z],s:[w*.82,h*.95,w*.82],r,color:'#407546'});return}
     for(let i=0;i<4;i++){const a=r+2.1*i,d=i===3?0:w*.38,scale=i===3?.83:.72;
       const crownY=y+h*(i===3?.81:.61+rand()*.07),crownHeight=h*(.23+rand()*.065);
       if(!paved)crowns.push({p:[x+Math.cos(a)*d,crownY,z+Math.sin(a)*d],s:[w*scale,crownHeight,w*scale],r:a,color})}
