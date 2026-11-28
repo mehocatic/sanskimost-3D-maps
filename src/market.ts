@@ -64,7 +64,7 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
     }
     m.beam(vector(outer,slope(a)-.09,a),vector(outer,slope(b)-.09,b),.15,.23,trim);
   }
-  ;
+  const wall=new T.Shape();
   ;;;;;
   ;
   ;
