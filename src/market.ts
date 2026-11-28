@@ -187,7 +187,8 @@ export function memorial(x:number,z:number,y:number,id:string){
           const size=Math.min(width/2-offset,(row%2&&col===0?.16:.29)+((row*11+col*7)%5)*.042);
           const along=offset+size/2,edge=side*(depth/2-.012),jitter=((row*7+col*3)%3)*.013;
           const block=new T.BoxGeometry(Math.max(.025,size-.016),course-.018,.095+jitter);
-          ;
+          m.add(block,stones[(row*7+col*3+(side===1?2:0)+Number(!!turn))%stones.length],
+            cx+along*Math.cos(turn)+edge*Math.sin(turn),level,cz-along*Math.sin(turn)+edge*Math.cos(turn),turn);
           ;
         }
       }
