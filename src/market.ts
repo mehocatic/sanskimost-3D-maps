@@ -189,7 +189,7 @@ export function memorial(x:number,z:number,y:number,id:string){
           const block=new T.BoxGeometry(Math.max(.025,size-.016),course-.018,.095+jitter);
           m.add(block,stones[(row*7+col*3+(side===1?2:0)+Number(!!turn))%stones.length],
             cx+along*Math.cos(turn)+edge*Math.sin(turn),level,cz-along*Math.sin(turn)+edge*Math.cos(turn),turn);
-          ;
+          offset+=size;
         }
       }
     }
