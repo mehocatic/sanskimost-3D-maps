@@ -29,7 +29,7 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
       // Continuous bent strokes form the interlocked blue SR monogram on the facade.
       g.strokeStyle=ink;g.lineWidth=17;g.lineJoin='round';g.lineCap='round';
       g.beginPath();g.moveTo(82,201);g.lineTo(174,201);
-      g.quadraticCurveTo(193,201,193,182);;
+      g.quadraticCurveTo(193,201,193,182);g.lineTo(193,151);
       ;;
       ;;
       ;;
