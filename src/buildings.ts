@@ -46,7 +46,7 @@ class Surfaces {
 export function makeBuildings(buildings:Building[],height:(x:number,z:number)=>number){
   const walls=new Surfaces(),plainWalls=new Surfaces(),roofs=new Surfaces(),flatRoofs=new Surfaces(),rand=rng(9125);
   const street=new T.Group();
-  const facadeColors=['#eddfc9','#d6c397','#dbba97','#ced4c8','#b5aea1','#e7d294','#baaa94','#c79784','#dbd7c8'];
+  const facadeColors=['#ece1ca','#d6c397','#dbba97','#ced4c8','#b5aea1','#e7d294','#baaa94','#c79784','#dbd7c8'];
   const roofColors=['#ab5840','#98543e','#bc7256','#c58260','#845a4d','#bd8769','#754f41','#b47757','#99634d','#73736e'];
   const flatColors=['#bbb8ad','#a9a296','#92938d','#dad5c7'];
   const noGeneric=new Set(['w225470278','w346178044','w346178046','w346178047','w346178048','w346178049']);
