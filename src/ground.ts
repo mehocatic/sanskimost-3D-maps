@@ -10,7 +10,7 @@ const palette: Record<string,string> = {
   residential:'#b4bf92', industrial:'#c1bcb1', commercial:'#c6c0aa', farmland:'#b9be82',
   grass:'#a2b680', meadow:'#a8b77c', forest:'#79956b', park:'#9fb681', orchard:'#9eac75',
   cemetery:'#a8b19b', paved:'#c9c5b6', parking:'#aaa99f', pitch:'#92ad76', sand:'#d7c596',
-  water:'#559d99', garden:'#9bb378', allotments:'#a7ac7a', scrub:'#729744'
+  water:'#559d99', garden:'#9bb378', allotments:'#86ae56', scrub:'#729744'
 };
 
 export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
