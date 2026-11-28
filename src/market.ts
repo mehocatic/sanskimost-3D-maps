@@ -133,7 +133,7 @@ function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
   wordmark(m,'LC Waikiki',-garageWall-.085,8.1,back+7,12,2.35,-Math.PI/2,'#284b9a');
   wordmark(m,'pepco',-garageWall-.10,5.9,back+7,11.5,1.85,-Math.PI/2,'#fff','#27519c');
   wordmark(m,'LC Waikiki',-w/2-.085,8.1,front-7,12,2.35,-Math.PI/2,'#284b9a');
-  ;
+  wordmark(m,'sinsay',-garageWall+5.5,8,back-.10,8.8,2.1,Math.PI,'#fff','#202227');
   ;
   ;
   ;
