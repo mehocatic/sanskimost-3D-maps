@@ -88,7 +88,7 @@ function parking(m:Model,w:number,front:number,edge:number,grade:(x:number,z:num
     const vertices=[[x1,z1],[x1,z2],[x2,z2],[x1,z1],[x2,z2],[x2,z1]];
     const mesh=new T.BufferGeometry();
     mesh.setAttribute('position',new T.Float32BufferAttribute(vertices.flatMap(([x,z])=>[x,grade(x,z)+lift,z]),3));
-    ;;
+    mesh.computeVertexNormals();;
   }
   ;
   ;
