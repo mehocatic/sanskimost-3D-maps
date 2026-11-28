@@ -235,6 +235,6 @@ export function memorial(x:number,z:number,y:number,id:string){
     m.box(dx+.22,4.22,-.274,.09,.14,.008,finish('#c3a745'));
   }
   const group=m.build(id);
-  group.position.set(x,y,z);;
-  ;return group;
+  group.position.set(x,y,z);group.rotation.y=2.8;
+  group.name='Šehidsko spomen obilježje Lijeva obala';return group;
 }
