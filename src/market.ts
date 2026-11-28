@@ -54,7 +54,7 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
 function garage(m:Model,side:number,edge:number,depth:number,start:number,end:number){
   const metal=finish('#d9dce0'),trim=finish('#969fa8'),dark=finish('#30353a'),black=finish('#14191c');
   const x=side*(edge-depth/2),outer=side*(edge-.13),inner=side*(edge-depth+.13);
-  ;
+  const peak=start+3.9,head=2.95,tail=.31;
   ;
   ;
   ;
