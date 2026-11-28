@@ -84,7 +84,12 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
 
 function parking(m:Model,w:number,front:number,edge:number,grade:(x:number,z:number)=>number){
   const asphalt=finish('#737574'),paint=finish('#efeee5');
-  ;
+  function surface(x1:number,z1:number,x2:number,z2:number,lift:number,material:T.Material){
+    ;
+    ;
+    ;
+    ;;
+  }
   ;
   ;
   ;
