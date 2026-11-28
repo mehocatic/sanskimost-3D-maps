@@ -212,7 +212,7 @@ export function memorial(x:number,z:number,y:number,id:string){
     g.font='bold 20px Arial';g.fillText('ŠEHIDSKO SPOMEN-OBILJEŽJE',192,43);g.fillText('1992–1995',192,86);
     g.fillStyle='#737b80';
     for(const y of [46,561])for(const x of [18,366]){
-      ;;;
+      g.beginPath();;;
     }
   });
   ;
