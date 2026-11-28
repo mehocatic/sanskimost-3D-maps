@@ -179,7 +179,10 @@ export function memorial(x:number,z:number,y:number,id:string){
   function masonry(cx:number,cz:number,w:number,d:number,h:number,base=0){
     m.box(cx,base+h/2,cz,w-.06,h,d-.06,mortar);
     const courses=Math.ceil(h/.23),course=h/courses;
-    ;
+    for(let row=0;row<courses;row++){
+      ;
+      ;
+    }
   }
   ;
   ;
