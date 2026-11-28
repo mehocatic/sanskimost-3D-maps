@@ -208,7 +208,7 @@ export function memorial(x:number,z:number,y:number,id:string){
     }
   }
   const plaque=canvasMaterial(384,608,g=>{
-    ;;;;
+    g.fillStyle='#dbdfdd';g.fillRect(0,0,384,608);;;
     ;;;
     ;
     ;
