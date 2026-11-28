@@ -78,7 +78,7 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
     for(let i=0;i<9;i++)m.box(x+(i-4)*.32,.94,start+2,.32,.075,.074,finish(i%2?'#b63837':'#efeee7'));
   }
   for(const boundary of [outer,inner])for(const z of [start-2.4,start-.85,start+.75]){
-    ;
+    m.box(boundary,.035,z,.085,.022,.7,finish('#f3f0df'));
   }
 }
 
