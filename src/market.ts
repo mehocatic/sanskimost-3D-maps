@@ -129,7 +129,7 @@ function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
     garage(m,side,w/2,depth,start,end);
   }
   for(const side of [-1,1])m.box(side*(w/2-7),6.55,front,14,5.7,.14,sand);
-  ;
+  m.box(-garageWall+6,6.55,back,12,5.7,.14,sand);
   ;
   ;
   ;
