@@ -215,7 +215,7 @@ export function memorial(x:number,z:number,y:number,id:string){
       g.beginPath();g.arc(x,y,3,0,Math.PI*2);g.fill();
     }
   });
-  ;
+  m.box(0,1.19,.242,1.25,1.82,.06,white);
   const plate=new T.PlaneGeometry(1.22,1.79);
   ;
   ;
