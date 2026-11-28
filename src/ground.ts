@@ -53,7 +53,7 @@ export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
     const p=areaPath(b);ctx.strokeStyle=['#a9b885','#b7c393','#a0b080','#b1bc8f'][Math.floor(rand()*4)];
     ctx.lineWidth=5+rand()*5;ctx.stroke(p);
   }
-  ctx.save();ctx.globalAlpha=.52;ctx.drawImage(photo,dem.x0,dem.z0,dem.step*(dem.cols-1),dem.step*(dem.rows-1));ctx.restore();
+  ctx.save();ctx.globalAlpha=.18;ctx.drawImage(photo,dem.x0,dem.z0,dem.step*(dem.cols-1),dem.step*(dem.rows-1));ctx.restore();
   // Fine ground variation is baked once. It follows semantic areas and costs no draw calls.
   for(let i=0;i<175000;i++){
     ctx.fillStyle=i%2?'rgba(75,83,45,.07)':'rgba(248,238,173,.10)';
