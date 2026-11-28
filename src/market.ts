@@ -39,7 +39,7 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
       g.beginPath();g.moveTo(295,133);g.lineTo(346,200);g.stroke();
       g.fillRect(375,50,6,156);
       g.font='bold 89px Arial';g.textAlign='left';g.fillText('SPORT',410,87,494);g.fillText('REALITY',410,171,535);
-    }else ;
+    }else g.fillText(label,512,137,label==='pepco'?670:945);
   });
   ;
   ;
