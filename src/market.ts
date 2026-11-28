@@ -14,40 +14,30 @@ function sign(m:Model,label:string,x:number,y:number,z:number,w:number,h:number,
   });
   m.add(new T.PlaneGeometry(w,h),mat,x,y,z,yaw);
 }
-function plaza(m:Model,w:number,l:number){
-  const grey=finish('#b9bfc3'),sand=finish('#bcab97'),green=finish('#64ad36'),dark=finish('#343c41'),metal=finish('#d8dada');
-  const h=9.4;
-  m.box(0,h/2-.55,0,w,h+1.1,l,grey);
-  m.box(0,h+.09,0,w-.25,.18,l-.25,finish('#dadad3'));
-  for(const side of [-1,1]){
-    const x=side*w/2;
-    for(const end of [-1,1])m.box(x,6.55,end*(l/2-7),.14,5.7,14,sand);
-    for(const z of [4,7,10,21,23,25,34,36,38]){
-      m.box(x,4.75,z,.35,9.5,.55,z===21||z===23?green:z%2?dark:sand);
-    }
-    for(let j=0;j<12;j++)m.box(x,7.35,-6+j*.95,.42,4.1,.30,sand);
-    m.box(x+side*.15,2.25,0,.42,4.5,8,dark);
-    m.box(x+side*.4,2,0,.12,3.9,6.9,finish('#65818a'));
-    for(const z of [-3.4,0,3.4])m.box(x+side*.49,2,z,.12,4,.12,dark);
-    m.box(x,4.9,0,.95,1.1,13,green);
-    m.box(x,2.25,6,.95,4.5,.8,green);
-    m.box(x,4.95,-6.4,1.18,9.9,1.5,sand);
-    // Covered garage lane opens toward the old market and drops near the pedestrian portal.
-    const rampX=x+side*1.8;
-    const canopy=new T.BoxGeometry(3.65,.18,17);canopy.rotateX(.16);
-    m.add(canopy,metal,rampX,1.85,-16);
-    for(const z of [-24,-17,-9])m.box(x+side*3.5,(1.85-(z+16)*.16)/2,z,.13,1.85-(z+16)*.16,.13,metal);
-    m.box(rampX,.038,-24,3.6,.08,3,dark);
-    for(const z of [-24,-19,-14,-9])m.box(rampX,.095,z,.13,.03,1.6,metal);
-  }
-  sign(m,'LC Waikiki',-w/2-.09,8,-l/2+7,12,2,-Math.PI/2,'#243d86','#bcab97');
-  sign(m,'pepco',-w/2-.1,5.8,-l/2+7,10,1.7,-Math.PI/2,'white','#3455a0');
-  sign(m,'LC Waikiki',-w/2-.09,8,l/2-7,12,2,-Math.PI/2,'#243d86','#bcab97');
-  sign(m,'Sinsay',-w/2+5,8,-l/2-.09,8,2.1,Math.PI,'white','#232323');
-  sign(m,'SPORT REALITY',-w/2+5,5.8,-l/2-.09,8,1.2,Math.PI,'#273e75','#bcab97');
-  sign(m,'LC Waikiki',w/2-6,8,l/2+.09,11,2,0,'#243d86','#bcab97');
-  for(let i=-4;i<=4;i++)m.box(i*1.35,4.8,l/2,.45,9.6,.35,i%3===0?green:dark);
-  for(let i=0;i<5;i++)m.box(w/2-4-i*1.3,1,l/2+.7,1.15,1.6,1.1,metal);
+;
+
+;
+
+;
+
+function plaza(m:Model,w:number,l:number,grade:(x:number,z:number)=>number){
+  const grey=finish('#a6afb7'),sand=finish('#baaa95'),green=finish('#55a82b'),dark=finish('#323b42'),metal=finish('#d8dada');
+  const h=9.4,back=-l/2,front=l/2-8;
+  const start=-28,end=-7.3,depth=4.05;
+  const garageWall=w/2-depth;
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
+  ;
 }
 function stalls(m:Model,w:number,l:number,outer:number){
   const timber=finish('#6d5043'),pink=finish('#c29485'),tile=finish('#965d48');
@@ -76,21 +66,42 @@ export function marketBuilding(b:Building,height:(x:number,z:number)=>number){
   if(axis.y<0)axis.negate();
   const span=(dx:number,dz:number)=>{const values=b.points.map(p=>p[0]*dx+p[1]*dz);return Math.max(...values)-Math.min(...values)};
   const w=span(axis.y,-axis.x),l=span(axis.x,axis.y),m=new Model();
-  if(b.id==='w1185290181')plaza(m,w,l);
+  const base=height(x,z);
+  const grade=(across:number,along:number)=>height(x+axis.y*across+axis.x*along,z-axis.x*across+axis.y*along)-base;
+  if(b.id==='w1185290181')plaza(m,w,l,grade);
   else stalls(m,w,l,b.id==='w1185290176'?-1:b.id==='w1185290178'?1:0);
-  const group=m.build(b.id);group.position.set(x,height(x,z),z);group.rotation.y=Math.atan2(axis.x,axis.y);return group;
+  const group=m.build(b.id);group.position.set(x,base,z);group.rotation.y=Math.atan2(axis.x,axis.y);return group;
 }
 export function memorial(x:number,z:number,y:number,id:string){
-  const m=new Model(),stone=finish('#a59a83'),white=finish('#e9e5d8');
-  m.box(0,.08,0,4.3,.16,2.2,stone);m.box(0,1.25,0,2.55,2.45,.48,stone);
-  for(const s of [-1,1]){
-    m.box(s*1.36,1.43,0,.42,2.86,.63,stone);m.box(s*1.36,2.89,0,.5,.11,.7,white);
-    m.box(s*1.95,2.35,0,.07,4.7,.07,white);m.box(s*1.95+.19,4.05,0,.37,1.15,.035,finish('#556585'));
-  }
-  m.box(0,1.38,.265,1.72,1.85,.09,white);
-  const lily=new T.Shape();lily.moveTo(0,0);lily.lineTo(-.22,.06);lily.quadraticCurveTo(-.62,.60,-.12,.36);lily.quadraticCurveTo(-.25,.65,0,.9);lily.quadraticCurveTo(.25,.65,.12,.36);lily.quadraticCurveTo(.62,.60,.22,.06);lily.lineTo(0,0);
-  m.add(new T.ExtrudeGeometry(lily,{depth:.10,bevelEnabled:false}),white,0,2.45,0);
-  m.box(2.3,.45,.7,1.5,.12,.4,finish('#735940'));
-  for(const dx of [1.76,2.84])m.box(dx,.2,.7,.19,.4,.3,stone);
-  const group=m.build(id);group.position.set(x,y,z);group.rotation.y=2.8;group.name='Šehidsko spomen obilježje Lijeva obala';return group;
+  const m=new Model(),mortar=finish('#6d685e'),coping=finish('#aeaa9b'),white=finish('#e5e4dc');
+  const stones=['#99917f','#817a6a','#a69e8b','#8b897b','#b1a68f','#79776c'].map(finish);
+  ;
+  ;
+  ;
+  ;
+  ;
+  const plaque=canvasMaterial(384,608,g=>{
+    ;;;;
+    ;;;
+    ;
+    ;
+  });
+  ;
+  const plate=new T.PlaneGeometry(1.22,1.79);
+  ;
+  ;
+  const lily=new T.Shape();
+  ;;;
+  ;;
+  ;;
+  ;;
+  ;
+  ;;
+  ;
+  ;
+  ;
+  ;
+  const group=m.build(id);
+  ;;
+  ;return group;
 }
