@@ -42,7 +42,7 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
     }else g.fillText(label,512,137,label==='pepco'?670:945);
   });
   mat.alphaTest=.45;
-  ;
+  const outward=new T.Vector3(Math.sin(yaw),0,Math.cos(yaw));
   ;
   ;
 }
