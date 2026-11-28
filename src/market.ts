@@ -31,7 +31,7 @@ function wordmark(m:Model,label:string,x:number,y:number,z:number,w:number,h:num
       g.beginPath();g.moveTo(82,201);g.lineTo(174,201);
       g.quadraticCurveTo(193,201,193,182);g.lineTo(193,151);
       g.quadraticCurveTo(193,132,174,132);g.lineTo(117,132);
-      ;;
+      g.quadraticCurveTo(94,132,94,109);;
       ;;
       ;;
       ;;
