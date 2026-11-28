@@ -34,7 +34,7 @@ export function makeGround(city:City, dem:Terrain, photo:HTMLImageElement){
   const waterAreas=city.areas.filter(a=>a.kind==='water');
   const areas=[...city.areas].sort((a,b)=>groupOrder.indexOf(a.kind)-groupOrder.indexOf(b.kind));
   for(const a of areas){
-    const p=areaPath(a);ctx.fillStyle=palette[a.kind]||'#b0b991';ctx.fill(p,'evenodd');
+    const p=areaPath(a);ctx.fillStyle=palette[a.kind]||'#93aa73';ctx.fill(p,'evenodd');
     let density=20;
     if(['residential','grass','meadow','garden'].includes(a.kind))density=40;
     if(['park','forest','scrub','orchard'].includes(a.kind))density=a.kind==='forest'?245:155;
