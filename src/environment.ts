@@ -46,7 +46,7 @@ export function cityLife(city:City,height:(x:number,z:number)=>number,density:(x
   surfaceHeight:(x:number,z:number)=>number) {
   const rand=rng(18213),trees=new T.Group(),spans=new T.Group(),lamps=new T.Group(),traffic=new T.Group();
   const crowns:Item[]=[],trunks:Item[]=[],conifers:Item[]=[];
-  const greens=['#698548','#679d3e','#7ba73e','#96b84d','#468144','#78aa3c','#5f9848','#91bb4b','#589342','#76a853'];
+  const greens=['#4f852f','#679d3e','#7ba73e','#96b84d','#468144','#78aa3c','#5f9848','#91bb4b','#589342','#76a853'];
   function plant(x:number,z:number){
     const y=height(x,z),h=5.5+rand()*8.4,w=h*(.32+rand()*.15),r=rand()*6.28,color=greens[Math.floor(rand()*greens.length)];
     const [s,offset]=westCoordinates(x,z),paved=s> -30&&s<68&&offset> -17&&offset<6;
