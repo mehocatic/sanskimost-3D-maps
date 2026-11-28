@@ -67,7 +67,9 @@ function garage(m:Model,side:number,edge:number,depth:number,start:number,end:nu
   const wall=new T.Shape();
   wall.moveTo(-side*peak,0);wall.lineTo(-side*end,0);wall.lineTo(-side*end,tail);wall.lineTo(-side*peak,head-.12);wall.closePath();
   m.add(new T.ExtrudeGeometry(wall,{depth:.17,bevelEnabled:false}),dark,outer,0,0,side*Math.PI/2);
-  for(const support of [outer,inner]);
+  for(const support of [outer,inner])for(const z of [start+.18,peak-.19]){
+    ;
+  }
   ;
   ;;
   ;
